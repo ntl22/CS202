@@ -1,8 +1,7 @@
-#include <iostream>
+#include "Game/application.hpp"
 
 int main()
 {
-    std::cout << "Hello World" << std::endl;
-
+    Application::run();
     return 0;
 }

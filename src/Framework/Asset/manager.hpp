@@ -1,0 +1,7 @@
+#ifndef SRC_FRAMEWORK_ASSET_MANAGER
+#define SRC_FRAMEWORK_ASSET_MANAGER
+#include <SFML/Graphics.hpp>
+
+
+
+#endif /* SRC_FRAMEWORK_ASSET_MANAGER */
