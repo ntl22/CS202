@@ -2,7 +2,7 @@
 #define SRC_FRAMEWORK_PCH
 /**
  * SFML Libraries
-*/
+ */
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
@@ -10,10 +10,16 @@
 #include <SFML/System.hpp>
 
 /**
- * For asserting
-*/
+ * C++ Standard Library
+ */
 
-#include <cassert>
+#include <stdexcept>
+#include <memory>
 
+/**
+ * Framework library
+ */
+
+#include "Util/context.hpp"
 
 #endif /* SRC_FRAMEWORK_PCH */

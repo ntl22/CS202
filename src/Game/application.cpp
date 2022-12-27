@@ -7,41 +7,40 @@ void Application::run()
 }
 
 Application::Application()
-    : WIDTH(900), HEIGHT(900), TIME_PER_FRAME(sf::seconds(1.f / 60.f))
+    : WIDTH(900), HEIGHT(900), FPS(60),
+      context(std::make_shared<Context>())
 {
-    window = std::make_unique<sf::RenderWindow>(
+    context->window->create(
         sf::VideoMode(WIDTH, HEIGHT), "Crossy Road", sf::Style::Close);
 
-    assert(icon.loadFromFile("./assets/icon.png"));
+    if (!icon.loadFromFile("./assets/icon.png"))
+        throw std::runtime_error("Application::Application() : cannot open icon file");
 
-    window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+    context->window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+
+    context->window->setFramerateLimit(FPS);
 }
 
 void Application::gameLoop()
 {
     sf::Clock clock;
-    sf::Time last_update = sf::Time::Zero;
-    while (window->isOpen())
+    while (context->window->isOpen())
     {
-        last_update += clock.restart();
-        if (last_update >= TIME_PER_FRAME)
-        {
-            last_update -= TIME_PER_FRAME;
-            handleEvent();
-            update();
-        }
+        dt = clock.restart();
+        handleEvent();
+        update();
         render();
     }
 }
 
 void Application::handleEvent()
 {
-    while (window->pollEvent(ev))
+    while (context->window->pollEvent(ev))
     {
         switch (ev.type)
         {
         case sf::Event::Closed:
-            window->close();
+            context->window->close();
             break;
         default:
             break;
@@ -53,6 +52,6 @@ void Application::update() {}
 
 void Application::render()
 {
-    window->clear();
-    window->display();
+    context->window->clear();
+    context->window->display();
 }

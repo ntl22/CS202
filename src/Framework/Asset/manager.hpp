@@ -1,7 +1,6 @@
 #ifndef SRC_FRAMEWORK_ASSET_MANAGER
 #define SRC_FRAMEWORK_ASSET_MANAGER
-#include <SFML/Graphics.hpp>
-
+// TODO: add a asset (excluding sf::Music) template manager
 
 
 #endif /* SRC_FRAMEWORK_ASSET_MANAGER */

@@ -2,8 +2,6 @@
 #define SRC_GAME_APPLICATION
 #include "../Framework/pch.hpp"
 
-#include <memory>
-
 class Application
 {
 public:
@@ -17,11 +15,12 @@ private:
     void update();
     void render();
 
-    std::unique_ptr<sf::RenderWindow> window;
+    Context::pointer context;
     sf::Image icon;
     sf::Event ev;
+    sf::Time dt;
 
-    const sf::Time TIME_PER_FRAME;
+    const unsigned FPS;
     const unsigned WIDTH, HEIGHT;
 };
 
