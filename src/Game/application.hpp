@@ -15,7 +15,7 @@ private:
     void update();
     void render();
 
-    Context::pointer context;
+    std::shared_ptr<Context> context;
     sf::Image icon;
     sf::Event ev;
     sf::Time dt;

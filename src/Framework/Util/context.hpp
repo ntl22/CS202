@@ -7,10 +7,11 @@ namespace sf
     class RenderWindow;
 }
 
+class StateStack;
+
 struct Context
 {
-    typedef std::shared_ptr<Context> pointer;
-
+    std::unique_ptr<StateStack> states;
     std::unique_ptr<sf::RenderWindow> window;
 
     Context();

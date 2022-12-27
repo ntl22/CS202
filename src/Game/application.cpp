@@ -1,5 +1,7 @@
 #include "application.hpp"
 
+#include "State/menu.hpp"
+
 void Application::run()
 {
     static Application game;
@@ -19,18 +21,23 @@ Application::Application()
     context->window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
     context->window->setFramerateLimit(FPS);
+
+    context->states->push(std::make_unique<MenuState>(context));
 }
 
 void Application::gameLoop()
 {
     sf::Clock clock;
-    while (context->window->isOpen())
+    context->states->handleStack();
+    while (context->window->isOpen() && !context->states->isEmpty())
     {
         dt = clock.restart();
         handleEvent();
         update();
         render();
+        context->states->handleStack();
     }
+    context->window->close();
 }
 
 void Application::handleEvent()
@@ -43,15 +50,17 @@ void Application::handleEvent()
             context->window->close();
             break;
         default:
+            context->states->getCurrent()->handleEvent(ev);
             break;
         }
     }
 }
 
-void Application::update() {}
+void Application::update() { context->states->getCurrent()->update(dt); }
 
 void Application::render()
 {
     context->window->clear();
+    context->states->getCurrent()->draw();
     context->window->display();
 }

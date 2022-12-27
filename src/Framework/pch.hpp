@@ -20,6 +20,8 @@
  * Framework library
  */
 
+#include "State/manager.hpp"
+#include "State/state.hpp"
 #include "Util/context.hpp"
 
 #endif /* SRC_FRAMEWORK_PCH */

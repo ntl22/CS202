@@ -1,4 +1,5 @@
 target_sources(LIB PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/manager.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/state.hpp"
 )
 

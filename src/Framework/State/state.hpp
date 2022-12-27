@@ -1,14 +1,12 @@
 #ifndef SRC_GAME_ENTITY_STATE
 #define SRC_GAME_ENTITY_STATE
-// TODO: add a state (screen) base class
+#include <SFML/Window/Event.hpp>
+#include <SFML/System/Time.hpp>
 
-class State
+#include <memory>
+
+struct State
 {
-public:
-    typedef std::unique_ptr<State> pointer_type;
-
-    virtual ~State() = default;
-
     /**
      * Prerequisite task of a state
      */
