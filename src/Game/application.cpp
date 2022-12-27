@@ -21,6 +21,7 @@ Application::Application()
     context->window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
     context->window->setFramerateLimit(FPS);
+    context->window->setKeyRepeatEnabled(false);
 
     context->states->push(std::make_unique<MenuState>(context));
 }
@@ -28,14 +29,16 @@ Application::Application()
 void Application::gameLoop()
 {
     sf::Clock clock;
-    context->states->handleStack();
-    while (context->window->isOpen() && !context->states->isEmpty())
+    while (context->window->isOpen())
     {
+        context->states->handleStack();
+        if (context->states->isEmpty())
+            break;
+
         dt = clock.restart();
         handleEvent();
         update();
         render();
-        context->states->handleStack();
     }
     context->window->close();
 }

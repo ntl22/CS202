@@ -23,5 +23,7 @@
 #include "State/manager.hpp"
 #include "State/state.hpp"
 #include "Util/context.hpp"
+#include "Util/center.hpp"
+#include "Widget/button.hpp"
 
 #endif /* SRC_FRAMEWORK_PCH */

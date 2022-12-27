@@ -7,12 +7,18 @@ class MenuState : public State
 public:
     MenuState(std::shared_ptr<Context> context);
 
-    void handleEvent(const sf::Event& ev) override;
+    void handleEvent(const sf::Event &ev) override;
     void update(sf::Time dt) override;
     void draw() override;
 
 private:
-    
+    sf::Font title_font;
+    sf::Text title;
+    sf::Sprite background;
+
+    std::unique_ptr<Button> button[3];
+    int cur = -1;
+
     std::shared_ptr<Context> context;
 };
 
