@@ -1,6 +1,7 @@
 #ifndef SRC_GAME_STATE_PLAYING
 #define SRC_GAME_STATE_PLAYING
 #include "../../Framework/pch.hpp"
+#include "./Entity/people.hpp"
 
 class PlayingState : public State
 {
@@ -13,6 +14,7 @@ public:
 
 private:
     std::shared_ptr<Context> m_context;
+    People people;
 
     bool is_exit, is_pause;
 

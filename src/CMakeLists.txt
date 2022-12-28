@@ -1,5 +1,5 @@
 if (WIN32)
-    add_executable(${APP_NAME} WIN32 main.cpp "Game/State/playing.hpp" "Game/State/playing.cpp")
+    add_executable(${APP_NAME} WIN32 main.cpp "Game/State/playing.hpp" "Game/State/playing.cpp" "Game/Entity/people.cpp" "Game/Entity/people.hpp")
 else()
     add_executable(${APP_NAME} main.cpp)
 endif()

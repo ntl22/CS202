@@ -12,6 +12,7 @@ void PlayingState::handleEvent(const sf::Event &ev)
         pause->handleEvent(ev);
     else
     {
+        people.update();
         if (ev.type == sf::Event::KeyPressed)
         {
             if (ev.key.code == sf::Keyboard::P)
@@ -36,8 +37,10 @@ void PlayingState::draw()
 {
     if (is_pause)
         pause->draw();
-    else
+    else {
         std::clog << "In PlayingState" << std::endl;
+        people.draw(m_context);
+    }
 }
 
 PlayingState::PauseState::PauseState(std::shared_ptr<Context> context,
