@@ -15,6 +15,7 @@
 
 #include <stdexcept>
 #include <memory>
+#include <iostream>
 
 /**
  * Framework library
@@ -22,6 +23,7 @@
 
 #include "State/manager.hpp"
 #include "State/state.hpp"
+#include "Util/identifier.hpp"
 #include "Util/context.hpp"
 #include "Util/center.hpp"
 #include "Widget/button.hpp"

@@ -22,56 +22,46 @@ public:
         MediaMachine::pointerType ptr(new Asset());
 
         if (!ptr->loadFromFile(path))
-            throw std::runtime_error("Assets_Management::load(): " + path + " load failed.");
+            throw std::runtime_error("MediaMachine::load(): " + path + " load failed.");
 
-        _insert(identifier, std::move(ptr));
+        insert(identifier, std::move(ptr));
     }
 
-    template <typename Arg>
-    void load(Identifier identifier, std::string path, Arg second)
-    {
-        MediaMachine::pointerType ptr(new Asset());
+    // void loadMusic(Identifier identifier, std::string path)
+    // {
+    //     MediaMachine::pointerType ptr(new Asset());
 
-        if (!ptr->loadFromFile(path, second))
-        {
-            throw std::runtime_error("Assets_Management::load(): " + path + " load failed.");
-        }
-
-        _insert(identifier, std::move(ptr));
-    }
-
-    void loadMusic(Identifier identifier, std::string path)
-    {
-        MediaMachine::pointerType ptr(new Asset());
-
-        if (!ptr->openFromFile(path))
-        {
-            throw std::runtime_error("Assets_Management::load(): " + path + " load failed.");
-        }
-        _insert(identifier, std::move(ptr));
-    }
+    //     if (!ptr->openFromFile(path))
+    //     {
+    //         throw std::runtime_error("Assets_Management::load(): " + path + " load failed.");
+    //     }
+    //     insert(identifier, std::move(ptr));
+    // }
 
     Asset &get(Identifier identifier)
     {
-        auto find = _machine.find(identifier);
-        assert(find != _machine.end());
+        auto find = machine.find(identifier);
+        if (find == machine.end())
+            throw std::runtime_error("MediaMachine::get(): Asset not found");
         return *find->second;
     }
-    // const Asset &get(Identifier identifier) const
-    // {
-    //     auto find = _machine.find(identifier);
-    //     assert(find != _machine.end());
-    //     return *find->second;
-    // }
+
+    const Asset &get(Identifier identifier) const
+    {
+        auto find = _machine.find(identifier);
+        if (find == machine.end())
+            throw std::runtime_error("MediaMachine::get(): Asset not found");
+        return *find->second;
+    }
 
 private:
-    void _insert(Identifier identifier, MediaMachine::pointerType resource)
+    void insert(Identifier identifier, MediaMachine::pointerType resource)
     {
-        auto insert = _machine.insert(std::make_pair(identifier, std::move(resource)));
+        auto insert = machine.insert(std::make_pair(identifier, std::move(resource)));
         assert(insert.second);
     }
 
-    std::map<Identifier, MediaMachine::pointerType> _machine;
+    std::map<Identifier, MediaMachine::pointerType> machine;
 };
 
 #endif /* SRC_INCLUDE_ENGINE_ASSET_MANAGER */

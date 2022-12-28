@@ -12,6 +12,19 @@ Application::Application()
     : WIDTH(900), HEIGHT(900), FPS(60),
       context(std::make_shared<Context>())
 {
+    /**
+     * Load all the assets
+     */
+
+    context->fonts->load(FONTS::IBMPlexMono, "./assets/fonts/IBMPlexMono.ttf");
+    context->fonts->load(FONTS::Sansation, "./assets/fonts/Sansation.ttf");
+    context->fonts->load(FONTS::visitor1, "./assets/fonts/visitor1.ttf");
+
+    context->textures->load(TEXTURES::car1, "./assets/images/car1.png");
+    context->textures->load(TEXTURES::truck1, "./assets/images/truck1.png");
+    context->textures->load(TEXTURES::player, "./assets/images/player.png");
+    context->textures->load(TEXTURES::welcome_bg, "./assets/images/welcome_bg.jpg");
+
     context->window->create(
         sf::VideoMode(WIDTH, HEIGHT), "Crossy Road", sf::Style::Close);
 
@@ -40,7 +53,6 @@ void Application::gameLoop()
         update();
         render();
     }
-    context->window->close();
 }
 
 void Application::handleEvent()
@@ -59,7 +71,10 @@ void Application::handleEvent()
     }
 }
 
-void Application::update() { context->states->getCurrent()->update(dt); }
+void Application::update()
+{
+    context->states->getCurrent()->update(dt);
+}
 
 void Application::render()
 {

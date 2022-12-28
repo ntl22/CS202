@@ -9,7 +9,7 @@ struct Context;
 class Button : public Widget
 {
 public:
-    Button(std::shared_ptr<Context> context);
+    Button(sf::RenderWindow &window, const sf::Font &font);
 
     void setCallback(std::function<void(void)> callback);
     void setText(const std::string &text);
@@ -36,7 +36,7 @@ private:
     sf::Color color;
     std::function<void(void)> callback;
 
-    std::shared_ptr<Context> context;
+    sf::RenderWindow &window;
 };
 
 #endif /* SRC_FRAMEWORK_WIDGET_BUTTON */

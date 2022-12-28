@@ -3,12 +3,9 @@
 #include "../Util/context.hpp"
 #include "../Util/center.hpp"
 
-Button::Button(std::shared_ptr<Context> context)
-    : context(context)
+Button::Button(sf::RenderWindow &w, const sf::Font &f)
+    : window(w), font(f)
 {
-    if (!font.loadFromFile("./assets/fonts/visitor1.ttf"))
-        throw std::runtime_error("Button::Button() : font not found");
-
     bound.setFillColor(sf::Color::Transparent);
     text.setFont(font);
     text.setOutlineThickness(5.f);

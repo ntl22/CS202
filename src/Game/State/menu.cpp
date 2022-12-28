@@ -5,12 +5,9 @@
 #include <iostream>
 
 MenuState::MenuState(std::shared_ptr<Context> context)
-    : m_context(context)
+    : m_context(context), title_font(context->fonts->get(FONTS::Sansation))
 {
     title.setOutlineColor(sf::Color::Black);
-
-    if (!title_font.loadFromFile("./assets/fonts/Sansation.ttf"))
-        throw std::runtime_error("MenuState::MenuState() : font not button[1]ed");
 
     title.setString("Crossy road");
     title.setOutlineThickness(5);
@@ -22,7 +19,7 @@ MenuState::MenuState(std::shared_ptr<Context> context)
     int i;
 
     for (i = 0; i < 3; i++)
-        button[i] = std::make_unique<Button>(context);
+        button[i] = std::make_unique<Button>(*context->window, context->fonts->get(FONTS::visitor1));
 
     button[0]->setText("PLAY");
     button[0]->setHoverColor(sf::Color(255, 219, 62));
@@ -34,7 +31,7 @@ MenuState::MenuState(std::shared_ptr<Context> context)
     button[1]->setHoverColor(sf::Color(111, 225, 62));
     button[1]->setPosition(context->window->getView().getCenter());
     button[1]->setCallback([]()
-                           { std::cout << "LOAD" << std::endl; });
+                           { std::clog << "LOAD" << std::endl; });
 
     button[2]->setText("EXIT");
     button[2]->setHoverColor(sf::Color(226, 16, 16));
