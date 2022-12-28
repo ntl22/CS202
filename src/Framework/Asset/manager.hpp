@@ -1,5 +1,5 @@
-#ifndef SRC_INCLUDE_ENGINE_ASSET_MANAGER
-#define SRC_INCLUDE_ENGINE_ASSET_MANAGER
+#ifndef SRC_FRAMEWORK_ASSET_MANAGER
+#define SRC_FRAMEWORK_ASSET_MANAGER
 #include <SFML/Audio/Music.hpp>
 
 #include <cassert>
