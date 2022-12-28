@@ -2,7 +2,7 @@
 #define SRC_GAME_APPLICATION
 #include "../Framework/pch.hpp"
 
-class Application
+class Application : private sf::NonCopyable
 {
 public:
     static void run();

@@ -19,7 +19,7 @@ private:
     std::unique_ptr<Button> button[3];
     int cur = -1;
 
-    std::shared_ptr<Context> context;
+    std::shared_ptr<Context> m_context;
 };
 
 #endif /* SRC_GAME_STATE_MENU */

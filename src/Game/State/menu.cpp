@@ -1,9 +1,11 @@
 #include "menu.hpp"
 
+#include "playing.hpp"
+
 #include <iostream>
 
 MenuState::MenuState(std::shared_ptr<Context> context)
-    : context(context)
+    : m_context(context)
 {
     title.setOutlineColor(sf::Color::Black);
 
@@ -25,8 +27,8 @@ MenuState::MenuState(std::shared_ptr<Context> context)
     button[0]->setText("PLAY");
     button[0]->setHoverColor(sf::Color(255, 219, 62));
     button[0]->setPosition(context->window->getView().getCenter() - sf::Vector2f(0, 100.f));
-    button[0]->setCallback([]()
-                           { std::cout << "PLAY" << std::endl; });
+    button[0]->setCallback([this]()
+                           { m_context->states->push(std::make_unique<PlayingState>(m_context)); });
 
     button[1]->setText("LOAD");
     button[1]->setHoverColor(sf::Color(111, 225, 62));
@@ -38,12 +40,12 @@ MenuState::MenuState(std::shared_ptr<Context> context)
     button[2]->setHoverColor(sf::Color(226, 16, 16));
     button[2]->setPosition(context->window->getView().getCenter() + sf::Vector2f(0, 100.f));
     button[2]->setCallback([this]()
-                           { this->context->states->pop(); });
+                           { m_context->states->pop(); });
 }
 
 void MenuState::handleEvent(const sf::Event &ev)
 {
-    sf::Vector2f pos = sf::Vector2f(sf::Mouse::getPosition(*context->window));
+    sf::Vector2f pos = sf::Vector2f(sf::Mouse::getPosition(*m_context->window));
     int i;
 
     if (ev.type == sf::Event::MouseMoved)
@@ -101,9 +103,9 @@ void MenuState::update(sf::Time dt)
 
 void MenuState::draw()
 {
-    context->window->draw(title);
+    m_context->window->draw(title);
 
     int i;
     for (i = 0; i < 3; i++)
-        context->window->draw(*button[i]);
+        m_context->window->draw(*button[i]);
 }

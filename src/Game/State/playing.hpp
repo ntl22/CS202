@@ -14,8 +14,9 @@ public:
 private:
     void pause_game();
 
-    std::shared_ptr<Context> context;
+    std::shared_ptr<Context> m_context;
 
+    sf::Font testing_font;
     sf::Text testing;
 };
 

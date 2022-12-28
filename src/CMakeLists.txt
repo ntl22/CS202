@@ -1,23 +1,21 @@
-add_library(LIB STATIC "")
-target_link_libraries(LIB PRIVATE sfml-graphics 
-                                  sfml-window 
-                                  sfml-system)
-add_subdirectory(Framework)
-add_subdirectory(Game)
-
-set_target_properties(LIB PROPERTIES LINKER_LANGUAGE CXX)
-
 if (WIN32)
     add_executable(${APP_NAME} WIN32 main.cpp "Game/State/playing.hpp" "Game/State/playing.cpp")
 else()
     add_executable(${APP_NAME} main.cpp)
 endif()
 
-target_link_libraries(${APP_NAME} PRIVATE LIB sfml-graphics 
-                                              sfml-window 
-                                              sfml-system
-                                              sfml-audio
-                                              sfml-main)
+add_subdirectory(Framework)
+add_subdirectory(Game)
+
+target_link_libraries(${APP_NAME} PRIVATE sfml-graphics 
+                                          sfml-window 
+                                          sfml-system
+                                          sfml-audio
+                                          sfml-main)
+
+add_custom_command(TARGET ${APP_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/assets $<TARGET_FILE_DIR:${APP_NAME}>/assets)
 
 if (WIN32)
     if (BUILD_SHARED_LIBS)
