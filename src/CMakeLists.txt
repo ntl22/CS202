@@ -8,7 +8,7 @@ add_subdirectory(Game)
 set_target_properties(LIB PROPERTIES LINKER_LANGUAGE CXX)
 
 if (WIN32)
-    add_executable(${APP_NAME} WIN32 main.cpp)
+    add_executable(${APP_NAME} WIN32 main.cpp "Game/State/playing.hpp" "Game/State/playing.cpp")
 else()
     add_executable(${APP_NAME} main.cpp)
 endif()
