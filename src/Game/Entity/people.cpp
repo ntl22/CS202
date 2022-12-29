@@ -62,8 +62,11 @@ void People::handleEvent(const sf::Event &ev)
     if (0 == control_keys[0] && 1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
         moved = 1;
-
-        x = std::min(CELL_WIDTH + x, (float)MAP_WIDTH - CELL_WIDTH);
+        
+        if (MAP_WIDTH - CELL_WIDTH - x  < CELL_WIDTH/2)
+            moved = 0;
+        else
+            x = std::min(CELL_WIDTH + x, (float)MAP_WIDTH - CELL_WIDTH);
     }
     else if (0 == control_keys[1] && 1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
@@ -74,8 +77,10 @@ void People::handleEvent(const sf::Event &ev)
     else if (0 == control_keys[2] && 1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
         moved = 1;
-
-        x = std::max(x - CELL_WIDTH, (float)0);
+        if (x < CELL_WIDTH / 2)
+            moved = 0;
+        else
+            x = std::max(x - CELL_WIDTH, (float)0);
     }
     else if (0 == control_keys[3] && 1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
     {
