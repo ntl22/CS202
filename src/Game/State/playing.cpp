@@ -2,6 +2,7 @@
 
 PlayingState::PlayingState(Context &context)
     : m_context(context),
+      people(People(*context.window)),
       is_exit(false),
       is_pause(false),
       pause(PauseState(context, is_exit, is_pause))
@@ -17,7 +18,7 @@ void PlayingState::handleEvent(const sf::Event &ev)
         pause.handleEvent(ev);
     else
     {
-        people.update();
+        people.handleEvent(ev);
         if (ev.type == sf::Event::KeyPressed)
         {
             if (ev.key.code == sf::Keyboard::P)
@@ -51,7 +52,7 @@ void PlayingState::draw()
     else
     {
         std::clog << "In PlayingState" << std::endl;
-        people.draw(m_context);
+        people.draw(*(m_context.window));
         cat.Render(*(m_context.window));
         dog.Render(*(m_context.window));
     }

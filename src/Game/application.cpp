@@ -1,6 +1,6 @@
 #include "application.hpp"
 
-#include "State/splash.hpp"
+#include "State/menu.hpp"
 
 void Application::run()
 {
@@ -8,10 +8,27 @@ void Application::run()
 }
 
 Application::Application()
-    : WIDTH(900), HEIGHT(900), FPS(60), is_close(false)
+    : WIDTH(1280), HEIGHT(720), FPS(60), is_close(false)
 {
+    context.fonts->load(FONTS::IBMPlexMono, "./assets/fonts/IBMPlexMono.ttf");
+    context.fonts->load(FONTS::Sansation, "./assets/fonts/Sansation.ttf");
+    context.fonts->load(FONTS::visitor1, "./assets/fonts/visitor1.ttf");
+
+    context.textures->load(TEXTURES::car, "./assets/images/car.png");
+    context.textures->load(TEXTURES::cat1, "./assets/images/cat1.png");
+    context.textures->load(TEXTURES::cat2, "./assets/images/cat2.png");
+    context.textures->load(TEXTURES::cat3, "./assets/images/cat3.png");
+    context.textures->load(TEXTURES::chicken, "./assets/images/chicken.png");
+    context.textures->load(TEXTURES::player1, "./assets/images/player1.png");
+    context.textures->load(TEXTURES::truck, "./assets/images/truck.png");
+    context.textures->load(TEXTURES::welcome_bg, "./assets/images/welcome_bg.png");
+
+    context.sounds->load(SOUNDBUFFERS::jump, "./assets/sounds/jump.wav");
+
     context.window->create(
         sf::VideoMode(WIDTH, HEIGHT), "Crossy Road", sf::Style::Close);
+
+    context.musics->load(MUSICS::intro, "./assets/sounds/intro.wav");
 
     if (!icon.loadFromFile("./assets/icon.png"))
         throw std::runtime_error("Application::Application() : cannot open icon file");
@@ -21,7 +38,7 @@ Application::Application()
     context.window->setFramerateLimit(FPS);
     context.window->setKeyRepeatEnabled(false);
 
-    context.states->push(std::make_unique<SplashState>(context));
+    context.states->push(std::make_unique<MenuState>(context));
 }
 
 void Application::gameLoop()

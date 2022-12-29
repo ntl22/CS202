@@ -10,9 +10,13 @@ enum class FONTS
 
 enum class TEXTURES
 {
-    car1,
-    player,
-    truck1,
+    car,
+    cat1,
+    cat2,
+    cat3,
+    chicken,
+    player1,
+    truck,
     welcome_bg
 };
 

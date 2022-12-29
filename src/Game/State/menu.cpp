@@ -7,6 +7,8 @@
 MenuState::MenuState(Context &context)
     : m_context(context), title_font(context.fonts->get(FONTS::Sansation))
 {
+    sf::Vector2f size(m_context.window->getSize());
+
     title.setOutlineColor(sf::Color::Black);
 
     title.setString("Crossy road");
@@ -14,7 +16,7 @@ MenuState::MenuState(Context &context)
     title.setFont(title_font);
     title.setCharacterSize(90U);
     setCenterOrigin(title, title.getLocalBounds());
-    title.setPosition(m_context.window->getView().getCenter() - sf::Vector2f(0.f, 300.f));
+    title.setPosition(m_context.window->getView().getCenter() - sf::Vector2f(0.f, 250.f));
 
     int i;
 
@@ -41,6 +43,13 @@ MenuState::MenuState(Context &context)
 
     m_context.musics->setLoop(true);
     m_context.musics->play(MUSICS::intro);
+
+    background.setTexture(m_context.textures->get(TEXTURES::welcome_bg));
+
+    background.scale(
+        size.x / background.getLocalBounds().width,
+        size.y / background.getLocalBounds().height
+    );
 }
 
 MenuState::~MenuState() {}
@@ -105,6 +114,7 @@ void MenuState::update(sf::Time dt)
 
 void MenuState::draw()
 {
+    m_context.window->draw(background);
     m_context.window->draw(title);
 
     int i;
