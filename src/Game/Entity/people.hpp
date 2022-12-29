@@ -9,9 +9,10 @@
 class People
 {
 private:
-    float CELL_SIZE = 90;
-    float MAP_WIDTH = 900;
-    float MAP_HEIGHT = 900;
+    float CELL_WIDTH;
+    float CELL_HEIGHT;
+    float MAP_WIDTH = 1280;
+    float MAP_HEIGHT = 720;
     bool dead;
 
     float x;
@@ -27,11 +28,15 @@ private:
 
 public:
     People();
-    void draw(std::shared_ptr<Context> &context);
+    void createTexture();
+
+    void draw(sf::RenderWindow& window);
+    void handleEvent(const sf::Event& ev);                   // Control player
+    void update(sf::Time dt);
+    
     void set_dead();
     bool get_dead();                 // isDead()
     void playerReset();              // Reset player to the first position
-    void update();                   // Control player
     void addSound(std::string link); // Add sound
     sf::IntRect get_react() const;
     // bool isImpact(const CVehicle *&car);

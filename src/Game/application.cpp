@@ -9,7 +9,7 @@ void Application::run()
 }
 
 Application::Application()
-    : WIDTH(900), HEIGHT(900), FPS(60),
+    : WIDTH(1280), HEIGHT(720), FPS(60),
       context(std::make_shared<Context>())
 {
     /**
