@@ -16,4 +16,11 @@ enum class TEXTURES
     welcome_bg
 };
 
+enum class OBJECT_TYPE
+{
+    CAT,
+    DOG
+
+};
+
 #endif /* SRC_FRAMEWORK_UTIL_IDENTIFIER */

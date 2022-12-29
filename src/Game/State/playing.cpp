@@ -4,6 +4,8 @@ PlayingState::PlayingState(std::shared_ptr<Context> context)
     : m_context(context), is_exit(false), is_pause(false)
 {
     pause = std::make_unique<PauseState>(context, is_exit, is_pause);
+    cat.spawn(200, OBJECT_TYPE::CAT);
+    dog.spawn(400, OBJECT_TYPE::DOG);
 }
 
 void PlayingState::handleEvent(const sf::Event &ev)
@@ -23,8 +25,11 @@ void PlayingState::handleEvent(const sf::Event &ev)
 
 void PlayingState::update(sf::Time dt)
 {
+    cat.update(5, *(m_context->window));
+    dog.update(5, *(m_context->window));
     if (is_exit)
     {
+
         m_context->states->pop();
     }
     else if (is_pause)
@@ -37,9 +42,12 @@ void PlayingState::draw()
 {
     if (is_pause)
         pause->draw();
-    else {
+    else
+    {
         std::clog << "In PlayingState" << std::endl;
         people.draw(m_context);
+        cat.Render(*(m_context->window));
+        dog.Render(*(m_context->window));
     }
 }
 

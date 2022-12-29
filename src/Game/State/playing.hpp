@@ -1,7 +1,8 @@
 #ifndef SRC_GAME_STATE_PLAYING
 #define SRC_GAME_STATE_PLAYING
 #include "../../Framework/pch.hpp"
-#include "./Entity/people.hpp"
+#include "../Entity/people.hpp"
+#include "../Entity/animal.hpp"
 
 class PlayingState : public State
 {
@@ -15,7 +16,8 @@ public:
 private:
     std::shared_ptr<Context> m_context;
     People people;
-
+    Animal cat;
+    Animal dog;
     bool is_exit, is_pause;
 
     class PauseState : public State

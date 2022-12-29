@@ -1,6 +1,6 @@
 #ifndef SRC_GAME_ENTITY_PEOPLE
 #define SRC_GAME_ENTITY_PEOPLE
-#include "../Framework/pch.hpp"
+#include "../../Framework/pch.hpp"
 
 #include <array>
 #include <chrono>
@@ -27,11 +27,11 @@ private:
 
 public:
     People();
-    void draw(std::shared_ptr<Context>& context);
+    void draw(std::shared_ptr<Context> &context);
     void set_dead();
-    bool get_dead(); // isDead()
-    void playerReset(); // Reset player to the first position
-    void update(); // Control player
+    bool get_dead();                 // isDead()
+    void playerReset();              // Reset player to the first position
+    void update();                   // Control player
     void addSound(std::string link); // Add sound
     sf::IntRect get_react() const;
     // bool isImpact(const CVehicle *&car);
