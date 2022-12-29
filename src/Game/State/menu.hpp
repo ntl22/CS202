@@ -5,7 +5,9 @@
 class MenuState : public State
 {
 public:
-    MenuState(std::shared_ptr<Context> context);
+    MenuState(Context& context);
+
+    ~MenuState();
 
     void handleEvent(const sf::Event &ev) override;
     void update(sf::Time dt) override;
@@ -19,7 +21,7 @@ private:
     std::unique_ptr<Button> button[3];
     int cur = -1;
 
-    std::shared_ptr<Context> m_context;
+    Context& m_context;
 };
 
 #endif /* SRC_GAME_STATE_MENU */

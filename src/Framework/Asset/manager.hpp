@@ -2,47 +2,33 @@
 #define SRC_FRAMEWORK_ASSET_MANAGER
 #include <SFML/Audio/Music.hpp>
 
-#include <cassert>
+#include <stdexcept>
 #include <map>
 #include <memory>
 #include <string>
 
 template <typename Identifier, typename Asset>
-class MediaMachine
+class AssetMap
 {
 public:
-    typedef Identifier keyType;
-    typedef Asset valueType;
-    typedef std::unique_ptr<Asset> pointerType;
-
-    MediaMachine() = default;
+    AssetMap() = default;
+    virtual ~AssetMap() = default;
 
     void load(Identifier identifier, std::string path)
     {
-        MediaMachine::pointerType ptr(new Asset());
+        std::unique_ptr<Asset> ptr(new Asset());
 
         if (!ptr->loadFromFile(path))
-            throw std::runtime_error("MediaMachine::load(): " + path + " load failed.");
+            throw std::runtime_error("AssetMap::load(): " + path + " load failed.");
 
         insert(identifier, std::move(ptr));
     }
-
-    // void loadMusic(Identifier identifier, std::string path)
-    // {
-    //     MediaMachine::pointerType ptr(new Asset());
-
-    //     if (!ptr->openFromFile(path))
-    //     {
-    //         throw std::runtime_error("Assets_Management::load(): " + path + " load failed.");
-    //     }
-    //     insert(identifier, std::move(ptr));
-    // }
 
     Asset &get(Identifier identifier)
     {
         auto find = machine.find(identifier);
         if (find == machine.end())
-            throw std::runtime_error("MediaMachine::get(): Asset not found");
+            throw std::runtime_error("AssetMap::get(): Asset not found");
         return *find->second;
     }
 
@@ -55,13 +41,14 @@ public:
     }
 
 private:
-    void insert(Identifier identifier, MediaMachine::pointerType resource)
+    void insert(Identifier identifier, std::unique_ptr<Asset> resource)
     {
         auto insert = machine.insert(std::make_pair(identifier, std::move(resource)));
-        assert(insert.second);
+        if (!insert.second)
+            throw std::runtime_error("AssetMap::insert() : insert failed");
     }
 
-    std::map<Identifier, MediaMachine::pointerType> machine;
+    std::map<Identifier, std::unique_ptr<Asset>> machine;
 };
 
 #endif /* SRC_INCLUDE_ENGINE_ASSET_MANAGER */

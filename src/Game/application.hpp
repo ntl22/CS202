@@ -5,20 +5,24 @@
 class Application : private sf::NonCopyable
 {
 public:
-    static void run();
-
-private:
     Application();
 
+    ~Application() = default;
+
+    void run();
+
+private:
     void gameLoop();
     void handleEvent();
     void update();
     void render();
 
-    std::shared_ptr<Context> context;
+    Context context;
     sf::Image icon;
     sf::Event ev;
     sf::Time dt;
+
+    bool is_close;
 
     const unsigned FPS;
     const unsigned WIDTH, HEIGHT;

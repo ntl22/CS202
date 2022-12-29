@@ -27,7 +27,7 @@ private:
 
 public:
     People();
-    void draw(std::shared_ptr<Context> &context);
+    void draw(Context &context);
     void set_dead();
     bool get_dead();                 // isDead()
     void playerReset();              // Reset player to the first position

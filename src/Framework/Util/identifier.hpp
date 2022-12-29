@@ -20,7 +20,16 @@ enum class OBJECT_TYPE
 {
     CAT,
     DOG
+};
 
+enum class SOUNDBUFFERS
+{
+    jump
+};
+
+enum class MUSICS
+{
+    intro
 };
 
 #endif /* SRC_FRAMEWORK_UTIL_IDENTIFIER */

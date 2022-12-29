@@ -10,19 +10,19 @@ People::People()
     playerReset();
 }
 
-void People::draw(std::shared_ptr<Context>& context)
+void People::draw(Context& context)
 {
     if (0 == dead)
     {
         //texture.loadFromFile("./assets/images/player.png");
-        sprite.setTexture(context->textures->get(TEXTURES::player));
+        sprite.setTexture(context.textures->get(TEXTURES::player));
     }
 
     //sprite.setTexture(texture);
     sprite.setPosition(sf::Vector2f(x, y));
     sprite.setScale(sf::Vector2f(CELL_SIZE / (float)210, CELL_SIZE / (float)209));
 
-    context->window->draw(sprite);
+    context.window->draw(sprite);
 }
 
 void People::set_dead()

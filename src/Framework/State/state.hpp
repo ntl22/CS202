@@ -5,13 +5,17 @@
 
 #include <memory>
 
-struct State
+class State
 {
+public:
+    State() = default;
+    virtual ~State() = default;
+
     /**
      * Prerequisite task of a state
      */
 
-    virtual void handleEvent(const sf::Event& ev) = 0;
+    virtual void handleEvent(const sf::Event &ev) = 0;
     virtual void update(sf::Time dt) = 0;
     virtual void draw() = 0;
 };
