@@ -5,9 +5,10 @@
 #include <time.h>
 #include <string>
 #include "entity.hpp"
+#include "obstacle.hpp"
 #include "../../Framework/pch.hpp"
 
-class Animal : public Entity
+class Animal : public Obstacle
 {
 private:
     // sf::Vector2f aniVelocity;

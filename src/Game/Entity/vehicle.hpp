@@ -4,9 +4,10 @@
 #include <iostream>
 #include <time.h>
 #include "entity.hpp"
+#include "obstacle.hpp"
 #include "../../Framework/pch.hpp"
 
-class Vehicle : public Entity
+class Vehicle : public Obstacle
 {
 private:
     // sf::Vector2f aniVelocity;
