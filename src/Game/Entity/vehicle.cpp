@@ -110,14 +110,14 @@ void Vehicle::update(float velocity, sf::RenderWindow &window)
                 }
                 else
                 {
-                    k = vehicles.back()->getPos().x - (rand() % 200 + 100) - (velocity * 10);
+                    k = vehicles.back()->getPos().x - (rand() % 300 + 100) - (velocity * 12);
                     vehicles[i]->setPos(k, vehicles[i]->getPos().y);
                 }
             }
             else
             {
 
-                k = vehicles[i - 1]->getPos().x - (rand() % 200 + 100) - (velocity * 10);
+                k = vehicles[i - 1]->getPos().x - (rand() % 300 + 100) - (velocity * 12);
                 vehicles[i]->setPos(k, vehicles[i]->getPos().y);
             }
         }
