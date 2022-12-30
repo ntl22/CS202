@@ -15,12 +15,26 @@ People::People(sf::RenderWindow &window)
 
 void People::createTexture()
 {
-    if (texture.loadFromFile("./assets/images/player1.png"))
-        std::cout << "Draw People fail";
+    switch (direction) {
+    case 1:
+        texture.loadFromFile("./assets/images/peopleRight.png");
+        break;
+    case 2:
+        texture.loadFromFile("./assets/images/peopleBack.png");
+        break;
+    case 3:
+        texture.loadFromFile("./assets/images/peopleLeft.png");
+        break;
+    case 4:
+        texture.loadFromFile("./assets/images/peopleFront.png");
+        break;
+    }
+    //if (texture.loadFromFile("./assets/images/player1.png"))
+    //    std::cout << "Draw People fail";
     // sprite.setTexture(context->textures->get(TEXTURES::player));
     sprite.setTexture(texture);
     sprite.setPosition(sf::Vector2f(x, y));
-    sprite.setScale(sf::Vector2f(CELL_WIDTH / (float)52, CELL_HEIGHT / (float)95));
+    sprite.setScale(sf::Vector2f(CELL_WIDTH / (float)49, CELL_HEIGHT / (float)105));
 }
 
 void People::draw(sf::RenderWindow &window)
@@ -42,9 +56,10 @@ bool People::get_dead() // isDead()
 void People::playerReset()
 {
     dead = 0;
+    direction = 4;
 
-    CELL_HEIGHT = MAP_HEIGHT / 6;
-    CELL_WIDTH = CELL_HEIGHT * 52 / 95;
+    CELL_HEIGHT = 50;
+    CELL_WIDTH = CELL_HEIGHT * 49 / 105;
 
     x = (MAP_WIDTH - CELL_WIDTH) / 2;
     y = MAP_HEIGHT - CELL_HEIGHT;
@@ -61,31 +76,37 @@ void People::handleEvent(const sf::Event &ev)
 
     if (0 == control_keys[0] && 1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
-        moved = 1;
+
         
         if (MAP_WIDTH - CELL_WIDTH - x  < CELL_WIDTH/2)
             moved = 0;
-        else
+        else {
+            moved = 1;
+            direction = 1;
             x = std::min(CELL_WIDTH + x, (float)MAP_WIDTH - CELL_WIDTH);
+        }
     }
     else if (0 == control_keys[1] && 1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
         moved = 1;
-
+        direction = 2;
         y = std::max(y - CELL_HEIGHT, (float)0);
     }
     else if (0 == control_keys[2] && 1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
-        moved = 1;
+
         if (x < CELL_WIDTH / 2)
             moved = 0;
-        else
+        else {
+            moved = 1;
+            direction = 3;
             x = std::max(x - CELL_WIDTH, (float)0);
+        }
     }
     else if (0 == control_keys[3] && 1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
     {
         moved = 1;
-
+        direction = 4;
         y = std::min(CELL_HEIGHT + y, (float)MAP_HEIGHT - CELL_HEIGHT);
     }
 

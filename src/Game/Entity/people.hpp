@@ -14,6 +14,7 @@ private:
     const float MAP_WIDTH;
     const float MAP_HEIGHT;
     bool dead;
+    int direction;
 
     float x;
     float y;
