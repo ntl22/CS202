@@ -28,6 +28,7 @@ class Truck : public Vehicle
 {
 public:
     sf::Vector2f getPos();
+    void setPos(int x, int y);
 
     Truck() = default;
     Truck(float x, float y, int i)
@@ -39,7 +40,6 @@ public:
     void Render(sf::RenderWindow &window);
     void update(const float velocity, sf::RenderWindow &window);
     sf::FloatRect GetBound();
-    void setPos(int x, int y);
 
 private:
     sf::Sprite truck;
@@ -50,7 +50,7 @@ private:
 class Car : public Vehicle
 {
 public:
-    void setVelocity(float x, float y);
+    void setPos(int x, int y);
     void setStartPosition(float x, float y);
     sf::Vector2f getVelocity();
     sf::Vector2f getPos();
@@ -64,7 +64,6 @@ public:
     void update(const float velocity, sf::RenderWindow &window);
     void Render(sf::RenderWindow &window);
     sf::FloatRect GetBound();
-    void setPos(int x, int y);
 
 public:
     sf::Sprite car;

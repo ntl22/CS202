@@ -20,6 +20,7 @@ void Truck::innitTexture(int i)
     {
         std::cout << "Fail texture";
     }
+
     this->truck.setTexture(truckTexture);
     this->truck.scale(0.5, 0.5);
 }
