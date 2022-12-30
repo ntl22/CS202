@@ -4,6 +4,8 @@
 
 #include "../Entity/people.hpp"
 #include "../Entity/animal.hpp"
+#include "../Entity/vehicle.hpp"
+#include "../Entity/entity.hpp"
 
 #include "pause.hpp"
 
@@ -19,8 +21,8 @@ public:
 private:
     Context &m_context;
     People people;
-    Animal cat;
-    Animal dog;
+    Entity *ani = new Animal();
+    Entity *vehi = new Vehicle();
     bool is_exit, is_pause;
 
     PauseState pause;

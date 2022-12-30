@@ -15,22 +15,21 @@ void Dog::setPos(int x, int y)
 
 void Cat::innitTexture(int i)
 {
+    int t = rand() % 2 + 1;
 
-    if (catTexture.loadFromFile("assets/images/car1.png"))
+    if (catTexture.loadFromFile("assets/images/cat" + std::to_string(i) + ".png"))
     {
         std::cout << "Fail texture";
     }
     this->cat.setTexture(catTexture);
-    this->cat.scale(0.5, 0.5);
 }
 void Dog::innitTexture()
 {
-    if (dogTexture.loadFromFile("assets/images/truck1.png"))
+    if (dogTexture.loadFromFile("assets/images/chicken.png"))
     {
         std::cout << "Fail texture";
     }
     this->dog.setTexture(dogTexture);
-    this->dog.scale(0.5, 0.5);
 }
 
 void Animal::spawn(float y, const OBJECT_TYPE type)
@@ -48,7 +47,7 @@ void Animal::spawn(float y, const OBJECT_TYPE type)
         }
     }
 
-    else if (type == OBJECT_TYPE::DOG)
+    else if (type == OBJECT_TYPE::CHICKEN)
     {
         int k = 0;
         for (int i = 0; i < 5; i++)

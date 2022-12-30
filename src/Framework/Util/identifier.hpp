@@ -23,7 +23,10 @@ enum class TEXTURES
 enum class OBJECT_TYPE
 {
     CAT,
-    DOG
+    CHICKEN,
+    TRUCK,
+    CAR
+
 };
 
 enum class SOUNDBUFFERS

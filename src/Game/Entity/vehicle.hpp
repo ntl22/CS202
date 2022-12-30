@@ -1,20 +1,19 @@
-#ifndef SRC_GAME_ENTITY_ANIMAL
-#define SRC_GAME_ENTITY_ANIMAL
+#ifndef SRC_GAME_ENTITY_VEHICLE
+#define SRC_GAME_ENTITY_VEHICLE
 #include <vector>
 #include <iostream>
 #include <time.h>
-#include <string>
 #include "entity.hpp"
 #include "../../Framework/pch.hpp"
 
-class Animal : public Entity
+class Vehicle : public Entity
 {
 private:
     // sf::Vector2f aniVelocity;
-    std::vector<Animal *> animals;
+    std::vector<Vehicle *> vehicles;
 
 public:
-    Animal() = default;
+    Vehicle() = default;
     void spawn(float y, const OBJECT_TYPE type);
     virtual sf::Vector2f getPos();
     virtual void Render(sf::RenderWindow &window);
@@ -23,16 +22,16 @@ public:
     virtual void setPos(int x, int y);
 };
 
-class Cat : public Animal
+class Truck : public Vehicle
 {
 public:
     sf::Vector2f getPos();
 
-    Cat() = default;
-    Cat(float x, float y, int i)
+    Truck() = default;
+    Truck(float x, float y, int i)
     {
         this->innitTexture(i);
-        this->cat.setPosition(x, y);
+        this->truck.setPosition(x, y);
     }
     void innitTexture(int i);
     void Render(sf::RenderWindow &window);
@@ -41,23 +40,23 @@ public:
     void setPos(int x, int y);
 
 private:
-    sf::Sprite cat;
-    sf::Texture catTexture;
+    sf::Sprite truck;
+    sf::Texture truckTexture;
 
 private:
 };
-class Dog : public Animal
+class Car : public Vehicle
 {
 public:
     void setVelocity(float x, float y);
     void setStartPosition(float x, float y);
     sf::Vector2f getVelocity();
     sf::Vector2f getPos();
-    Dog() = default;
-    Dog(float x, float y)
+    Car() = default;
+    Car(float x, float y)
     {
         this->innitTexture();
-        this->dog.setPosition(x, y);
+        this->car.setPosition(x, y);
     }
     void innitTexture();
     void update(const float velocity, sf::RenderWindow &window);
@@ -66,8 +65,8 @@ public:
     void setPos(int x, int y);
 
 public:
-    sf::Sprite dog;
-    sf::Texture dogTexture;
+    sf::Sprite car;
+    sf::Texture carTexture;
 
 private:
 };
