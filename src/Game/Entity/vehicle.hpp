@@ -1,5 +1,6 @@
 #ifndef SRC_GAME_ENTITY_VEHICLE
 #define SRC_GAME_ENTITY_VEHICLE
+
 #include <vector>
 #include <iostream>
 #include <time.h>

@@ -21,8 +21,6 @@ public:
 private:
     Context &m_context;
     People people;
-    Entity *ani = new Animal();
-    Entity *vehi = new Vehicle();
     bool is_exit, is_pause;
 
     PauseState pause;
