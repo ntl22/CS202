@@ -104,19 +104,19 @@ void Animal::update(float velocity, sf::RenderWindow &window)
             {
                 if (animals.back()->getPos().x > 0)
                 {
-                    k = 0 - (rand() % 300 + 100) - (velocity * 10);
+                    k = 0 - (rand() % 300 + 00) - (velocity * 12);
                     animals[i]->setPos(k, animals[i]->getPos().y);
                 }
                 else
                 {
-                    k = animals.back()->getPos().x - (rand() % 200 + 100) - (velocity * 10);
+                    k = animals.back()->getPos().x - (rand() % 300 + 100) - (velocity * 12);
                     animals[i]->setPos(k, animals[i]->getPos().y);
                 }
             }
             else
             {
 
-                k = animals[i - 1]->getPos().x - (rand() % 200 + 100) - (velocity * 10);
+                k = animals[i - 1]->getPos().x - (rand() % 300 + 100) - (velocity * 12);
                 animals[i]->setPos(k, animals[i]->getPos().y);
             }
         }
