@@ -17,7 +17,7 @@ public:
     ~Road() = default;
     void LoadLane();
     virtual void drawRoad(sf::RenderWindow &window);
-    virtual void update(const float velocity, sf::RenderWindow &window);
+    virtual void update(const float velocity, sf::RenderWindow &window, People& people);
     virtual void setPos(int y, sf::RenderWindow &window);
     virtual float getBound();
 
@@ -32,7 +32,7 @@ public:
     Lane(int i);
     ~Lane() = default;
     void drawRoad(sf::RenderWindow &window);
-    void update(const float velocity, sf::RenderWindow &window);
+    void update(const float velocity, sf::RenderWindow &window, People& people);
     void setPos(int y, sf::RenderWindow &window);
     float getBound();
 

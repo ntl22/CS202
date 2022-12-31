@@ -19,7 +19,7 @@ public:
     void spawn(float y, const OBJECT_TYPE type);
     virtual sf::Vector2f getPos();
     virtual void Render(sf::RenderWindow &window);
-    virtual void update(const float velocity, sf::RenderWindow &window);
+    virtual void update(const float velocity, sf::RenderWindow &window, People& people);
     virtual sf::FloatRect GetBound();
     virtual void setPos(int x, int y);
 };
@@ -37,7 +37,7 @@ public:
     }
     void innitTexture(int i);
     void Render(sf::RenderWindow &window);
-    void update(const float velocity, sf::RenderWindow &window);
+    void update(const float velocity, sf::RenderWindow &window, People& people);
     sf::FloatRect GetBound();
     void setPos(int x, int y);
 
@@ -61,7 +61,7 @@ public:
         this->dog.setPosition(x, y);
     }
     void innitTexture();
-    void update(const float velocity, sf::RenderWindow &window);
+    void update(const float velocity, sf::RenderWindow &window, People& people);
     void Render(sf::RenderWindow &window);
     sf::FloatRect GetBound();
     void setPos(int x, int y);

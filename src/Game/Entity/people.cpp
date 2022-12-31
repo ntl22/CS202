@@ -63,7 +63,7 @@ void People::playerReset()
     CELL_WIDTH = CELL_HEIGHT * 49 / 105;
 
     x = (MAP_WIDTH - CELL_WIDTH) / 2;
-    y = MAP_HEIGHT - CELL_HEIGHT;
+    y = MAP_HEIGHT - CELL_HEIGHT - 10;
 
     control_keys[0] = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
     control_keys[1] = sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
@@ -75,37 +75,25 @@ void People::handleEvent(const sf::Event &ev)
 {
     bool moved = 0;
 
-    if (0 == control_keys[0] && 1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    if (0 == control_keys[0] && 1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && MAP_WIDTH - CELL_WIDTH - x >= CELL_WIDTH / 2)
     {
-
-        if (MAP_WIDTH - CELL_WIDTH - x < CELL_WIDTH / 2)
-            moved = 0;
-        else
-        {
-            moved = 1;
-            direction = 1;
-            x = std::min(CELL_WIDTH + x, (float)MAP_WIDTH - CELL_WIDTH);
-        }
+        moved = 1;
+        direction = 1;
+        x = std::min(CELL_WIDTH + x, (float)MAP_WIDTH - CELL_WIDTH);
     }
-    else if (0 == control_keys[1] && 1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    else if (0 == control_keys[1] && 1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && y > MAP_HEIGHT - CELL_HEIGHT * 13 - 10)
     {
         moved = 1;
         direction = 2;
         y = std::max(y - CELL_HEIGHT, (float)0);
     }
-    else if (0 == control_keys[2] && 1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    else if (0 == control_keys[2] && 1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && x >= CELL_WIDTH / 2)
     {
-
-        if (x < CELL_WIDTH / 2)
-            moved = 0;
-        else
-        {
-            moved = 1;
-            direction = 3;
-            x = std::max(x - CELL_WIDTH, (float)0);
-        }
+        moved = 1;
+        direction = 3;
+        x = std::max(x - CELL_WIDTH, (float)0);
     }
-    else if (0 == control_keys[3] && 1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+    else if (0 == control_keys[3] && 1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && y < MAP_HEIGHT - CELL_HEIGHT - 10)
     {
         moved = 1;
         direction = 4;
@@ -133,38 +121,38 @@ void People::addSound(std::string link)
     sound.play();
 }
 
-sf::IntRect People::get_react() const
+sf::FloatRect People::get_react() const
 {
-    return sf::IntRect(x, y, CELL_WIDTH, CELL_HEIGHT);
+    return sf::FloatRect(x, y, CELL_WIDTH, CELL_HEIGHT);
 }
 
-// bool People::isImpact(const CVehicle *&car)
-// {
-//     if (0 == dead)
-//     {
-//         if (1 == car.get_react().intersects(get_react()))
-//         {
-//             return true;
-//             // or setDead();
-//         }
-//     }
-// }
+ //bool People::isImpact(const CVehicle *&car)
+ //{
+ //    if (0 == dead)
+ //    {
+ //        if (1 == car.get_react().intersects(get_react()))
+ //        {
+ //            return true;
+ //            // or setDead();
+ //        }
+ //    }
+ //}
 
-// bool People::isImpact(const CAnimal *&animal)
-// {
-//     if (0 == dead)
-//     {
-//         if (1 == animal.get_react().intersects(get_react()))
-//         {
-//             return true;
-//             // or setDead();
-//         }
-//     }
-// }
+ //bool People::isImpact(const Animal *&animal)
+ //{
+ //    if (0 == dead)
+ //    {
+ //        if (1 == animal.get_react().intersects(get_react()))
+ //        {
+ //            return true;
+ //            // or setDead();
+ //        }
+ //    }
+ //}
 
 bool People::isFinish()
 {
-    if (y == 1)
+    if (y == MAP_HEIGHT - CELL_HEIGHT * 13 - 10)
         return true;
     return false;
 }

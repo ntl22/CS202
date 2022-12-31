@@ -94,17 +94,17 @@ void Lane::drawRoad(sf::RenderWindow &window)
     window.draw(this->lane);
     object->Render(window);
 }
-void Lane::update(const float velocity, sf::RenderWindow &window)
+void Lane::update(const float velocity, sf::RenderWindow &window, People& people)
 {
 
-    object->update(velocity, window);
+    object->update(velocity, window, people);
 }
-void Road::update(const float velocity, sf::RenderWindow &window)
+void Road::update(const float velocity, sf::RenderWindow &window, People& people)
 {
 
     for (int i = 1; i < 6; i++)
     {
-        this->roads[i]->update(velocity, window);
+        this->roads[i]->update(velocity, window, people);
     }
 }
 

@@ -27,7 +27,7 @@ MenuState::MenuState(Context &context)
     button[0]->setHoverColor(sf::Color(255, 219, 62));
     button[0]->setPosition(m_context.window->getView().getCenter() - sf::Vector2f(0, 100.f));
     button[0]->setCallback([this]()
-                           { m_context.states->push(std::make_unique<PlayingState>(m_context)); });
+                           { m_context.states->push(std::make_unique<PlayingState>(m_context), true); });
 
     button[1]->setText("LOAD");
     button[1]->setHoverColor(sf::Color(111, 225, 62));

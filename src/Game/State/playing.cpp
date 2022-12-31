@@ -1,4 +1,5 @@
 #include "playing.hpp"
+#include "finish.hpp"
 
 PlayingState::PlayingState(Context &context)
     : m_context(context),
@@ -41,7 +42,10 @@ void PlayingState::update(sf::Time dt)
     }
     else
     {
-        a.update(5, *(m_context.window));
+        a.update(5, *(m_context.window), people);
+        if (people.get_dead() || people.isFinish())
+            m_context.states->push(std::make_unique<FinishState>(m_context), true);
+
     }
 }
 

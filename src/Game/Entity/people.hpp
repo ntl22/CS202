@@ -39,9 +39,7 @@ public:
     bool get_dead();                 // isDead()
     void playerReset();              // Reset player to the first position
     void addSound(std::string link); // Add sound
-    sf::IntRect get_react() const;
-    // bool isImpact(const CVehicle *&car);
-    // bool isImpact(const CAnimal *&animal);
+    sf::FloatRect get_react() const;
     bool isFinish(); // Player win
 };
 
