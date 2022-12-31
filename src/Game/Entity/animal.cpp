@@ -22,7 +22,7 @@ void Cat::innitTexture(int i)
         std::cout << "Fail texture";
     }
     this->cat.setTexture(catTexture);
-    cat.scale(2, 2);
+    cat.scale(1.5, 1.5);
 }
 void Dog::innitTexture()
 {
@@ -31,7 +31,7 @@ void Dog::innitTexture()
         std::cout << "Fail texture";
     }
     this->dog.setTexture(dogTexture);
-    dog.scale(2, 2);
+    dog.scale(1.5, 1.5);
 }
 
 void Animal::spawn(float y, const OBJECT_TYPE type)

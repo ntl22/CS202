@@ -22,7 +22,6 @@ private:
     Context &m_context;
     People people;
     Road a;
-    // Obstacle *a = new Animal();
 
     bool is_exit, is_pause;
 

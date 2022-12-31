@@ -20,7 +20,7 @@ void Truck::innitTexture(int i)
     {
         std::cout << "Fail texture";
     }
-    truck.scale(2, 2);
+    truck.scale(1.5, 1.5);
     this->truck.setTexture(truckTexture);
 }
 void Car::innitTexture()
@@ -29,7 +29,7 @@ void Car::innitTexture()
     {
         std::cout << "Fail texture";
     }
-    car.scale(2, 2);
+    car.scale(1.5, 1.5);
     this->car.setTexture(carTexture);
 }
 
@@ -105,19 +105,19 @@ void Vehicle::update(float velocity, sf::RenderWindow &window)
             {
                 if (vehicles.back()->getPos().x > 0)
                 {
-                    k = 0 - (rand() % 300 + 100) - (velocity * 10);
+                    k = 0 - (rand() % 300 + 200) - (velocity * 12);
                     vehicles[i]->setPos(k, vehicles[i]->getPos().y);
                 }
                 else
                 {
-                    k = vehicles.back()->getPos().x - (rand() % 300 + 100) - (velocity * 12);
+                    k = vehicles.back()->getPos().x - (rand() % 300 + 200) - (velocity * 12);
                     vehicles[i]->setPos(k, vehicles[i]->getPos().y);
                 }
             }
             else
             {
 
-                k = vehicles[i - 1]->getPos().x - (rand() % 300 + 100) - (velocity * 12);
+                k = vehicles[i - 1]->getPos().x - (rand() % 300 + 200) - (velocity * 12);
                 vehicles[i]->setPos(k, vehicles[i]->getPos().y);
             }
         }

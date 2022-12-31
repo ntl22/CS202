@@ -5,7 +5,7 @@
 #include <iostream>
 
 MenuState::MenuState(Context &context)
-    : m_context(context), title_font(context.fonts->get(FONTS::Sansation))
+    : m_context(context), title_font(context.fonts->get(FONTS::visitor1))
 {
     sf::Vector2f size(m_context.window->getSize());
 
@@ -48,8 +48,7 @@ MenuState::MenuState(Context &context)
 
     background.scale(
         size.x / background.getLocalBounds().width,
-        size.y / background.getLocalBounds().height
-    );
+        size.y / background.getLocalBounds().height);
 }
 
 MenuState::~MenuState() {}

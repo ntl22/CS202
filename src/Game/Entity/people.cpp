@@ -15,7 +15,8 @@ People::People(sf::RenderWindow &window)
 
 void People::createTexture()
 {
-    switch (direction) {
+    switch (direction)
+    {
     case 1:
         texture.loadFromFile("./assets/images/peopleRight.png");
         break;
@@ -29,12 +30,12 @@ void People::createTexture()
         texture.loadFromFile("./assets/images/peopleFront.png");
         break;
     }
-    //if (texture.loadFromFile("./assets/images/player1.png"))
-    //    std::cout << "Draw People fail";
-    // sprite.setTexture(context->textures->get(TEXTURES::player));
+    // if (texture.loadFromFile("./assets/images/player1.png"))
+    //     std::cout << "Draw People fail";
+    //  sprite.setTexture(context->textures->get(TEXTURES::player));
     sprite.setTexture(texture);
     sprite.setPosition(sf::Vector2f(x, y));
-    sprite.setScale(sf::Vector2f(CELL_WIDTH / (float)49, CELL_HEIGHT / (float)105));
+    sprite.setScale(sf::Vector2f(CELL_WIDTH / (float)49, CELL_HEIGHT / (float)90));
 }
 
 void People::draw(sf::RenderWindow &window)
@@ -77,10 +78,10 @@ void People::handleEvent(const sf::Event &ev)
     if (0 == control_keys[0] && 1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
 
-        
-        if (MAP_WIDTH - CELL_WIDTH - x  < CELL_WIDTH/2)
+        if (MAP_WIDTH - CELL_WIDTH - x < CELL_WIDTH / 2)
             moved = 0;
-        else {
+        else
+        {
             moved = 1;
             direction = 1;
             x = std::min(CELL_WIDTH + x, (float)MAP_WIDTH - CELL_WIDTH);
@@ -97,7 +98,8 @@ void People::handleEvent(const sf::Event &ev)
 
         if (x < CELL_WIDTH / 2)
             moved = 0;
-        else {
+        else
+        {
             moved = 1;
             direction = 3;
             x = std::max(x - CELL_WIDTH, (float)0);

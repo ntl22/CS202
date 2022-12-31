@@ -13,7 +13,7 @@ Lane::Lane(int i)
         break;
 
     case 2:
-        laneBg.loadFromFile("assets/images/lane2.png");
+        laneBg.loadFromFile("assets/images/lane3.png");
         lane.setTexture(laneBg);
 
         object = new Vehicle();
