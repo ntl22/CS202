@@ -6,6 +6,8 @@ target_sources(${APP_NAME} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/animal.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/vehicle.hpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/vehicle.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/road.hpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/road.cpp"
     
 )
 

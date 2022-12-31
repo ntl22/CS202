@@ -7,7 +7,9 @@ PlayingState::PlayingState(Context &context)
       is_pause(false),
       pause(PauseState(context, is_exit, is_pause))
 {
-
+    a.LoadLane();
+    a.setPos(0, *(m_context.window));
+    // a->spawn(0, OBJECT_TYPE::CHICKEN);
     m_context.musics->stop();
 }
 
@@ -39,6 +41,7 @@ void PlayingState::update(sf::Time dt)
     }
     else
     {
+        a.update(5, *(m_context.window));
     }
 }
 
@@ -49,6 +52,7 @@ void PlayingState::draw()
     else
     {
         std::clog << "In PlayingState" << std::endl;
+        a.drawRoad(*(m_context.window));
         people.draw(*(m_context.window));
     }
 }

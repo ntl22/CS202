@@ -5,7 +5,7 @@
 #include "../Entity/people.hpp"
 #include "../Entity/animal.hpp"
 #include "../Entity/vehicle.hpp"
-#include "../Entity/entity.hpp"
+#include "../Entity/road.hpp"
 
 #include "pause.hpp"
 
@@ -21,6 +21,9 @@ public:
 private:
     Context &m_context;
     People people;
+    Road a;
+    // Obstacle *a = new Animal();
+
     bool is_exit, is_pause;
 
     PauseState pause;

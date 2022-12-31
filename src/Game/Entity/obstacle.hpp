@@ -1,5 +1,5 @@
-#ifndef SRC_GAME_OBSTACLE_OBSTACLE
-#define SRC_GAME_OBSTACLE_OBSTACLE
+#ifndef SRC_GAME_ENTITY_OBSTACLE
+#define SRC_GAME_ENTITY_OBSTACLE
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 

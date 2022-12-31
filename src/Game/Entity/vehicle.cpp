@@ -16,22 +16,21 @@ void Car::setPos(int x, int y)
 void Truck::innitTexture(int i)
 {
 
-    if (truckTexture.loadFromFile("assets/images/car1.png"))
+    if (truckTexture.loadFromFile("assets/images/truck.png"))
     {
         std::cout << "Fail texture";
     }
-
+    truck.scale(2, 2);
     this->truck.setTexture(truckTexture);
-    this->truck.scale(0.5, 0.5);
 }
 void Car::innitTexture()
 {
-    if (carTexture.loadFromFile("assets/images/truck1.png"))
+    if (carTexture.loadFromFile("assets/images/car.png"))
     {
         std::cout << "Fail texture";
     }
+    car.scale(2, 2);
     this->car.setTexture(carTexture);
-    this->car.scale(0.5, 0.5);
 }
 
 void Vehicle::spawn(float y, const OBJECT_TYPE type)

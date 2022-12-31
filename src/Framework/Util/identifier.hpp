@@ -38,5 +38,11 @@ enum class MUSICS
 {
     intro
 };
-
+enum class LANE_TYPE
+{
+    goal,
+    start,
+    dirt,
+    street
+};
 #endif /* SRC_FRAMEWORK_UTIL_IDENTIFIER */
