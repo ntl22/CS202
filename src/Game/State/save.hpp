@@ -16,6 +16,8 @@ private:
 
     sf::Text title;
     sf::Text input_here;
+    sf::Text invalid;
+    sf::Text go_back;
 
     sf::RectangleShape input;
     std::string file_name;

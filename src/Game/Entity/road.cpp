@@ -1,12 +1,12 @@
 #include "road.hpp"
 
-Lane::Lane(int i, int &count)
+Lane::Lane(int i, int &count, TextureMap &textures)
 {
     switch (i)
     {
     case 1:
-        laneBg.loadFromFile("assets/images/lane1.png");
-        lane.setTexture(laneBg);
+        // laneBg.loadFromFile("assets/images/lane1.png");
+        lane.setTexture(textures.get(TEXTURES::lane1));
         object = new Animal();
         type = LANE_TYPE::start;
         lane.scale(1, 1);
@@ -15,8 +15,8 @@ Lane::Lane(int i, int &count)
         if (count >= 2)
 
         {
-            laneBg.loadFromFile("assets/images/lane3.png");
-            lane.setTexture(laneBg);
+            // laneBg.loadFromFile("assets/images/lane3.png");
+            lane.setTexture(textures.get(TEXTURES::lane3));
             object = new Animal();
             type = LANE_TYPE::dirt;
             lane.scale(1, 1);
@@ -24,8 +24,8 @@ Lane::Lane(int i, int &count)
         }
         else
         {
-            laneBg.loadFromFile("assets/images/lane3.png");
-            lane.setTexture(laneBg);
+            // laneBg.loadFromFile("assets/images/lane3.png");
+            lane.setTexture(textures.get(TEXTURES::lane3));
             object = new Vehicle();
             type = LANE_TYPE::street;
             lane.scale(1, 1);
@@ -35,8 +35,8 @@ Lane::Lane(int i, int &count)
     case 3:
         if (count <= 0)
         {
-            laneBg.loadFromFile("assets/images/lane3.png");
-            lane.setTexture(laneBg);
+            // laneBg.loadFromFile("assets/images/lane3.png");
+            lane.setTexture(textures.get(TEXTURES::lane3));
             object = new Vehicle();
             type = LANE_TYPE::street;
             lane.scale(1, 1);
@@ -45,41 +45,41 @@ Lane::Lane(int i, int &count)
         }
         else
         {
-            laneBg.loadFromFile("assets/images/lane3.png");
-            lane.setTexture(laneBg);
+            // laneBg.loadFromFile("assets/images/lane3.png");
+            lane.setTexture(textures.get(TEXTURES::lane3));
             object = new Animal();
             type = LANE_TYPE::dirt;
             lane.scale(1, 1);
             break;
         }
     case 4:
-        laneBg.loadFromFile("assets/images/lane4.png");
-        lane.setTexture(laneBg);
+        // laneBg.loadFromFile("assets/images/lane4.png");
+        lane.setTexture(textures.get(TEXTURES::lane4));
         object = new Animal();
         type = LANE_TYPE::goal;
         lane.scale(1, 1);
         break;
     }
 }
-void Road::LoadLane()
+void Road::LoadLane(TextureMap &textures)
 {
     int count = 0;
-    lightRed.loadFromFile("assets/images/lightRed.png");
-    lightGreen.loadFromFile("assets/images/lightGreen.png");
-    light.setTexture(lightGreen);
-    roads.push_back(new Lane(1, count));
+    // lightRed.loadFromFile("assets/images/lightRed.png");
+    // lightGreen.loadFromFile("assets/images/lightGreen.png");
+    light.setTexture(textures.get(TEXTURES::lightGreen));
+    roads.push_back(new Lane(1, count, textures));
     for (int i = 0; i < 2; i++)
     {
         int tmp = rand() % 2 + 2;
-        roads.push_back(new Lane(tmp, count));
+        roads.push_back(new Lane(tmp, count, textures));
     }
-    roads.push_back(new Lane(1, count));
+    roads.push_back(new Lane(1, count, textures));
     for (int i = 0; i < 2; i++)
     {
         int tmp = rand() % 2 + 2;
-        roads.push_back(new Lane(tmp, count));
+        roads.push_back(new Lane(tmp, count, textures));
     }
-    roads.push_back(new Lane(4, count));
+    roads.push_back(new Lane(4, count, textures));
 }
 float Road::getBound()
 {

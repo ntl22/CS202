@@ -19,6 +19,8 @@ enum class TEXTURES
     lane2,
     lane3,
     lane4,
+    lightGreen,
+    lightRed,
     peopleBack,
     peopleFront,
     peopleLeft,

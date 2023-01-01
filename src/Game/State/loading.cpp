@@ -42,6 +42,8 @@ private:
         tmp.textures->load(TEXTURES::lane2, "./assets/images/lane2.png");
         tmp.textures->load(TEXTURES::lane3, "./assets/images/lane3.png");
         tmp.textures->load(TEXTURES::lane4, "./assets/images/lane4.png");
+        tmp.textures->load(TEXTURES::lightGreen, "./assets/images/lightGreen.png");
+        tmp.textures->load(TEXTURES::lightRed, "./assets/images/lightRed.png");
         tmp.textures->load(TEXTURES::peopleBack, "./assets/images/peopleBack.png");
         tmp.textures->load(TEXTURES::peopleFront, "./assets/images/peopleFront.png");
         tmp.textures->load(TEXTURES::peopleLeft, "./assets/images/peopleLeft.png");
