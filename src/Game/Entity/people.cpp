@@ -126,29 +126,29 @@ sf::FloatRect People::get_react() const
     return sf::FloatRect(x, y, CELL_WIDTH, CELL_HEIGHT);
 }
 
- //bool People::isImpact(const CVehicle *&car)
- //{
- //    if (0 == dead)
- //    {
- //        if (1 == car.get_react().intersects(get_react()))
- //        {
- //            return true;
- //            // or setDead();
- //        }
- //    }
- //}
+// bool People::isImpact(const CVehicle *&car)
+//{
+//     if (0 == dead)
+//     {
+//         if (1 == car.get_react().intersects(get_react()))
+//         {
+//             return true;
+//             // or setDead();
+//         }
+//     }
+// }
 
- //bool People::isImpact(const Animal *&animal)
- //{
- //    if (0 == dead)
- //    {
- //        if (1 == animal.get_react().intersects(get_react()))
- //        {
- //            return true;
- //            // or setDead();
- //        }
- //    }
- //}
+// bool People::isImpact(const Animal *&animal)
+//{
+//     if (0 == dead)
+//     {
+//         if (1 == animal.get_react().intersects(get_react()))
+//         {
+//             return true;
+//             // or setDead();
+//         }
+//     }
+// }
 
 bool People::isFinish()
 {

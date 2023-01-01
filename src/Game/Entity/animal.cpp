@@ -93,7 +93,7 @@ void Dog::Render(sf::RenderWindow &window)
     window.draw(this->dog);
 }
 
-void Animal::update(float velocity, sf::RenderWindow &window, People& people)
+void Animal::update(float velocity, sf::RenderWindow &window, People &people)
 {
     for (int i = 0; i < 5; i++)
     {
@@ -139,15 +139,15 @@ sf::FloatRect Dog::GetBound()
     return dog.getGlobalBounds();
 }
 
-void Cat::update(float velocity, sf::RenderWindow &window, People& people)
+void Cat::update(float velocity, sf::RenderWindow &window, People &people)
 {
     if (this->cat.getGlobalBounds().intersects(people.get_react()))
         people.set_dead();
     this->cat.move(velocity, 0);
 }
-void Dog::update(const float velocity, sf::RenderWindow &window, People& people)
+void Dog::update(const float velocity, sf::RenderWindow &window, People &people)
 {
     if (this->dog.getGlobalBounds().intersects(people.get_react()))
         people.set_dead();
-    this->dog.move(5.f, 0);
+    this->dog.move(velocity, 0);
 }

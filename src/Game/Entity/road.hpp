@@ -4,7 +4,7 @@
 #include <iostream>
 #include <time.h>
 #include <string>
-
+#include "SFML/System/Clock.hpp"
 #include "../../Framework/pch.hpp"
 #include "obstacle.hpp"
 #include "animal.hpp"
@@ -17,22 +17,27 @@ public:
     ~Road() = default;
     void LoadLane();
     virtual void drawRoad(sf::RenderWindow &window);
-    virtual void update(const float velocity, sf::RenderWindow &window, People& people);
+    virtual void update(const float velocity, sf::RenderWindow &window, People &people);
     virtual void setPos(int y, sf::RenderWindow &window);
     virtual float getBound();
+    void updateLight();
 
 private:
     std::vector<Road *> roads;
+    sf::Sprite light;
+    sf::Texture lightRed;
+    sf::Texture lightGreen;
+    bool checkLight;
 };
 
 class Lane : public Road
 {
 public:
     Lane() = default;
-    Lane(int i);
+    Lane(int i, int &count);
     ~Lane() = default;
     void drawRoad(sf::RenderWindow &window);
-    void update(const float velocity, sf::RenderWindow &window, People& people);
+    void update(const float velocity, sf::RenderWindow &window, People &people);
     void setPos(int y, sf::RenderWindow &window);
     float getBound();
 
@@ -42,4 +47,4 @@ private:
     sf::Texture laneBg;
     LANE_TYPE type;
 };
-#endif
+#endif /* SRC_GAME_ENTITY_ROAD */

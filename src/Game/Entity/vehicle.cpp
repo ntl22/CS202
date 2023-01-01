@@ -92,7 +92,7 @@ void Car::Render(sf::RenderWindow &window)
     window.draw(this->car);
 }
 
-void Vehicle::update(float velocity, sf::RenderWindow &window, People& people)
+void Vehicle::update(float velocity, sf::RenderWindow &window, People &people)
 {
     for (int i = 0; i < 5; i++)
     {
@@ -138,15 +138,15 @@ sf::FloatRect Car::GetBound()
     return car.getGlobalBounds();
 }
 
-void Truck::update(float velocity, sf::RenderWindow &window, People& people)
+void Truck::update(float velocity, sf::RenderWindow &window, People &people)
 {
     if (this->truck.getGlobalBounds().intersects(people.get_react()))
         people.set_dead();
     this->truck.move(velocity, 0);
 }
-void Car::update(const float velocity, sf::RenderWindow &window, People& people)
+void Car::update(const float velocity, sf::RenderWindow &window, People &people)
 {
     if (this->car.getGlobalBounds().intersects(people.get_react()))
         people.set_dead();
-    this->car.move(5.f, 0);
+    this->car.move(velocity, 0);
 }

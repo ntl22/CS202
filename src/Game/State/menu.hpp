@@ -5,7 +5,7 @@
 class MenuState : public State
 {
 public:
-    MenuState(Context& context);
+    MenuState(Context &context);
 
     ~MenuState();
 
@@ -21,7 +21,7 @@ private:
     std::unique_ptr<Button> button[3];
     int cur = -1;
 
-    Context& m_context;
+    Context &m_context;
 };
 
 #endif /* SRC_GAME_STATE_MENU */

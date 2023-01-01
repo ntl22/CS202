@@ -8,6 +8,7 @@ PlayingState::PlayingState(Context &context)
       is_pause(false),
       pause(PauseState(context, is_exit, is_pause))
 {
+    srand(time(static_cast<unsigned>(0)));
     a.LoadLane();
     a.setPos(0, *(m_context.window));
     // a->spawn(0, OBJECT_TYPE::CHICKEN);
@@ -45,7 +46,6 @@ void PlayingState::update(sf::Time dt)
         a.update(5, *(m_context.window), people);
         if (people.get_dead() || people.isFinish())
             m_context.states->push(std::make_unique<FinishState>(m_context), true);
-
     }
 }
 

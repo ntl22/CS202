@@ -5,12 +5,12 @@
 
 #include <iostream>
 
-FinishState::FinishState(Context& context)
-    : m_context(context), title_font(context.fonts->get(FONTS::Sansation))
+FinishState::FinishState(Context &context)
+    : m_context(context), title_font(context.fonts->get(FONTS::visitor1))
 {
     sf::Vector2f size(m_context.window->getSize());
 
-    title.setOutlineColor(sf::Color::Black);
+    title.setOutlineColor(sf::Color::Red);
 
     title.setString("Game Over");
     title.setOutlineThickness(5);
@@ -28,19 +28,19 @@ FinishState::FinishState(Context& context)
     button[0]->setHoverColor(sf::Color(255, 219, 62));
     button[0]->setPosition(m_context.window->getView().getCenter() - sf::Vector2f(0, 100.f));
     button[0]->setCallback([this]()
-        { m_context.states->push(std::make_unique<PlayingState>(m_context), true); });
+                           { m_context.states->push(std::make_unique<PlayingState>(m_context), true); });
 
     button[1]->setText("BACK TO MENU");
     button[1]->setHoverColor(sf::Color(111, 225, 62));
     button[1]->setPosition(m_context.window->getView().getCenter());
     button[1]->setCallback([this]()
-        { m_context.states->push(std::make_unique<MenuState>(m_context), true); });
+                           { m_context.states->push(std::make_unique<MenuState>(m_context), true); });
 
     button[2]->setText("EXIT");
     button[2]->setHoverColor(sf::Color(226, 16, 16));
     button[2]->setPosition(m_context.window->getView().getCenter() + sf::Vector2f(0, 100.f));
     button[2]->setCallback([this]()
-        { m_context.states->pop(); });
+                           { m_context.states->pop(); });
 
     m_context.musics->setLoop(true);
     m_context.musics->play(MUSICS::intro);
@@ -49,13 +49,12 @@ FinishState::FinishState(Context& context)
 
     background.scale(
         size.x / background.getLocalBounds().width,
-        size.y / background.getLocalBounds().height
-    );
+        size.y / background.getLocalBounds().height);
 }
 
 FinishState::~FinishState() {}
 
-void FinishState::handleEvent(const sf::Event& ev)
+void FinishState::handleEvent(const sf::Event &ev)
 {
     sf::Vector2f pos = sf::Vector2f(sf::Mouse::getPosition(*m_context.window));
     int i;
@@ -72,9 +71,9 @@ void FinishState::handleEvent(const sf::Event& ev)
         }
     }
     else if (ev.type == sf::Event::MouseButtonPressed &&
-        ev.mouseButton.button == sf::Mouse::Left &&
-        cur != -1 &&
-        button[cur]->isInWidget(pos))
+             ev.mouseButton.button == sf::Mouse::Left &&
+             cur != -1 &&
+             button[cur]->isInWidget(pos))
     {
         button[cur]->activate();
     }
