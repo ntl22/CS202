@@ -8,6 +8,7 @@
 #include "../Entity/road.hpp"
 
 #include "pause.hpp"
+#include "timer.hpp"
 
 class PlayingState : public State
 {
@@ -22,6 +23,7 @@ private:
     Context &m_context;
     People people;
     Road a;
+    Timer timer;
 
     bool is_exit;
 };

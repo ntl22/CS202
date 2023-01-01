@@ -4,7 +4,8 @@
 PlayingState::PlayingState(Context &context)
     : m_context(context),
       people(People(*context.window, *context.textures)),
-      is_exit(false)
+      is_exit(false),
+      timer(Timer(context))
 {
     m_context.musics->pause(true);
     srand(time(static_cast<unsigned>(0)));
@@ -49,5 +50,6 @@ void PlayingState::draw()
     {
         a.drawRoad(*(m_context.window));
         people.draw(*(m_context.window));
+        timer.draw(*(m_context.window));
     }
 }
