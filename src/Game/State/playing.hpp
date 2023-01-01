@@ -23,9 +23,7 @@ private:
     People people;
     Road a;
 
-    bool is_exit, is_pause;
-
-    PauseState pause;
+    bool is_exit;
 };
 
 #endif /* SRC_GAME_STATE_PLAYING */

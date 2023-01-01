@@ -10,7 +10,7 @@ Button::Button(sf::RenderWindow &w, const sf::Font &f)
     text.setFont(font);
     text.setOutlineThickness(5.f);
     text.setOutlineColor(sf::Color::Black);
-    text.setCharacterSize(55U);
+    text.setCharacterSize(70U);
 }
 
 bool Button::isSelectable() const { return true; }

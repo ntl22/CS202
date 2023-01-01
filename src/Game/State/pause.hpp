@@ -5,17 +5,19 @@
 class PauseState : public State
 {
 public:
-    PauseState(Context &context,
-               bool &exit_ref, bool &pause_ref);
+    PauseState(Context &context, bool &exit_ref);
 
     void handleEvent(const sf::Event &ev) override;
     void update(sf::Time dt) override;
     void draw() override;
 
 private:
-    bool &is_exit, &is_pause;
+    bool &is_exit;
 
     Context &m_context;
+
+    std::unique_ptr<Button> buttons[3];
+    int cur;
 
     sf::Text text_pause;
     sf::Font font_pause;

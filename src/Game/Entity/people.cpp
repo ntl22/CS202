@@ -6,9 +6,10 @@ const T &clamp(const T &x, const T &upper, const T &lower)
     return fmin(upper, fmax(x, lower));
 }
 
-People::People(sf::RenderWindow &window)
+People::People(sf::RenderWindow &window, AssetMap<TEXTURES, sf::Texture> &textures)
     : MAP_WIDTH(window.getSize().x * 1.f),
-      MAP_HEIGHT(window.getSize().y * 1.f)
+      MAP_HEIGHT(window.getSize().y * 1.f),
+      m_textures(textures)
 {
     playerReset();
 }
@@ -18,16 +19,20 @@ void People::createTexture()
     switch (direction)
     {
     case 1:
-        texture.loadFromFile("./assets/images/peopleRight.png");
+        texture = m_textures.get(TEXTURES::peopleRight);
+        // texture.loadFromFile("./assets/images/peopleRight.png");
         break;
     case 2:
-        texture.loadFromFile("./assets/images/peopleBack.png");
+        texture = m_textures.get(TEXTURES::peopleBack);
+        // texture.loadFromFile("./assets/images/peopleBack.png");
         break;
     case 3:
-        texture.loadFromFile("./assets/images/peopleLeft.png");
+        texture = m_textures.get(TEXTURES::peopleLeft);
+        // texture.loadFromFile("./assets/images/peopleLeft.png");
         break;
     case 4:
-        texture.loadFromFile("./assets/images/peopleFront.png");
+        texture = m_textures.get(TEXTURES::peopleFront);
+        // texture.loadFromFile("./assets/images/peopleFront.png");
         break;
     }
     // if (texture.loadFromFile("./assets/images/player1.png"))

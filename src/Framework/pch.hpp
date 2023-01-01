@@ -13,9 +13,12 @@
  * C++ Standard Library
  */
 
+#include <string>
 #include <stdexcept>
 #include <memory>
 #include <iostream>
+#include <fstream>
+#include <filesystem>
 
 /**
  * Framework library
@@ -34,5 +37,12 @@
 
 #include "Widget/widget.hpp"
 #include "Widget/button.hpp"
+
+/**
+ * Path name
+ */
+
+constexpr char *FOLDER = "info/";
+constexpr char *SAVE_FOLDER = "save/";
 
 #endif /* SRC_FRAMEWORK_PCH */

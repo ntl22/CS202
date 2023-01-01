@@ -2,6 +2,7 @@
 #define SRC_FRAMEWORK_ASSET_MANAGER
 #include <SFML/Audio/Music.hpp>
 
+#include <cassert>
 #include <stdexcept>
 #include <map>
 #include <memory>
@@ -44,8 +45,7 @@ private:
     void insert(Identifier identifier, std::unique_ptr<Asset> resource)
     {
         auto insert = machine.insert(std::make_pair(identifier, std::move(resource)));
-        if (!insert.second)
-            throw std::runtime_error("AssetMap::insert() : insert failed");
+        assert(insert.second);
     }
 
     std::map<Identifier, std::unique_ptr<Asset>> machine;

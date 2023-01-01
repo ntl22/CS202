@@ -1,6 +1,6 @@
 #include "application.hpp"
 
-#include "State/menu.hpp"
+#include "State/loading.hpp"
 
 void Application::run()
 {
@@ -8,46 +8,56 @@ void Application::run()
 }
 
 Application::Application()
-    : WIDTH(1280), HEIGHT(720), FPS(60), is_close(false)
+    : WIDTH(1280), HEIGHT(720), FPS(60), is_close(false),
+      context(std::make_unique<Context>())
 {
-    context.fonts->load(FONTS::IBMPlexMono, "./assets/fonts/IBMPlexMono.ttf");
-    context.fonts->load(FONTS::Sansation, "./assets/fonts/Sansation.ttf");
-    context.fonts->load(FONTS::visitor1, "./assets/fonts/visitor1.ttf");
+    // context->fonts->load(FONTS::IBMPlexMono, "./assets/fonts/IBMPlexMono.ttf");
+    // context->fonts->load(FONTS::Sansation, "./assets/fonts/Sansation.ttf");
+    // context->fonts->load(FONTS::visitor1, "./assets/fonts/visitor1.ttf");
 
-    context.textures->load(TEXTURES::car, "./assets/images/car.png");
-    context.textures->load(TEXTURES::cat1, "./assets/images/cat1.png");
-    context.textures->load(TEXTURES::cat2, "./assets/images/cat2.png");
-    context.textures->load(TEXTURES::cat3, "./assets/images/cat3.png");
-    context.textures->load(TEXTURES::chicken, "./assets/images/chicken.png");
-    context.textures->load(TEXTURES::player1, "./assets/images/player1.png");
-    context.textures->load(TEXTURES::truck, "./assets/images/truck.png");
-    context.textures->load(TEXTURES::welcome_bg, "./assets/images/welcome_bg.png");
+    // context->textures->load(TEXTURES::car, "./assets/images/car.png");
+    // context->textures->load(TEXTURES::cat1, "./assets/images/cat1.png");
+    // context->textures->load(TEXTURES::cat2, "./assets/images/cat2.png");
+    // context->textures->load(TEXTURES::cat3, "./assets/images/cat3.png");
+    // context->textures->load(TEXTURES::chicken, "./assets/images/chicken.png");
+    // context->textures->load(TEXTURES::lane1, "./assets/images/lane1.png");
+    // context->textures->load(TEXTURES::lane2, "./assets/images/lane2.png");
+    // context->textures->load(TEXTURES::lane3, "./assets/images/lane3.png");
+    // context->textures->load(TEXTURES::lane4, "./assets/images/lane4.png");
+    // context->textures->load(TEXTURES::peopleBack, "./assets/images/peopleBack.png");
+    // context->textures->load(TEXTURES::peopleFront, "./assets/images/peopleFront.png");
+    // context->textures->load(TEXTURES::peopleLeft, "./assets/images/peopleLeft.png");
+    // context->textures->load(TEXTURES::peopleRight, "./assets/images/peopleRight.png");
+    // context->textures->load(TEXTURES::player1, "./assets/images/player1.png");
+    // context->textures->load(TEXTURES::road, "./assets/images/road.png");
+    // context->textures->load(TEXTURES::truck, "./assets/images/truck.png");
+    // context->textures->load(TEXTURES::welcome_bg, "./assets/images/welcome_bg.png");
 
-    context.sounds->load(SOUNDBUFFERS::jump, "./assets/sounds/jump.wav");
+    // context->sounds->load(SOUNDBUFFERS::jump, "./assets/sounds/jump.wav");
 
-    context.window->create(
+    context->window->create(
         sf::VideoMode(WIDTH, HEIGHT), "Crossy Road", sf::Style::Close);
 
-    context.musics->load(MUSICS::intro, "./assets/sounds/intro.wav");
+    // context->musics->load(MUSICS::intro, "./assets/sounds/intro.wav");
 
     if (!icon.loadFromFile("./assets/icon.png"))
         throw std::runtime_error("Application::Application() : cannot open icon file");
 
-    context.window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+    context->window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
-    context.window->setFramerateLimit(FPS);
-    context.window->setKeyRepeatEnabled(false);
+    context->window->setFramerateLimit(FPS);
+    context->window->setKeyRepeatEnabled(false);
 
-    context.states->push(std::make_unique<MenuState>(context));
+    context->states->push(std::make_unique<LoadingState>(*context));
 }
 
 void Application::gameLoop()
 {
     sf::Clock clock;
-    while (context.window->isOpen() && !is_close)
+    while (context->window->isOpen() && !is_close)
     {
-        context.states->handleStack();
-        if (context.states->isEmpty())
+        context->states->handleStack();
+        if (context->states->isEmpty())
             break;
 
         dt = clock.restart();
@@ -59,7 +69,7 @@ void Application::gameLoop()
 
 void Application::handleEvent()
 {
-    while (context.window->pollEvent(ev))
+    while (context->window->pollEvent(ev))
     {
         switch (ev.type)
         {
@@ -67,7 +77,7 @@ void Application::handleEvent()
             is_close = true;
             break;
         default:
-            context.states->getCurrent()->handleEvent(ev);
+            context->states->getCurrent()->handleEvent(ev);
             break;
         }
     }
@@ -75,12 +85,12 @@ void Application::handleEvent()
 
 void Application::update()
 {
-    context.states->getCurrent()->update(dt);
+    context->states->getCurrent()->update(dt);
 }
 
 void Application::render()
 {
-    context.window->clear();
-    context.states->getCurrent()->draw();
-    context.window->display();
+    context->window->clear();
+    context->states->getCurrent()->draw();
+    context->window->display();
 }

@@ -3,31 +3,29 @@
 
 PlayingState::PlayingState(Context &context)
     : m_context(context),
-      people(People(*context.window)),
-      is_exit(false),
-      is_pause(false),
-      pause(PauseState(context, is_exit, is_pause))
+      people(People(*context.window, *context.textures)),
+      is_exit(false)
 {
+    m_context.musics->pause(true);
     srand(time(static_cast<unsigned>(0)));
     a.LoadLane();
     a.setPos(0, *(m_context.window));
     // a->spawn(0, OBJECT_TYPE::CHICKEN);
-    m_context.musics->stop();
+    m_context.musics->setLoop(true);
+    m_context.musics->play(MUSICS::playing);
 }
 
 void PlayingState::handleEvent(const sf::Event &ev)
 {
-    if (is_pause)
-        pause.handleEvent(ev);
-    else
+    if (ev.type == sf::Event::KeyPressed)
     {
-        people.handleEvent(ev);
-        if (ev.type == sf::Event::KeyPressed)
+        if (ev.key.code == sf::Keyboard::P)
         {
-            if (ev.key.code == sf::Keyboard::P)
-                is_pause = true;
+            m_context.musics->pause(true);
+            m_context.states->push(std::make_unique<PauseState>(m_context, is_exit));
         }
     }
+    people.handleEvent(ev);
 }
 
 void PlayingState::update(sf::Time dt)
@@ -36,10 +34,6 @@ void PlayingState::update(sf::Time dt)
     {
         m_context.states->pop();
         m_context.musics->play(MUSICS::intro);
-    }
-    else if (is_pause)
-    {
-        pause.update(dt);
     }
     else
     {
@@ -51,11 +45,8 @@ void PlayingState::update(sf::Time dt)
 
 void PlayingState::draw()
 {
-    if (is_pause)
-        pause.draw();
-    else
+    if (!is_exit)
     {
-        std::clog << "In PlayingState" << std::endl;
         a.drawRoad(*(m_context.window));
         people.draw(*(m_context.window));
     }

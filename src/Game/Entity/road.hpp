@@ -14,7 +14,7 @@ class Road
 {
 public:
     Road() = default;
-    ~Road() = default;
+    virtual ~Road() = default;
     void LoadLane();
     virtual void drawRoad(sf::RenderWindow &window);
     virtual void update(const float velocity, sf::RenderWindow &window, People &people);

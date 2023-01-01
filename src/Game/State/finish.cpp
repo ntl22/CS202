@@ -8,6 +8,8 @@
 FinishState::FinishState(Context &context)
     : m_context(context), title_font(context.fonts->get(FONTS::visitor1))
 {
+    m_context.musics->pause(true);
+
     sf::Vector2f size(m_context.window->getSize());
 
     title.setOutlineColor(sf::Color::Red);
@@ -21,29 +23,20 @@ FinishState::FinishState(Context &context)
 
     int i;
 
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < 2; i++)
         button[i] = std::make_unique<Button>(*m_context.window, m_context.fonts->get(FONTS::visitor1));
 
     button[0]->setText("PLAY AGAIN");
     button[0]->setHoverColor(sf::Color(255, 219, 62));
-    button[0]->setPosition(m_context.window->getView().getCenter() - sf::Vector2f(0, 100.f));
+    button[0]->setPosition(m_context.window->getView().getCenter() - sf::Vector2f(0, 50.f));
     button[0]->setCallback([this]()
                            { m_context.states->push(std::make_unique<PlayingState>(m_context), true); });
 
     button[1]->setText("BACK TO MENU");
     button[1]->setHoverColor(sf::Color(111, 225, 62));
-    button[1]->setPosition(m_context.window->getView().getCenter());
+    button[1]->setPosition(m_context.window->getView().getCenter() + sf::Vector2f(0, 50.f));
     button[1]->setCallback([this]()
-                           { m_context.states->push(std::make_unique<MenuState>(m_context), true); });
-
-    button[2]->setText("EXIT");
-    button[2]->setHoverColor(sf::Color(226, 16, 16));
-    button[2]->setPosition(m_context.window->getView().getCenter() + sf::Vector2f(0, 100.f));
-    button[2]->setCallback([this]()
                            { m_context.states->pop(); });
-
-    m_context.musics->setLoop(true);
-    m_context.musics->play(MUSICS::intro);
 
     background.setTexture(m_context.textures->get(TEXTURES::welcome_bg));
 
@@ -61,7 +54,7 @@ void FinishState::handleEvent(const sf::Event &ev)
 
     if (ev.type == sf::Event::MouseMoved)
     {
-        for (i = 0; i < 3; i++)
+        for (i = 0; i < 2; i++)
         {
             if (button[i]->isInWidget(pos))
             {
@@ -103,7 +96,7 @@ void FinishState::update(sf::Time dt)
 {
     int i;
 
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < 2; i++)
     {
         if (i == cur)
             button[i]->focus();
@@ -118,6 +111,6 @@ void FinishState::draw()
     m_context.window->draw(title);
 
     int i;
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < 2; i++)
         m_context.window->draw(*button[i]);
 }

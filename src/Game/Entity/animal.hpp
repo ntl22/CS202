@@ -4,7 +4,6 @@
 #include <iostream>
 #include <time.h>
 #include <string>
-#include "entity.hpp"
 #include "obstacle.hpp"
 #include "../../Framework/pch.hpp"
 

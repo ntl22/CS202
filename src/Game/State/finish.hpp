@@ -16,7 +16,7 @@ private:
     sf::Text title;
     sf::Sprite background;
 
-    std::unique_ptr<Button> button[3];
+    std::unique_ptr<Button> button[2];
     int cur = -1;
 
     Context& m_context;

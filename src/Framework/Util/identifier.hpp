@@ -15,7 +15,16 @@ enum class TEXTURES
     cat2,
     cat3,
     chicken,
+    lane1,
+    lane2,
+    lane3,
+    lane4,
+    peopleBack,
+    peopleFront,
+    peopleLeft,
+    peopleRight,
     player1,
+    road,
     truck,
     welcome_bg
 };
@@ -36,7 +45,8 @@ enum class SOUNDBUFFERS
 
 enum class MUSICS
 {
-    intro
+    intro,
+    playing
 };
 enum class LANE_TYPE
 {

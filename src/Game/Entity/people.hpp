@@ -27,8 +27,10 @@ private:
     sf::Sprite sprite;
     sf::Texture texture;
 
+    AssetMap<TEXTURES, sf::Texture>& m_textures;
+
 public:
-    People(sf::RenderWindow& window);
+    People(sf::RenderWindow& window, AssetMap<TEXTURES, sf::Texture>& textures);
     void createTexture();
 
     void draw(sf::RenderWindow& window);

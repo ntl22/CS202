@@ -17,7 +17,7 @@ private:
     void update();
     void render();
 
-    Context context;
+    std::unique_ptr<Context> context;
     sf::Image icon;
     sf::Event ev;
     sf::Time dt;

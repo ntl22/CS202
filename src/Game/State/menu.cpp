@@ -1,8 +1,7 @@
 #include "menu.hpp"
 
 #include "playing.hpp"
-
-#include <iostream>
+#include "load.hpp"
 
 MenuState::MenuState(Context &context)
     : m_context(context), title_font(context.fonts->get(FONTS::visitor1))
@@ -27,13 +26,13 @@ MenuState::MenuState(Context &context)
     button[0]->setHoverColor(sf::Color(255, 219, 62));
     button[0]->setPosition(m_context.window->getView().getCenter() - sf::Vector2f(0, 100.f));
     button[0]->setCallback([this]()
-                           { m_context.states->push(std::make_unique<PlayingState>(m_context), true); });
+                           { m_context.states->push(std::make_unique<PlayingState>(m_context)); });
 
     button[1]->setText("LOAD");
     button[1]->setHoverColor(sf::Color(111, 225, 62));
     button[1]->setPosition(m_context.window->getView().getCenter());
-    button[1]->setCallback([]()
-                           { std::clog << "LOAD" << std::endl; });
+    button[1]->setCallback([this]()
+                           { m_context.states->push(std::make_unique<LoadState>(m_context)); });
 
     button[2]->setText("EXIT");
     button[2]->setHoverColor(sf::Color(226, 16, 16));
@@ -82,7 +81,7 @@ void MenuState::handleEvent(const sf::Event &ev)
         {
         case sf::Keyboard::W:
         case sf::Keyboard::Up:
-            cur = (cur <= 0) ? 2 : (cur - 1);
+            cur = (cur == -1) ? 0 : ((cur <= 0) ? 2 : (cur - 1));
             break;
         case sf::Keyboard::S:
         case sf::Keyboard::Down:
