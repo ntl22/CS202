@@ -36,7 +36,7 @@ FinishState::FinishState(Context &context)
     button[1]->setHoverColor(sf::Color(111, 225, 62));
     button[1]->setPosition(m_context.window->getView().getCenter() + sf::Vector2f(0, 50.f));
     button[1]->setCallback([this]()
-                           { m_context.states->pop(); });
+                           { m_context.states->pop(); m_context.musics->play(MUSICS::intro); });
 
     background.setTexture(m_context.textures->get(TEXTURES::welcome_bg));
 

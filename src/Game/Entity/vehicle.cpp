@@ -23,6 +23,7 @@ void Truck::innitTexture(int i)
     truck.scale(1.5, 1.5);
     this->truck.setTexture(truckTexture);
 }
+
 void Car::innitTexture()
 {
     if (carTexture.loadFromFile("assets/images/car.png"))

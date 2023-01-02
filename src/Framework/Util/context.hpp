@@ -16,13 +16,17 @@ enum class SOUNDBUFFERS;
 
 class StateStack;
 
+typedef AssetMap<TEXTURES, sf::Texture> TextureMap;
+typedef AssetMap<FONTS, sf::Font> FontMap;
+typedef AssetMap<SOUNDBUFFERS, sf::SoundBuffer> SoundMap;
+
 struct Context
 {
     std::unique_ptr<sf::RenderWindow> window;
     std::unique_ptr<StateStack> states;
-    std::unique_ptr<AssetMap<TEXTURES, sf::Texture>> textures;
-    std::unique_ptr<AssetMap<FONTS, sf::Font>> fonts;
-    std::unique_ptr<AssetMap<SOUNDBUFFERS, sf::SoundBuffer>> sounds;
+    std::unique_ptr<TextureMap> textures;
+    std::unique_ptr<FontMap> fonts;
+    std::unique_ptr<SoundMap> sounds;
     std::unique_ptr<MusicPlayer> musics;
 
     Context();

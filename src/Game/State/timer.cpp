@@ -2,13 +2,13 @@
 
 Timer::Timer(Context& context) :
     //is_pause(false),
-    font_timer(context.fonts->get(FONTS::IBMPlexMono)),
+    font_timer(context.fonts->get(FONTS::visitor1)),
     sec(0)
 {
     text_timer.setFont(font_timer);
-    text_timer.setPosition(0, 0);
-    text_timer.setCharacterSize(40);
-    text_timer.setColor(sf::Color::Black);
+    text_timer.setPosition(5, 0);
+    text_timer.setCharacterSize(30);
+    text_timer.setFillColor(sf::Color::Red);
 }
 
 sf::Time Timer::getPlayingTime() {

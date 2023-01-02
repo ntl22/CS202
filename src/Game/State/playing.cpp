@@ -3,13 +3,13 @@
 
 PlayingState::PlayingState(Context &context)
     : m_context(context),
-      people(People(*context.window, *context.textures)),
+      people(*context.window, *context.textures),
       is_exit(false),
-      timer(Timer(context))
-{  
+      timer(context)
+{
     m_context.musics->pause(true);
-    srand(time(static_cast<unsigned>(0)));
-    a.LoadLane();
+    srand((unsigned)time(NULL));
+    a.LoadLane(*m_context.textures);
     a.setPos(0, *(m_context.window));
     // a->spawn(0, OBJECT_TYPE::CHICKEN);
     m_context.musics->setLoop(true);
