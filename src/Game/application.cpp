@@ -11,34 +11,9 @@ Application::Application()
     : WIDTH(1280), HEIGHT(720), FPS(60), is_close(false),
       context(std::make_unique<Context>())
 {
-    // context->fonts->load(FONTS::IBMPlexMono, "./assets/fonts/IBMPlexMono.ttf");
-    // context->fonts->load(FONTS::Sansation, "./assets/fonts/Sansation.ttf");
-    // context->fonts->load(FONTS::visitor1, "./assets/fonts/visitor1.ttf");
-
-    // context->textures->load(TEXTURES::car, "./assets/images/car.png");
-    // context->textures->load(TEXTURES::cat1, "./assets/images/cat1.png");
-    // context->textures->load(TEXTURES::cat2, "./assets/images/cat2.png");
-    // context->textures->load(TEXTURES::cat3, "./assets/images/cat3.png");
-    // context->textures->load(TEXTURES::chicken, "./assets/images/chicken.png");
-    // context->textures->load(TEXTURES::lane1, "./assets/images/lane1.png");
-    // context->textures->load(TEXTURES::lane2, "./assets/images/lane2.png");
-    // context->textures->load(TEXTURES::lane3, "./assets/images/lane3.png");
-    // context->textures->load(TEXTURES::lane4, "./assets/images/lane4.png");
-    // context->textures->load(TEXTURES::peopleBack, "./assets/images/peopleBack.png");
-    // context->textures->load(TEXTURES::peopleFront, "./assets/images/peopleFront.png");
-    // context->textures->load(TEXTURES::peopleLeft, "./assets/images/peopleLeft.png");
-    // context->textures->load(TEXTURES::peopleRight, "./assets/images/peopleRight.png");
-    // context->textures->load(TEXTURES::player1, "./assets/images/player1.png");
-    // context->textures->load(TEXTURES::road, "./assets/images/road.png");
-    // context->textures->load(TEXTURES::truck, "./assets/images/truck.png");
-    // context->textures->load(TEXTURES::welcome_bg, "./assets/images/welcome_bg.png");
-
-    // context->sounds->load(SOUNDBUFFERS::jump, "./assets/sounds/jump.wav");
-
+    srand((unsigned)time(NULL));
     context->window->create(
         sf::VideoMode(WIDTH, HEIGHT), "Crossy Road", sf::Style::Close);
-
-    // context->musics->load(MUSICS::intro, "./assets/sounds/intro.wav");
 
     if (!icon.loadFromFile("./assets/icon.png"))
         throw std::runtime_error("Application::Application() : cannot open icon file");

@@ -5,7 +5,7 @@ target_sources(${APP_NAME} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/animal.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/vehicle.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/road.cpp"
-    # "${CMAKE_CURRENT_SOURCE_DIR}/timer.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/timer.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/world.cpp"
 )
 

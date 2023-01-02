@@ -9,11 +9,12 @@
 #include "pause.hpp"
 #include "timer.hpp"
 
-class World : public State
+class World
 {
 public:
-    World() = default;
-    World(Context &context);
+    World(Context &context, Timer& t);
+
+    virtual ~World() = default;
 
     // void saveGame();
     // void loadGame();
@@ -22,19 +23,17 @@ public:
     void update();
     void draw();
 
-    // bool isWin() const;
+    bool isWin();
+    bool isDead();
 
 private:
-    void levelUp();
-    void resetGame();
-
     People people;
     Road road;
-    Timer timer;
+    Timer& timer;
+
+    bool is_win;
 
     Context &m_context;
-
-    bool is_exit;
 };
 
 #endif /* SRC_GAME_ENTITY_WORLD */
