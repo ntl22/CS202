@@ -2,6 +2,7 @@
 #define SRC_GAME_STATE_PAUSE
 #include "../../Framework/pch.hpp"
 
+
 class PauseState : public State
 {
 public:
