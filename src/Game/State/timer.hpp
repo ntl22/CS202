@@ -14,8 +14,8 @@ public:
     sf::Time getPlayingTime();
     std::string formatTime(const sf::Time&);
 
-    /*void pause();
-    void resume();*/
+    void pause();
+    void resume();
     //void handleEvent(/*const sf::Event& ev*/bool isPause) ;
     //void update(bool isPause);
     void draw(sf::RenderWindow& window);

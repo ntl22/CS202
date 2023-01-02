@@ -18,14 +18,12 @@ public:
     void handleEvent(const sf::Event &ev) override;
     void update(sf::Time dt) override;
     void draw() override;
-
+    Timer timer;
 private:
     Context &m_context;
     People people;
     Road a;
-    Timer timer;
 
     bool is_exit;
 };
-
 #endif /* SRC_GAME_STATE_PLAYING */
