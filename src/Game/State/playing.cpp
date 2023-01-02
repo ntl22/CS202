@@ -48,7 +48,6 @@ PlayingState::PlayingState(Context &context)
       cur_level(1),
       MAX_LEVEL(5)
 {
-    m_context.musics->setVolume(20.f);
     m_context.musics->setLoop(true);
     m_context.musics->play(MUSICS::playing);
 }
@@ -109,7 +108,7 @@ void PlayingState::update(sf::Time dt)
     if (world->isDead())
     {
         m_context.musics->stop();
-        m_context.states->push(std::make_unique<FinishState>(m_context), true);
+        m_context.states->push(std::make_unique<FinishState>(m_context, false, false, OBJECT_TYPE::CAT), true);
     }
 }
 

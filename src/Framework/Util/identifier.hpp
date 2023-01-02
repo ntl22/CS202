@@ -36,8 +36,10 @@ enum class OBJECT_TYPE
     CAT,
     CHICKEN,
     TRUCK,
-    CAR
-
+    CAR,
+    VEHICLE,
+    ANIMAL,
+    NONE
 };
 
 enum class SOUNDBUFFERS

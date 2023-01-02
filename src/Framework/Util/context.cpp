@@ -8,6 +8,6 @@ Context::Context()
     states = std::make_unique<StateStack>();
     textures = std::make_unique<TextureMap>();
     fonts = std::make_unique<FontMap>();
-    sounds = std::make_unique<SoundMap>();
+    sounds = std::make_unique<SoundManager>();
     musics = std::make_unique<MusicPlayer>();
 }

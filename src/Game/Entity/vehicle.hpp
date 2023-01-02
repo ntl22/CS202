@@ -18,10 +18,10 @@ public:
     void spawn(float y, const OBJECT_TYPE type);
     virtual sf::Vector2f getPos();
     virtual void Render(sf::RenderWindow &window);
-    virtual void update(const float velocity, sf::RenderWindow &window, People& people);
+    virtual void update(const float velocity, sf::RenderWindow &window, People &people);
     virtual sf::FloatRect GetBound();
     virtual void setPos(int x, int y);
-    virtual OBJECT_TYPE getType();
+    virtual OBJECT_TYPE getType() { return OBJECT_TYPE::VEHICLE; }
 };
 
 class Truck : public Vehicle
@@ -38,15 +38,13 @@ public:
     }
     void innitTexture(int i);
     void Render(sf::RenderWindow &window);
-    void update(const float velocity, sf::RenderWindow &window, People& people);
+    void update(const float velocity, sf::RenderWindow &window, People &people);
     sf::FloatRect GetBound();
     OBJECT_TYPE getType();
 
 private:
     sf::Sprite truck;
     sf::Texture truckTexture;
-
-private:
 };
 class Car : public Vehicle
 {
@@ -62,7 +60,7 @@ public:
         this->car.setPosition(x, y);
     }
     void innitTexture();
-    void update(const float velocity, sf::RenderWindow &window, People& people);
+    void update(const float velocity, sf::RenderWindow &window, People &people);
     void Render(sf::RenderWindow &window);
     sf::FloatRect GetBound();
     OBJECT_TYPE getType();

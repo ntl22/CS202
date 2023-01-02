@@ -5,33 +5,46 @@
 
 #include <iostream>
 
-FinishState::FinishState(Context &context)
+FinishState::FinishState(Context &context,
+                         bool is_win,
+                         bool is_highscore,
+                         OBJECT_TYPE type)
     : m_context(context), title_font(context.fonts->get(FONTS::visitor1))
 {
-    OBJECT_TYPE type;
     m_context.musics->pause(true);
     switch (type)
     {
-    case(OBJECT_TYPE::CAT):
-        sound.setBuffer(m_context.sounds->get(SOUNDBUFFERS::cat));
-        sound.play();
+    case (OBJECT_TYPE::CAT):
+        m_context.sounds->play(SOUNDBUFFERS::cat);
         break;
-    case(OBJECT_TYPE::CHICKEN):
-        sound.setBuffer(m_context.sounds->get(SOUNDBUFFERS::chicken));
-        sound.play();
+    case (OBJECT_TYPE::CHICKEN):
+        m_context.sounds->play(SOUNDBUFFERS::chicken);
         break;
-    case(OBJECT_TYPE::TRUCK):
-    case(OBJECT_TYPE::CAR):
-        sound.setBuffer(m_context.sounds->get(SOUNDBUFFERS::car));
-        sound.play();
+    case (OBJECT_TYPE::TRUCK):
+    case (OBJECT_TYPE::CAR):
+        m_context.sounds->play(SOUNDBUFFERS::car);
         break;
+    case (OBJECT_TYPE::VEHICLE):
+    case (OBJECT_TYPE::ANIMAL):
+    case (OBJECT_TYPE::NONE):
     default:
         break;
     }
 
     sf::Vector2f size(m_context.window->getSize());
 
-    title.setOutlineColor(sf::Color::Red);
+    if (is_highscore)
+    {
+        title.setOutlineColor(sf::Color::Yellow);
+    }
+    else if (is_win)
+    {
+        title.setOutlineColor(sf::Color::Green);
+    }
+    else
+    {
+        title.setOutlineColor(sf::Color::Red);
+    }
 
     title.setString("Game Over");
     title.setOutlineThickness(5);

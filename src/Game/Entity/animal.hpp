@@ -21,7 +21,7 @@ public:
     virtual void update(const float velocity, sf::RenderWindow &window, People &people);
     virtual sf::FloatRect GetBound();
     virtual void setPos(int x, int y);
-    virtual OBJECT_TYPE getType();
+    virtual OBJECT_TYPE getType() { return OBJECT_TYPE::ANIMAL; }
 };
 
 class Cat : public Animal
