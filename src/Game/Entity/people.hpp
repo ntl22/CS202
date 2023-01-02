@@ -43,6 +43,8 @@ public:
     void addSound(std::string link); // Add sound
     sf::FloatRect get_react() const;
     bool isFinish(); // Player win
+
+    friend class World;
 };
 
 #endif /* SRC_GAME_ENTITY_PEOPLE */

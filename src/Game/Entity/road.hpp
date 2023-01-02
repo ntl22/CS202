@@ -46,5 +46,7 @@ private:
     sf::Sprite lane;
     sf::Texture laneBg;
     LANE_TYPE type;
+
+    friend class World;
 };
 #endif /* SRC_GAME_ENTITY_ROAD */
