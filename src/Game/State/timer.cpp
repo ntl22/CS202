@@ -52,13 +52,13 @@ std::string Timer::formatTime(const sf::Time& time) {
 
     return str.str();
 }
-//
-//void Timer::pause() {
-//    sec = getPlayingTime().asSeconds
-//}
-//void Timer::resume() {
-//
-//}
+
+void Timer::pause() {
+    sec = clock.getElapsedTime().asSeconds();
+}
+void Timer::resume() {
+    clock.restart();
+}
 
 //void Timer::update(bool isPause) {
 //     

@@ -27,6 +27,7 @@ void PlayingState::handleEvent(const sf::Event &ev)
         }
     }
     people.handleEvent(ev);
+
 }
 
 void PlayingState::update(sf::Time dt)
@@ -39,6 +40,7 @@ void PlayingState::update(sf::Time dt)
     else
     {
         a.update(5, *(m_context.window), people);
+        
         if (people.get_dead() || people.isFinish())
             m_context.states->push(std::make_unique<FinishState>(m_context), true);
     }
