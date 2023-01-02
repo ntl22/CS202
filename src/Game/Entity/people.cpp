@@ -110,10 +110,10 @@ void People::handleEvent(const sf::Event &ev)
     control_keys[2] = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
     control_keys[3] = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
 
-    // if (1 == moved)
-    //{
-    //     addSound("./assets/sounds/jump.wav");
-    // }
+    if (1 == moved)
+    {
+        addSound("./assets/sounds/jump.wav");
+    }
 }
 
 void People::update(sf::Time dt) {}

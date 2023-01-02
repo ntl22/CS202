@@ -9,7 +9,6 @@ Lane::Lane(int i, int &count, TextureMap &textures)
         lane.setTexture(textures.get(TEXTURES::lane1));
         object = new Animal();
         type = LANE_TYPE::start;
-        lane.scale(1, 1);
         break;
     case 2:
         if (count >= 2)
@@ -19,7 +18,6 @@ Lane::Lane(int i, int &count, TextureMap &textures)
             lane.setTexture(textures.get(TEXTURES::lane3));
             object = new Animal();
             type = LANE_TYPE::dirt;
-            lane.scale(1, 1);
             break;
         }
         else
@@ -28,18 +26,16 @@ Lane::Lane(int i, int &count, TextureMap &textures)
             lane.setTexture(textures.get(TEXTURES::lane3));
             object = new Vehicle();
             type = LANE_TYPE::street;
-            lane.scale(1, 1);
             count++;
             break;
         }
     case 3:
-        if (count <= 0)
+        if (count < 0)
         {
             // laneBg.loadFromFile("assets/images/lane3.png");
             lane.setTexture(textures.get(TEXTURES::lane3));
             object = new Vehicle();
             type = LANE_TYPE::street;
-            lane.scale(1, 1);
             count++;
             break;
         }
