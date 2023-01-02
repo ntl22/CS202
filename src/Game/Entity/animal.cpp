@@ -86,10 +86,12 @@ void Animal::Render(sf::RenderWindow &window)
 }
 void Cat::Render(sf::RenderWindow &window)
 {
+
     window.draw(this->cat);
 }
 void Dog::Render(sf::RenderWindow &window)
 {
+
     window.draw(this->dog);
 }
 
@@ -106,19 +108,19 @@ void Animal::update(float velocity, sf::RenderWindow &window, People &people)
             {
                 if (animals.back()->getPos().x > 0)
                 {
-                    k = 0 - (rand() % 300 + 00) - (velocity * 12);
+                    k = 0 - (rand() % 300 + 200) - (velocity * 12);
                     animals[i]->setPos(k, animals[i]->getPos().y);
                 }
                 else
                 {
-                    k = animals.back()->getPos().x - (rand() % 300 + 100) - (velocity * 12);
+                    k = animals.back()->getPos().x - (rand() % 300 + 200) - (velocity * 12);
                     animals[i]->setPos(k, animals[i]->getPos().y);
                 }
             }
             else
             {
 
-                k = animals[i - 1]->getPos().x - (rand() % 300 + 100) - (velocity * 12);
+                k = animals[i - 1]->getPos().x - (rand() % 300 + 200) - (velocity * 12);
                 animals[i]->setPos(k, animals[i]->getPos().y);
             }
         }
@@ -141,13 +143,27 @@ sf::FloatRect Dog::GetBound()
 
 void Cat::update(float velocity, sf::RenderWindow &window, People &people)
 {
+
     if (this->cat.getGlobalBounds().intersects(people.get_react()))
-        people.set_dead();
+    {
+
+        catM.openFromFile("assets/sounds/cat.ogg");
+        // catM.setLoop(false);
+        catM.play();
+        // people.set_dead();
+    }
     this->cat.move(velocity, 0);
 }
 void Dog::update(const float velocity, sf::RenderWindow &window, People &people)
 {
+
     if (this->dog.getGlobalBounds().intersects(people.get_react()))
-        people.set_dead();
+    {
+
+        dogM.openFromFile("assets/sounds/chicken.mp3");
+        // dogM.setLoop(false);
+        dogM.play();
+        // people.set_dead();
+    }
     this->dog.move(velocity, 0);
 }
