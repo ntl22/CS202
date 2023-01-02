@@ -6,31 +6,35 @@
 #include "vehicle.hpp"
 #include "road.hpp"
 #include "people.hpp"
-// #include "timer.hpp"
+#include "pause.hpp"
+#include "timer.hpp"
 
-class World
+class World : public State
 {
 public:
-    World();
+    World() = default;
+    World(Context &context);
 
     // void saveGame();
     // void loadGame();
 
-    // void handleEvent(const sf::Event &ev);
-    // void update();
-    // void draw(sf::RenderWindow &window);
+    void handleEvent(const sf::Event &ev);
+    void update();
+    void draw();
 
     // bool isWin() const;
 
 private:
-    // void levelUp();
-    // void resetGame();
+    void levelUp();
+    void resetGame();
 
-    // People people;
-    // Road road;
-    // Timer timer;
+    People people;
+    Road road;
+    Timer timer;
 
-    // Context &context;
+    Context &m_context;
+
+    bool is_exit;
 };
 
 #endif /* SRC_GAME_ENTITY_WORLD */

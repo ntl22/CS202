@@ -12,17 +12,13 @@ class PlayingState : public State
 public:
     PlayingState(Context &context);
 
-    void handleEvent(const sf::Event &ev) override;
-    void update(sf::Time dt) override;
-    void draw() override;
-    Timer timer;
+    // void handleEvent(const sf::Event &ev) override;
+    // void update(sf::Time dt) override;
+    // void draw() override;
+    // Timer timer;
+
 private:
     Context &m_context;
-    People people;
-    Road a;
-
-    World world;
-
-    bool is_exit;
+    std::vector<World> worlds;
 };
 #endif /* SRC_GAME_STATE_PLAYING */
