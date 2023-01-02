@@ -2,10 +2,7 @@
 #define SRC_GAME_STATE_PLAYING
 #include "../../Framework/pch.hpp"
 
-#include "../Entity/people.hpp"
-#include "../Entity/animal.hpp"
-#include "../Entity/vehicle.hpp"
-#include "../Entity/road.hpp"
+#include "../Entity/world.hpp"
 
 #include "pause.hpp"
 #include "timer.hpp"
@@ -24,6 +21,8 @@ private:
     People people;
     Road a;
     Timer timer;
+
+    World world;
 
     bool is_exit;
 };
