@@ -15,6 +15,7 @@ public:
     virtual void update(const float velocity, sf::RenderWindow &window, People& people) = 0;
     virtual sf::FloatRect GetBound() = 0;
     virtual void setPos(int x, int y) = 0;
+    virtual OBJECT_TYPE getType() = 0;
 };
 
 #endif /* SRC_GAME_ENTITY_OBJECT */

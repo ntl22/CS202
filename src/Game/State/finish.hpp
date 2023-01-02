@@ -15,6 +15,7 @@ private:
     sf::Font title_font;
     sf::Text title;
     sf::Sprite background;
+    sf::Sound sound;
 
     std::unique_ptr<Button> button[2];
     int cur = -1;

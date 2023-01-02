@@ -151,3 +151,11 @@ void Car::update(const float velocity, sf::RenderWindow &window, People &people)
         people.set_dead();
     this->car.move(velocity, 0);
 }
+
+OBJECT_TYPE Truck::getType() {
+    return OBJECT_TYPE::TRUCK;
+}
+
+OBJECT_TYPE Car::getType() {
+    return OBJECT_TYPE::CAR;
+}

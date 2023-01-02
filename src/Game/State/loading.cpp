@@ -54,6 +54,9 @@ private:
         tmp.textures->load(TEXTURES::welcome_bg, "./assets/images/welcome_bg.png");
 
         tmp.sounds->load(SOUNDBUFFERS::jump, "./assets/sounds/jump.wav");
+        tmp.sounds->load(SOUNDBUFFERS::cat, "./assets/sounds/cat.wav");
+        tmp.sounds->load(SOUNDBUFFERS::chicken, "./assets/sounds/chicken.wav");
+        tmp.sounds->load(SOUNDBUFFERS::car, "./assets/sounds/car.wav");
 
         tmp.musics->load(MUSICS::intro, "./assets/sounds/intro.wav");
         tmp.musics->load(MUSICS::playing, "./assets/sounds/game.flac");

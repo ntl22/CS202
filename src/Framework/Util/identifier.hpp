@@ -42,7 +42,10 @@ enum class OBJECT_TYPE
 
 enum class SOUNDBUFFERS
 {
-    jump
+    jump,
+    cat,
+    chicken,
+    car
 };
 
 enum class MUSICS

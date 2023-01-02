@@ -48,6 +48,7 @@ PlayingState::PlayingState(Context &context)
       cur_level(1),
       MAX_LEVEL(5)
 {
+    m_context.musics->setVolume(20.f);
     m_context.musics->setLoop(true);
     m_context.musics->play(MUSICS::playing);
 }

@@ -146,11 +146,8 @@ void Cat::update(float velocity, sf::RenderWindow &window, People &people)
 
     if (this->cat.getGlobalBounds().intersects(people.get_react()))
     {
-
-        catM.openFromFile("assets/sounds/cat.ogg");
-        // catM.setLoop(false);
-        catM.play();
-        // people.set_dead();
+        //people.addSound("./assets/sounds/cat.wav");
+        people.set_dead();
     }
     this->cat.move(velocity, 0);
 }
@@ -159,11 +156,16 @@ void Dog::update(const float velocity, sf::RenderWindow &window, People &people)
 
     if (this->dog.getGlobalBounds().intersects(people.get_react()))
     {
-
-        dogM.openFromFile("assets/sounds/chicken.mp3");
-        // dogM.setLoop(false);
-        dogM.play();
-        // people.set_dead();
+        //people.addSound("./assets/sounds/chicken.wav");
+        people.set_dead();
     }
     this->dog.move(velocity, 0);
+}
+
+OBJECT_TYPE Cat::getType() {
+    return OBJECT_TYPE::CAT;
+}
+
+OBJECT_TYPE Dog::getType() {
+    return OBJECT_TYPE::CHICKEN;
 }

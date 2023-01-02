@@ -123,6 +123,7 @@ void People::addSound(std::string link)
     buffer.loadFromFile(link);
     sound.setBuffer(buffer);
     sound.setLoop(false);
+    sound.getPlayingOffset();
     sound.play();
 }
 

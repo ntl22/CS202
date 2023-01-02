@@ -21,6 +21,7 @@ public:
     virtual void update(const float velocity, sf::RenderWindow &window, People &people);
     virtual sf::FloatRect GetBound();
     virtual void setPos(int x, int y);
+    virtual OBJECT_TYPE getType();
 };
 
 class Cat : public Animal
@@ -39,6 +40,7 @@ public:
     void update(const float velocity, sf::RenderWindow &window, People &people);
     sf::FloatRect GetBound();
     void setPos(int x, int y);
+    OBJECT_TYPE getType();
 
 private:
     sf::Sprite cat;
@@ -66,6 +68,7 @@ public:
     void Render(sf::RenderWindow &window);
     sf::FloatRect GetBound();
     void setPos(int x, int y);
+    OBJECT_TYPE getType();
 
 public:
     sf::Sprite dog;

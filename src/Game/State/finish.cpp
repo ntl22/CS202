@@ -8,7 +8,26 @@
 FinishState::FinishState(Context &context)
     : m_context(context), title_font(context.fonts->get(FONTS::visitor1))
 {
+    OBJECT_TYPE type;
     m_context.musics->pause(true);
+    switch (type)
+    {
+    case(OBJECT_TYPE::CAT):
+        sound.setBuffer(m_context.sounds->get(SOUNDBUFFERS::cat));
+        sound.play();
+        break;
+    case(OBJECT_TYPE::CHICKEN):
+        sound.setBuffer(m_context.sounds->get(SOUNDBUFFERS::chicken));
+        sound.play();
+        break;
+    case(OBJECT_TYPE::TRUCK):
+    case(OBJECT_TYPE::CAR):
+        sound.setBuffer(m_context.sounds->get(SOUNDBUFFERS::car));
+        sound.play();
+        break;
+    default:
+        break;
+    }
 
     sf::Vector2f size(m_context.window->getSize());
 
