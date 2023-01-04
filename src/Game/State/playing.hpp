@@ -14,6 +14,9 @@ public:
     void draw() override;
 
 private:
+    void saveGame(std::string path);
+    void loadGame(std::string path);
+
     Context &m_context;
     Timer timer;
     
@@ -21,6 +24,8 @@ private:
     unsigned cur_level;
 
     const unsigned MAX_LEVEL;
-    bool is_exit, is_pause;
+    bool is_exit;
+
+    friend class LoadState;
 };
 #endif /* SRC_GAME_STATE_PLAYING */

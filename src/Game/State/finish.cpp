@@ -6,10 +6,12 @@
 #include <iostream>
 
 FinishState::FinishState(Context &context,
+                         Timer timer,
                          bool is_win,
-                         bool is_highscore,
                          OBJECT_TYPE type)
-    : m_context(context), title_font(context.fonts->get(FONTS::visitor1))
+    : m_context(context),
+      m_timer(timer),
+      title_font(context.fonts->get(FONTS::visitor1))
 {
     m_context.musics->pause(true);
     switch (type)
@@ -24,8 +26,6 @@ FinishState::FinishState(Context &context,
     case (OBJECT_TYPE::CAR):
         m_context.sounds->play(SOUNDBUFFERS::car);
         break;
-    case (OBJECT_TYPE::VEHICLE):
-    case (OBJECT_TYPE::ANIMAL):
     case (OBJECT_TYPE::NONE):
     default:
         break;
@@ -33,7 +33,7 @@ FinishState::FinishState(Context &context,
 
     sf::Vector2f size(m_context.window->getSize());
 
-    if (is_highscore)
+    if (compareTime())
     {
         title.setOutlineColor(sf::Color::Yellow);
     }
@@ -145,4 +145,9 @@ void FinishState::draw()
     int i;
     for (i = 0; i < 2; i++)
         m_context.window->draw(*button[i]);
+}
+
+bool FinishState::compareTime()
+{
+    return false;
 }

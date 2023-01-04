@@ -2,8 +2,9 @@
 
 #include "save.hpp"
 
-PauseState::PauseState(Context &context, bool &exit_ref)
+PauseState::PauseState(Context &context, Timer &timer, bool &exit_ref)
     : m_context(context),
+      m_timer(timer),
       is_exit(exit_ref),
       font_pause(context.fonts->get(FONTS::Sansation)),
       cur(-1)
@@ -29,7 +30,9 @@ PauseState::PauseState(Context &context, bool &exit_ref)
     buttons[0]->setHoverColor(sf::Color(255, 219, 62));
     buttons[0]->setPosition(center - sf::Vector2f(0, 100));
     buttons[0]->setCallback([this]()
-                            { m_context.states->pop(); m_context.musics->pause(false); });
+                            { m_context.states->pop(); 
+                              m_context.musics->pause(false);
+                              m_timer.exitPauseState(); });
 
     buttons[1]->setText("Save game");
     buttons[1]->setHoverColor(sf::Color(111, 225, 62));

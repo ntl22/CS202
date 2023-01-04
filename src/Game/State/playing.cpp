@@ -6,9 +6,10 @@
 class LevelUpState : public State
 {
 public:
-    LevelUpState(Context &context, const int &level)
+    LevelUpState(Context &context, Timer &timer, const int &level)
         : next_level("Level " + std::to_string(level) + " is next!",
                      context.fonts->get(FONTS::visitor1), 70U),
+          m_timer(timer),
           m_context(context)
     {
         next_level.setFillColor(sf::Color::Green);
@@ -23,6 +24,7 @@ public:
         {
             m_context.musics->pause(false);
             m_context.states->pop();
+            m_timer.exitPauseState();
         }
     }
 
@@ -37,14 +39,14 @@ private:
     sf::Text next_level;
 
     Context &m_context;
+    Timer &m_timer;
 };
 
 PlayingState::PlayingState(Context &context)
     : m_context(context),
       timer(context),
       is_exit(false),
-      is_pause(false),
-      world(std::make_unique<World>(context, timer)),
+      world(std::make_unique<World>(timer, context)),
       cur_level(1),
       MAX_LEVEL(5)
 {
@@ -58,7 +60,9 @@ void PlayingState::handleEvent(const sf::Event &ev)
     {
         if (ev.key.code == sf::Keyboard::P)
         {
-            is_pause = true;
+            m_context.musics->pause(true);
+            m_context.states->push(std::make_unique<PauseState>(m_context, timer, is_exit));
+            m_context.states->handleStack();
             return;
         }
     }
@@ -67,15 +71,6 @@ void PlayingState::handleEvent(const sf::Event &ev)
 
 void PlayingState::update(sf::Time dt)
 {
-    if (is_pause)
-    {
-        timer.pushPauseState();
-        m_context.musics->pause(true);
-        m_context.states->push(std::make_unique<PauseState>(m_context, is_exit));
-        is_pause = false;
-        return;
-    }
-
     if (is_exit)
     {
         m_context.states->pop();
@@ -83,36 +78,58 @@ void PlayingState::update(sf::Time dt)
         return;
     }
 
-    world->update();
-    timer.update();
+    auto status = world->update(dt);
 
-    if (world->isWin())
+    switch (status.first)
     {
+    case STATUS::WIN:
         if (cur_level < MAX_LEVEL)
         {
             m_context.musics->setLoop(true);
-            std::unique_ptr<World> new_level(new World(m_context, timer));
+            std::unique_ptr<World> new_level(new World(timer, m_context));
             cur_level++;
             m_context.musics->pause(true);
-            timer.pushPauseState();
             std::swap(new_level, world);
-            m_context.states->push(std::make_unique<LevelUpState>(m_context, cur_level));
+            m_context.states->push(std::make_unique<LevelUpState>(m_context, timer, cur_level));
         }
         else
         {
             m_context.musics->stop();
-            m_context.states->push(std::make_unique<FinishState>(m_context), true);
+            m_context.states->push(std::make_unique<FinishState>(m_context, timer, true), true);
         }
-    }
-
-    if (world->isDead())
-    {
+        break;
+    case STATUS::DEAD:
         m_context.musics->stop();
-        m_context.states->push(std::make_unique<FinishState>(m_context, false, false, OBJECT_TYPE::CAT), true);
+        m_context.states->push(std::make_unique<FinishState>(m_context, timer, false, status.second), true);
+        break;
+    case STATUS::PLAYING:
+        break;
     }
 }
 
 void PlayingState::draw()
 {
     world->draw();
+}
+
+void PlayingState::saveGame(std::string path)
+{
+    std::ofstream fout(path);
+
+    fout << cur_level << '\n';
+    timer.saveGame(fout);
+    world->saveGame(fout);
+}
+
+void PlayingState::loadGame(std::string path)
+{
+    std::ifstream fin(path);
+
+    fin >> cur_level;
+    fin.ignore(1000, '\n');
+    timer.loadGame(fin);
+
+    world = std::make_unique<World>(timer, m_context);
+    world->loadGame(fin);
+    timer.exitPauseState();
 }

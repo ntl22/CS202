@@ -37,8 +37,6 @@ enum class OBJECT_TYPE
     CHICKEN,
     TRUCK,
     CAR,
-    VEHICLE,
-    ANIMAL,
     NONE
 };
 
@@ -55,11 +53,5 @@ enum class MUSICS
     intro,
     playing
 };
-enum class LANE_TYPE
-{
-    goal,
-    start,
-    dirt,
-    street
-};
+
 #endif /* SRC_FRAMEWORK_UTIL_IDENTIFIER */

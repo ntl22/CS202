@@ -117,7 +117,7 @@ void LoadState::loadGame()
         auto playing = std::make_unique<PlayingState>(m_context);
 
         // Loading task...
-        // playing->load(PATH + file_name + ".txt");
+        // playing->loadGame(PATH + file_name + ".txt");
 
         m_context.states->push(std::move(playing), true);
     }
