@@ -20,6 +20,7 @@ Animal::Animal(OBJECT_TYPE type, TextureMap &map)
     animal.setTexture(animalTex);
     animal.scale(1.5, 1.5);
 }
+
 Vehicle::Vehicle(OBJECT_TYPE type, TextureMap &map)
 {
     switch (type)
@@ -27,7 +28,7 @@ Vehicle::Vehicle(OBJECT_TYPE type, TextureMap &map)
     case OBJECT_TYPE::TRUCK:
         vehicleTex = map.get(TEXTURES::truck);
         break;
-    case OBJECT_TYPE::CHICKEN:
+    case OBJECT_TYPE::CAR:
         vehicleTex = map.get(TEXTURES::car);
         break;
     }
@@ -106,18 +107,18 @@ void ListOfObstacle::update(sf::Time dt, unsigned velocity, People &people, sf::
                 if (list.back()->getPos().x > 0)
                 {
                     tmp = 0 - (rand() % 300 + 200) - (velocity * 12);
-                    list[i]->setPos(tmp, (unsigned)list[i]->getPos().y);
+                    list[i]->setPos(tmp, list[i]->getPos().y);
                 }
                 else
                 {
-                    tmp = (int)(list.back()->getPos().x - (rand() % 300 + 200) - (velocity * 12));
-                    list[i]->setPos(tmp, (unsigned)list[i]->getPos().y);
+                    tmp = list.back()->getPos().x - (rand() % 300 + 200) - (velocity * 12);
+                    list[i]->setPos(tmp, list[i]->getPos().y);
                 }
             }
             else
             {
-                tmp = (int)(list[i - 1]->getPos().x - (rand() % 300 + 200) - (velocity * 12));
-                list[i]->setPos(tmp, (unsigned)list[i]->getPos().y);
+                tmp = list[i - 1]->getPos().x - (rand() % 300 + 200) - (velocity * 12);
+                list[i]->setPos(tmp, list[i]->getPos().y);
             }
         }
     }

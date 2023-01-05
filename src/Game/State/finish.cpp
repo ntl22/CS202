@@ -11,6 +11,7 @@ FinishState::FinishState(Context &context,
                          OBJECT_TYPE type)
     : m_context(context),
       m_timer(timer),
+      cur(-1),
       title_font(context.fonts->get(FONTS::visitor1))
 {
     m_context.musics->pause(true);

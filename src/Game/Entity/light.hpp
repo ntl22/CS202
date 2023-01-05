@@ -16,8 +16,7 @@ public:
 private:
     sf::Sprite light_sprite;
 
-
-    const sf::Time between;
+    sf::Time between;
     
     sf::Time last_update;
 

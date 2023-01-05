@@ -61,13 +61,22 @@ Road::Road(Context &context)
     : roads(7), collied(OBJECT_TYPE::NONE)
 {
   unsigned animals = rand() % 3 + 1;
-  unsigned vehicles = 4 - animals;
+
+  bool arr[4] = {0};
+
+  while (animals)
+  {
+    int index = rand() % 4;
+    if (!arr[index])
+    {
+      arr[index] = 1;
+      animals--;
+    }
+  }
 
   size_t i = 0;
-  int selection;
-  bool finish;
   OBJECT_TYPE type;
-
+  int index = 0;
   float tmp_tl = 0;
 
   while (i < 7)
@@ -82,24 +91,15 @@ Road::Road(Context &context)
     }
     else
     {
-      finish = false;
-      while (!finish)
+      if (arr[index++])
       {
-        selection = rand() % 2;
-        if (selection && vehicles)
-        {
-          type = rand() % 2 ? OBJECT_TYPE::TRUCK : OBJECT_TYPE::CAT;
-          roads[i] = std::make_unique<Lane>(tmp_tl, LANE_TYPE::street, *context.textures, type);
-          --vehicles;
-          finish = true;
-        }
-        else
-        {
-          type = rand() % 2 ? OBJECT_TYPE::CAT : OBJECT_TYPE::CHICKEN;
-          roads[i] = std::make_unique<Lane>(tmp_tl, LANE_TYPE::street, *context.textures, type);
-          --vehicles;
-          finish = true;
-        }
+        type = rand() % 2 ? OBJECT_TYPE::TRUCK : OBJECT_TYPE::CAR;
+        roads[i] = std::make_unique<Lane>(tmp_tl, LANE_TYPE::street, *context.textures, type);
+      }
+      else
+      {
+        type = rand() % 2 ? OBJECT_TYPE::CAT : OBJECT_TYPE::CHICKEN;
+        roads[i] = std::make_unique<Lane>(tmp_tl, LANE_TYPE::street, *context.textures, type);
       }
     }
     tmp_tl += roads[i++]->getBound();
@@ -121,7 +121,10 @@ void Road::update(sf::Time dt,
   {
     r->update(dt, people, light, window);
     if (people.getPlayingStatus() == STATUS::DEAD)
+    {
       collied = r->getType();
+      break;
+    }
   }
 }
 
