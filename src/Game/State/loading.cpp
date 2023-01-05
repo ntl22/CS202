@@ -57,6 +57,7 @@ private:
         tmp.sounds->load(SOUNDBUFFERS::cat, "./assets/sounds/cat.wav");
         tmp.sounds->load(SOUNDBUFFERS::chicken, "./assets/sounds/chicken.wav");
         tmp.sounds->load(SOUNDBUFFERS::car, "./assets/sounds/car.wav");
+        tmp.sounds->load(SOUNDBUFFERS::light, "./assets/sounds/light.wav");
 
         tmp.musics->load(MUSICS::intro, "./assets/sounds/intro.wav");
         tmp.musics->load(MUSICS::playing, "./assets/sounds/game.flac");

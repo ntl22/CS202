@@ -45,7 +45,8 @@ enum class SOUNDBUFFERS
     jump,
     cat,
     chicken,
-    car
+    car,
+    light
 };
 
 enum class MUSICS
