@@ -66,12 +66,12 @@ sf::FloatRect Vehicle::getBound()
     return vehicle.getGlobalBounds();
 }
 
-void Animal::setPos(unsigned x, unsigned y)
+void Animal::setPos(int x, int y)
 {
     this->animal.setPosition(x * 1.f, y * 1.f);
 }
 
-void Vehicle::setPos(unsigned x, unsigned y)
+void Vehicle::setPos(int x, int y)
 {
     this->vehicle.setPosition(x * 1.f, y * 1.f);
 }

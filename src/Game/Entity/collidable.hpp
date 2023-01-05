@@ -24,7 +24,7 @@ public:
     virtual void handleEvent(const sf::Event &ev) = 0;
     virtual sf::FloatRect getBound() = 0;
     virtual sf::Vector2f getPos() = 0;
-    virtual void setPos(unsigned x, unsigned y) = 0;
+    virtual void setPos(int x, int y) = 0;
     void collisionProcedure(People &people);
 };
 
@@ -36,7 +36,7 @@ public:
     void draw(sf::RenderWindow &window);
     void update(sf::Time dt, unsigned velocity, People &people, sf::RenderWindow &window);
     sf::FloatRect getBound();
-    void setPos(unsigned x, unsigned y);
+    void setPos(int x, int y);
     sf::Vector2f getPos();
     void handleEvent(const sf::Event &ev) {}
 
@@ -53,7 +53,7 @@ public:
     void draw(sf::RenderWindow &window);
     void update(sf::Time dt, unsigned velocity, People &people, sf::RenderWindow &window);
     sf::Vector2f getPos();
-    void setPos(unsigned x, unsigned y);
+    void setPos(int x, int y);
     void handleEvent(const sf::Event &ev) {}
     sf::FloatRect getBound();
 
@@ -73,7 +73,7 @@ private:
 
     sf::Vector2f getPos() { return {0.f, 0.f}; }
 
-    void setPos(unsigned x, unsigned y) {}
+    void setPos(int x, int y) {}
 
     sf::FloatRect getBound() { return {0.f, 0.f, 0.f, 0.f}; }
 
