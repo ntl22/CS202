@@ -4,7 +4,7 @@ Timer::Timer(Context &context)
 {
     to_text.setFont(context.fonts->get(FONTS::visitor1));
     to_text.setPosition(5, 0);
-    to_text.setCharacterSize(30);
+    to_text.setCharacterSize(40U);
     to_text.setFillColor(sf::Color::Red);
     to_text.setString("00:00:00");
 }
@@ -27,7 +27,7 @@ void Timer::draw(sf::RenderWindow &window)
     window.draw(to_text);
 }
 
-void Timer::loadGame(std::ifstream& fin)
+void Timer::loadGame(std::ifstream &fin)
 {
     float seconds;
     fin >> seconds;
@@ -35,7 +35,7 @@ void Timer::loadGame(std::ifstream& fin)
     fin.ignore(1000, '\n');
 }
 
-void Timer::saveGame(std::ofstream &fout) 
+void Timer::saveGame(std::ofstream &fout)
 {
     fout << timer.asSeconds() + clock.getElapsedTime().asSeconds() << '\n';
 }

@@ -98,7 +98,7 @@ public:
 
                 list[i] = std::make_unique<Animal>(type, map);
                 list[i]->setPos(tmp, position);
-                tmp -= (dis + 0.5 * list[i]->getBound().height);
+                tmp -= (dis + 0.5 * list[i]->getBound().height + 50);
             }
             break;
         case OBJECT_TYPE::CHICKEN:
@@ -114,10 +114,10 @@ public:
         case OBJECT_TYPE::CAR:
             for (i = 0; i < list.size(); i++)
             {
-                int dis = rand() % 400;
+                int dis = rand() % 200 + 100;
                 list[i] = std::make_unique<Vehicle>(type, map);
                 list[i]->setPos(tmp, position);
-                tmp -= (dis + 0.5 * list[i]->getBound().height + 50);
+                tmp -= (dis + 0.5 * list[i]->getBound().height);
             }
             break;
         case OBJECT_TYPE::TRUCK:

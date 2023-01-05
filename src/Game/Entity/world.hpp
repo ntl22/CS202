@@ -13,7 +13,7 @@ class World
 public:
     World(Timer &timer,
           Context &context,
-          unsigned speed = 5,
+          unsigned speed = 10,
           unsigned num = 5);
 
     void handleEvent(const sf::Event &ev);
@@ -30,6 +30,9 @@ private:
 
     Timer &m_timer;
     Context &m_context;
+
+    sf::Text guide;
+    sf::Font guideFont;
 
     friend class SaveState;
     friend class PlayingState;

@@ -8,7 +8,15 @@ World::World(Timer &timer,
       road(context),
       light(context),
       m_timer(timer),
-      m_context(context) {}
+      m_context(context),
+      guideFont(context.fonts->get(FONTS::visitor1))
+{
+
+    guide.setFont(guideFont);
+    guide.setString("Arrow key to move \nP to pause");
+    guide.setCharacterSize(30U);
+    guide.setPosition(5, context.window->getSize().y - guide.getGlobalBounds().height * 1.5);
+}
 
 void World::handleEvent(const sf::Event &ev)
 {
@@ -22,6 +30,7 @@ void World::draw()
     m_context.window->draw(light.light_sprite);
     player.draw(*m_context.window);
     m_timer.draw(*m_context.window);
+    m_context.window->draw(guide);
 }
 
 std::pair<STATUS, OBJECT_TYPE> World::update(sf::Time dt)
@@ -41,7 +50,6 @@ std::pair<STATUS, OBJECT_TYPE> World::update(sf::Time dt)
 
 void World::saveGame(std::ofstream &fout)
 {
-    
 }
 
 void World::loadGame(std::ifstream &fin)
