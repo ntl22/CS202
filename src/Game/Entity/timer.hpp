@@ -7,6 +7,11 @@ class Timer
 public:
     Timer(Context &context);
 
+    sf::Time getTime()
+    {
+        return timer;
+    }
+
     sf::Time update();
     void exitPauseState();
     void draw(sf::RenderWindow &window);

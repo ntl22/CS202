@@ -34,20 +34,22 @@ FinishState::FinishState(Context &context,
 
     sf::Vector2f size(m_context.window->getSize());
 
-    if (compareTime())
+    if (is_win && compareTime())
     {
         title.setOutlineColor(sf::Color::Yellow);
+        title.setString("New highscore");
     }
     else if (is_win)
     {
         title.setOutlineColor(sf::Color::Green);
+        title.setString("You Win!");
     }
     else
     {
         title.setOutlineColor(sf::Color::Red);
+        title.setString("Game Over");
     }
 
-    title.setString("Game Over");
     title.setOutlineThickness(5);
     title.setFont(title_font);
     title.setCharacterSize(90U);
@@ -150,5 +152,36 @@ void FinishState::draw()
 
 bool FinishState::compareTime()
 {
+    std::string file_name = std::string(FOLDER) + std::string(HIGHSCORE_FILE);
+
+    if (!std::filesystem::exists(FOLDER))
+    {
+        std::filesystem::create_directory(FOLDER);
+        std::ofstream f_dummy(file_name);
+        f_dummy << m_timer.getTime().asSeconds() << '\n';
+        return true;
+    }
+
+    if (!std::filesystem::exists(file_name))
+    {
+        std::ofstream f_dummy(file_name);
+        f_dummy << m_timer.getTime().asSeconds() << '\n';
+        return true;
+    }
+
+    float old, time = m_timer.getTime().asSeconds();
+
+    std::ifstream getTime(file_name);
+    getTime >> old;
+    getTime.close();
+    std::filesystem::remove(file_name);
+
+    if (old > time)
+    {
+        std::ofstream newTime(file_name);
+        newTime << time << '\n';
+        return true;
+    }
+
     return false;
 }

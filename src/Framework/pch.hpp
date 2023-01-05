@@ -47,5 +47,6 @@
 
 constexpr char *FOLDER = "info/";
 constexpr char *SAVE_FOLDER = "save/";
+constexpr char *HIGHSCORE_FILE = "high.txt";
 
 #endif /* SRC_FRAMEWORK_PCH */
