@@ -38,6 +38,8 @@ public:
     virtual OBJECT_TYPE getType();
 
 private:
+    void saveGame(std::ofstream& fout);
+    void loadGame(std::ifstream& fin);
     sf::Sprite road;
     sf::Texture roadBg;
     std::unique_ptr<ListOfObstacle> object;
@@ -63,6 +65,8 @@ public:
     OBJECT_TYPE getType();
 
 private:
+    void saveGame(std::ofstream& fout);
+    void loadGame(std::ifstream& fin);
     std::vector<std::unique_ptr<Lane>> roads;
 
     OBJECT_TYPE collied;

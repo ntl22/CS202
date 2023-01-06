@@ -78,6 +78,9 @@ private:
     sf::FloatRect getBound() { return {0.f, 0.f, 0.f, 0.f}; }
 
 public:
+    void saveGame(std::ofstream& fout);
+    void loadGame(std::ifstream& fin);
+
     ListOfObstacle(float position, unsigned num, OBJECT_TYPE type, TextureMap &map)
         : list(type != OBJECT_TYPE::NONE ? num : 0), m_type(type)
     {

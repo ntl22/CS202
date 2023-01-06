@@ -13,8 +13,9 @@ public:
     void update(sf::Time dt) override;
     void draw() override;
 
-private:
     void saveGame(std::string path);
+
+private:
     void loadGame(std::string path);
 
     Context &m_context;

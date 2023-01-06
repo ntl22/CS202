@@ -51,8 +51,14 @@ std::pair<STATUS, OBJECT_TYPE> World::update(sf::Time dt)
 
 void World::saveGame(std::ofstream &fout)
 {
+    player.saveGame(fout);
+    //road.saveGame(fout);
+    //light.saveGame(fout);
 }
 
 void World::loadGame(std::ifstream &fin)
 {
+    //light.loadGame(fin);
+    //road.loadGame(fin);
+    player.loadGame(fin);
 }

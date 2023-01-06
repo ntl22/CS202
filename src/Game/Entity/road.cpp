@@ -132,3 +132,21 @@ OBJECT_TYPE Road::getType()
 {
   return collied;
 }
+
+void Road::saveGame(std::ofstream& fout) {
+    for (auto& i : roads)
+        i->saveGame(fout);
+}
+
+void Road::loadGame(std::ifstream& fin) {
+    for (auto& i : roads)
+        i->loadGame(fin);
+}
+
+void Lane::saveGame(std::ofstream& fout) {
+    object->saveGame(fout);
+}
+
+void Lane::loadGame(std::ifstream& fin) {
+    object->loadGame(fin);
+}

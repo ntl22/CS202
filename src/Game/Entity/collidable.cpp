@@ -125,3 +125,18 @@ void ListOfObstacle::update(sf::Time dt, unsigned velocity, People &people, sf::
         }
     }
 }
+
+void ListOfObstacle::saveGame(std::ofstream& fout) {
+    for (std::unique_ptr<Obstacle>& i : list)
+        fout << i->getPos().x << " " << i->getPos().y << "\n";
+}
+
+void ListOfObstacle::loadGame(std::ifstream& fin) {
+    int x;
+    int y;
+    for (std::unique_ptr<Obstacle>& i : list) {
+        fin >> x >> y;
+        setPos(x, y);
+    }
+    fin.ignore(1000, '\n');
+}
