@@ -17,12 +17,10 @@ private:
     void update();
     void render();
 
-    std::unique_ptr<Context> context;
+    Context context;
     sf::Image icon;
     sf::Event ev;
     sf::Time dt;
-
-    bool is_close;
 
     const unsigned FPS;
     const unsigned WIDTH, HEIGHT;

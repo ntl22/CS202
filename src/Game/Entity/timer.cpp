@@ -3,7 +3,7 @@
 Timer::Timer(Context &context)
 {
     to_text.setFont(context.fonts->get(FONTS::visitor1));
-    to_text.setPosition(5, 0);
+    to_text.setPosition(15, 0);
     to_text.setCharacterSize(40U);
     to_text.setFillColor(sf::Color::Red);
     to_text.setString("00:00:00");

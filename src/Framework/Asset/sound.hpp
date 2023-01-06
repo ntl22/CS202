@@ -8,7 +8,7 @@
 
 enum class SOUNDBUFFERS;
 
-class SoundManager
+class SoundManager : private sf::NonCopyable
 {
 public:
     void load(SOUNDBUFFERS id, const std::string &path);

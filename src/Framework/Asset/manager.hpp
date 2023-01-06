@@ -9,7 +9,7 @@
 #include <string>
 
 template <typename Identifier, typename Asset>
-class AssetMap
+class AssetMap : private sf::NonCopyable
 {
 public:
     AssetMap() = default;

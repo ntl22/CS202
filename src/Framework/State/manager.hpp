@@ -5,7 +5,7 @@
 #include <memory>
 #include <stack>
 
-class StateStack
+class StateStack : private sf::NonCopyable
 {
 public:
     void push(std::unique_ptr<State> state, bool is_replace = false);

@@ -102,24 +102,26 @@ void ListOfObstacle::update(sf::Time dt, unsigned velocity, People &people, sf::
         if (list[i]->getBound().left > window.getSize().x)
         {
             int tmp;
+
+            int dis = rand() % 201 + 100;
+
             if (i == 0)
             {
                 if (list.back()->getPos().x > 0)
                 {
-                    tmp = 0 - (rand() % 300 + 200) - (velocity * 12);
-                    list[i]->setPos(tmp, list[i]->getPos().y);
+                    tmp = 0 - dis - (velocity * 12);
                 }
                 else
                 {
-                    tmp = list.back()->getPos().x - (rand() % 300 + 200) - (velocity * 12);
-                    list[i]->setPos(tmp, list[i]->getPos().y);
+                    tmp = list.back()->getPos().x - dis - (velocity * 12);
                 }
             }
             else
             {
-                tmp = list[i - 1]->getPos().x - (rand() % 300 + 200) - (velocity * 12);
-                list[i]->setPos(tmp, list[i]->getPos().y);
+                tmp = list[i - 1]->getPos().x - dis - (velocity * 12);
             }
+
+            list[i]->setPos(tmp, list[i]->getPos().y);
         }
     }
 }

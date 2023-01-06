@@ -11,17 +11,18 @@ World::World(Timer &timer,
       m_context(context),
       guideFont(context.fonts->get(FONTS::visitor1))
 {
-
+    light.light_sprite.setPosition({m_context.window->getSize().x -
+                                        light.light_sprite.getLocalBounds().width - 10.f,
+                                    10});
     guide.setFont(guideFont);
     guide.setString("Arrow key to move \nP to pause");
     guide.setCharacterSize(30U);
-    guide.setPosition(5, context.window->getSize().y - guide.getGlobalBounds().height * 1.5);
+    guide.setPosition(5, context.window->getSize().y - guide.getGlobalBounds().height * 1.5f);
 }
 
 void World::handleEvent(const sf::Event &ev)
 {
     player.handleEvent(ev);
-    light.light_sprite.setPosition({m_context.window->getSize().x - light.light_sprite.getLocalBounds().width - 10.f, 0});
 }
 
 void World::draw()

@@ -97,8 +97,8 @@ public:
                 dis = rand() % 200 + 100;
 
                 list[i] = std::make_unique<Animal>(type, map);
-                list[i]->setPos(tmp, position);
-                tmp -= (dis + 0.5 * list[i]->getBound().height + 50);
+                list[i]->setPos(tmp, (int)position);
+                tmp -= (int)(dis + 0.5 * list[i]->getBound().height + 50);
             }
             break;
         case OBJECT_TYPE::CHICKEN:
@@ -107,8 +107,8 @@ public:
                 dis = rand() % 400;
 
                 list[i] = std::make_unique<Animal>(type, map);
-                list[i]->setPos(tmp, position);
-                tmp -= (dis + 0.5 * list[i]->getBound().height + 50);
+                list[i]->setPos(tmp, (int)position);
+                tmp -= (int)(dis + 0.5 * list[i]->getBound().height + 50);
             }
             break;
         case OBJECT_TYPE::CAR:
@@ -116,8 +116,8 @@ public:
             {
                 int dis = rand() % 200 + 100;
                 list[i] = std::make_unique<Vehicle>(type, map);
-                list[i]->setPos(tmp, position);
-                tmp -= (dis + 0.5 * list[i]->getBound().height);
+                list[i]->setPos(tmp, (int)position);
+                tmp -= (int)(dis + 0.5 * list[i]->getBound().height);
             }
             break;
         case OBJECT_TYPE::TRUCK:
@@ -125,8 +125,8 @@ public:
             {
                 int dis = rand() % 200 + 100;
                 list[i] = std::make_unique<Vehicle>(type, map);
-                list[i]->setPos(tmp, position);
-                tmp -= (dis + 0.5 * list[i]->getBound().height);
+                list[i]->setPos(tmp, (int)position);
+                tmp -= (int)(dis + 0.5 * list[i]->getBound().height);
             }
             break;
         default:
