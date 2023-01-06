@@ -1,5 +1,7 @@
 #include "save.hpp"
 
+#include "playing.hpp"
+
 SaveState::SaveState(Context &context)
     : m_context(context),
       title("Save Game", context.fonts->get(FONTS::visitor1), 60U),
@@ -98,4 +100,7 @@ void SaveState::saveGame()
         std::filesystem::create_directories(PATH);
 
     std::ofstream fout(PATH + file_name + ".txt");
+    auto playing = std::make_unique<PlayingState>(m_context);
+
+    playing->saveGame(PATH + file_name + ".txt");
 }

@@ -14,6 +14,8 @@ public:
     bool isRed() const;
 
 private:
+    void saveGame(std::ofstream& fout);
+    void loadGame(std::ifstream& fin);
     sf::Sprite light_sprite;
 
     sf::Time between;

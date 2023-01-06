@@ -16,10 +16,10 @@ People::People(Context &context)
     position.x = (MAP_WIDTH - CELL_WIDTH) / 2;
     position.y = MAP_HEIGHT - CELL_HEIGHT - 10;
 
-    control_keys[0] = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
-    control_keys[1] = sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
-    control_keys[2] = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
-    control_keys[3] = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
+    control_keys[0] = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
+    control_keys[1] = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
+    control_keys[2] = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
+    control_keys[3] = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
 }
 
 void People::createTexture()
@@ -61,7 +61,7 @@ void People::handleEvent(const sf::Event &ev)
     bool moved = 0;
 
     if (0 == control_keys[0] &&
-        1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Right) &&
+        1 == sf::Keyboard::isKeyPressed(sf::Keyboard::D) &&
         MAP_WIDTH - CELL_WIDTH - position.x >= CELL_WIDTH / 2)
     {
         moved = 1;
@@ -69,7 +69,7 @@ void People::handleEvent(const sf::Event &ev)
         position.x = std::min(CELL_WIDTH + position.x, MAP_WIDTH - CELL_WIDTH);
     }
     else if (0 == control_keys[1] &&
-             1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
+             1 == sf::Keyboard::isKeyPressed(sf::Keyboard::W) &&
              position.y > MAP_HEIGHT - CELL_HEIGHT * 13 - 10)
     {
         moved = 1;
@@ -77,7 +77,7 @@ void People::handleEvent(const sf::Event &ev)
         position.y = std::max(position.y - CELL_HEIGHT, 0.f);
     }
     else if (0 == control_keys[2] &&
-             1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Left) &&
+             1 == sf::Keyboard::isKeyPressed(sf::Keyboard::A) &&
              position.x >= CELL_WIDTH / 2)
     {
         moved = 1;
@@ -85,7 +85,7 @@ void People::handleEvent(const sf::Event &ev)
         position.x = std::max(position.x - CELL_WIDTH, 0.f);
     }
     else if (0 == control_keys[3] &&
-             1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Down) &&
+             1 == sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
              position.y < MAP_HEIGHT - CELL_HEIGHT - 10)
     {
         moved = 1;
@@ -93,10 +93,10 @@ void People::handleEvent(const sf::Event &ev)
         position.y = std::min(CELL_HEIGHT + position.y, MAP_HEIGHT - CELL_HEIGHT);
     }
 
-    control_keys[0] = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
-    control_keys[1] = sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
-    control_keys[2] = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
-    control_keys[3] = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
+    control_keys[0] = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
+    control_keys[1] = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
+    control_keys[2] = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
+    control_keys[3] = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
 
     if (1 == moved)
     {
