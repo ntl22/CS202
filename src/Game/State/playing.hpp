@@ -13,9 +13,9 @@ public:
     void update(sf::Time dt) override;
     void draw() override;
 
-    void saveGame(std::string path);
 
 private:
+    void saveGame(std::string path);
     void loadGame(std::string path);
 
     Context &m_context;
@@ -30,5 +30,6 @@ private:
     const std::array<int, 5> speed;
 
     friend class LoadState;
+    friend class SaveState;
 };
 #endif /* SRC_GAME_STATE_PLAYING */
