@@ -51,7 +51,7 @@ private:
 class Road
 {
 public:
-    Road(Context &context);
+    Road(Context &context, unsigned speed);
 
     void draw(sf::RenderWindow &window);
 

@@ -57,7 +57,7 @@ OBJECT_TYPE Lane::getType()
   return m_type;
 }
 
-Road::Road(Context &context)
+Road::Road(Context &context, unsigned speed)
     : roads(7), collied(OBJECT_TYPE::NONE)
 {
   unsigned animals = rand() % 3 + 1;
@@ -94,12 +94,12 @@ Road::Road(Context &context)
       if (arr[index++])
       {
         type = rand() % 2 ? OBJECT_TYPE::TRUCK : OBJECT_TYPE::CAR;
-        roads[i] = std::make_unique<Lane>(tmp_tl, LANE_TYPE::street, *context.textures, type);
+        roads[i] = std::make_unique<Lane>(tmp_tl, LANE_TYPE::street, *context.textures, type, 5, speed);
       }
       else
       {
         type = rand() % 2 ? OBJECT_TYPE::CAT : OBJECT_TYPE::CHICKEN;
-        roads[i] = std::make_unique<Lane>(tmp_tl, LANE_TYPE::street, *context.textures, type);
+        roads[i] = std::make_unique<Lane>(tmp_tl, LANE_TYPE::street, *context.textures, type, 5, speed);
       }
     }
     tmp_tl += roads[i++]->getBound();

@@ -176,12 +176,8 @@ bool FinishState::compareTime()
     getTime.close();
     std::filesystem::remove(file_name);
 
-    if (old > time)
-    {
-        std::ofstream newTime(file_name);
-        newTime << time << '\n';
-        return true;
-    }
+    std::ofstream newTime(file_name);
+    newTime << std::min(old, time) << '\n';
 
-    return false;
+    return old > time;
 }

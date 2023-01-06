@@ -103,7 +103,7 @@ void ListOfObstacle::update(sf::Time dt, unsigned velocity, People &people, sf::
         {
             int tmp;
 
-            int dis = rand() % 201 + 100;
+            int dis = rand() % 201 + 150;
 
             if (i == 0)
             {

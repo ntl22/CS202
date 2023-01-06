@@ -26,6 +26,8 @@ private:
     const unsigned MAX_LEVEL;
     bool is_exit;
 
+    const std::array<int, 5> speed;
+
     friend class LoadState;
 };
 #endif /* SRC_GAME_STATE_PLAYING */

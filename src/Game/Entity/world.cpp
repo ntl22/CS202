@@ -5,7 +5,7 @@ World::World(Timer &timer,
              unsigned speed,
              unsigned num)
     : player(context),
-      road(context),
+      road(context, speed),
       light(context),
       m_timer(timer),
       m_context(context),
