@@ -15,9 +15,6 @@ public:
 
 private:
     Context &m_context;
-    Timer timer;
-    
-    std::unique_ptr<World> world;
     unsigned cur_level;
 
     const unsigned MAX_LEVEL;
