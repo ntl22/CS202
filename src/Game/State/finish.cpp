@@ -7,7 +7,6 @@
 
 FinishState::FinishState(Context &context,
                          bool is_win,
-                         bool is_highscore,
                          OBJECT_TYPE type)
     : m_context(context), title_font(context.fonts->get(FONTS::visitor1))
 {
@@ -33,7 +32,7 @@ FinishState::FinishState(Context &context,
 
     sf::Vector2f size(m_context.window->getSize());
 
-    if (is_highscore)
+    if (is_win && updateHighscore())
     {
         title.setOutlineColor(sf::Color::Yellow);
     }
@@ -145,4 +144,24 @@ void FinishState::draw()
     int i;
     for (i = 0; i < 2; i++)
         m_context.window->draw(*button[i]);
+}
+
+bool FinishState::updateHighscore()
+{
+    std::string PATH(FOLDER);
+
+    if (!std::filesystem::exists(PATH))
+    {
+        std::filesystem::create_directory(PATH);
+    }
+
+    PATH += std::string("highscore.txt");
+
+    if (!std::filesystem::exists(PATH))
+    {
+        std::ofstream fout(PATH);
+        // Output time first;
+    }
+
+    return false;
 }

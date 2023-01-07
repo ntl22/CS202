@@ -7,7 +7,6 @@ class FinishState : public State
 public:
     FinishState(Context &context,
                 bool is_win = true, 
-                bool is_highscore = false,
                 OBJECT_TYPE type = OBJECT_TYPE::NONE);
 
     ~FinishState();
@@ -16,12 +15,11 @@ public:
     void draw() override;
 
 private:
+    bool updateHighscore();
+
     sf::Font title_font;
     sf::Text title;
     sf::Sprite background;
-    // sf::Sound sound;
-
-    // void update_highscore();
 
     std::unique_ptr<Button> button[2];
     int cur = -1;

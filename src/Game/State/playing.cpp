@@ -11,9 +11,16 @@ PlayingState::PlayingState(Context &context)
 {
   m_context.musics->play(MUSICS::playing);
 
-  saveGame = ([this](std::string path) {});
+  saveGame = ([this](std::string path)
+              { std::ofstream fout(path); });
 
-  loadGame = ([this](std::string path) {});
+  loadGame = ([this](std::string path)
+              { std::ifstream fin(path); });
+}
+
+PlayingState::~PlayingState()
+{
+  m_context.sounds->removeStoppedSounds();
 }
 
 void PlayingState::handleEvent(const sf::Event &ev)
