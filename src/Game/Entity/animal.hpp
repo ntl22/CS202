@@ -11,12 +11,14 @@ class Animal : public Obstacle
 
 class Cat : public Animal
 {
-
+public:
+	Cat(TextureMap& map);
 };
 
 class Chicken : public Animal
 {
-
+public:
+	Chicken(TextureMap& map);
 };
 
 
