@@ -26,6 +26,11 @@ public:
 
     sf::FloatRect getReact() const;
 
+    bool isLeft() const;
+    bool isRight() const;
+    bool isUp() const;
+    bool isDown() const;
+
 private:
     void saveGame(std::ofstream &fout);
     void loadGame(std::ifstream &fin);
@@ -33,12 +38,12 @@ private:
     void loadKeyBoardState();
     void createTexture();
 
+    std::array<bool, 4> control_keys;
+
     const float MAP_WIDTH, MAP_HEIGHT;
     float CELL_WIDTH, CELL_HEIGHT;
 
     short direction;
-
-    std::array<bool, 4> control_keys;
 
     sf::Vector2f position;
 

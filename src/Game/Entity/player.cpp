@@ -16,10 +16,10 @@ People::People(Context &context)
     position.x = (MAP_WIDTH - CELL_WIDTH) / 2;
     position.y = MAP_HEIGHT - CELL_HEIGHT - 10;
 
-    control_keys[0] = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
-    control_keys[1] = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
-    control_keys[2] = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
-    control_keys[3] = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
+    control_keys[0] = isRight();
+    control_keys[1] = isUp();
+    control_keys[2] = isLeft();
+    control_keys[3] = isDown();
 }
 
 void People::createTexture()
@@ -61,7 +61,7 @@ void People::handleEvent(const sf::Event &ev)
     bool moved = 0;
 
     if (0 == control_keys[0] &&
-        1 == sf::Keyboard::isKeyPressed(sf::Keyboard::D) &&
+        1 == isRight() &&
         MAP_WIDTH - CELL_WIDTH - position.x >= CELL_WIDTH / 2)
     {
         moved = 1;
@@ -69,7 +69,7 @@ void People::handleEvent(const sf::Event &ev)
         position.x = std::min(CELL_WIDTH + position.x, MAP_WIDTH - CELL_WIDTH);
     }
     else if (0 == control_keys[1] &&
-             1 == sf::Keyboard::isKeyPressed(sf::Keyboard::W) &&
+             1 == isUp() &&
              position.y > MAP_HEIGHT - CELL_HEIGHT * 13 - 10)
     {
         moved = 1;
@@ -77,7 +77,7 @@ void People::handleEvent(const sf::Event &ev)
         position.y = std::max(position.y - CELL_HEIGHT, 0.f);
     }
     else if (0 == control_keys[2] &&
-             1 == sf::Keyboard::isKeyPressed(sf::Keyboard::A) &&
+             1 == isLeft() &&
              position.x >= CELL_WIDTH / 2)
     {
         moved = 1;
@@ -85,7 +85,7 @@ void People::handleEvent(const sf::Event &ev)
         position.x = std::max(position.x - CELL_WIDTH, 0.f);
     }
     else if (0 == control_keys[3] &&
-             1 == sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
+             1 == isDown() &&
              position.y < MAP_HEIGHT - CELL_HEIGHT - 10)
     {
         moved = 1;
@@ -114,14 +114,32 @@ sf::FloatRect People::getReact() const
     return {position.x, position.y, CELL_WIDTH, CELL_HEIGHT};
 }
 
+bool People::isLeft() const {
+    return sf::Keyboard::isKeyPressed(sf::Keyboard::A) ||
+        sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
+}
+bool People::isRight() const {
+    return sf::Keyboard::isKeyPressed(sf::Keyboard::D) ||
+        sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
+}
+bool People::isUp() const {
+    return sf::Keyboard::isKeyPressed(sf::Keyboard::W) ||
+        sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
+}
+bool People::isDown() const {
+    return sf::Keyboard::isKeyPressed(sf::Keyboard::S) ||
+        sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
+}
+
 void People::saveGame(std::ofstream &fout)
 {
     fout << position.x << '\n'
-         << position.y << '\n';
+        << position.y << '\n'
+        << direction << '\n';
 }
 
 void People::loadGame(std::ifstream &fin)
 {
-    fin >> position.x >> position.y;
+    fin >> position.x >> position.y >> direction;
     fin.ignore(1000, '\n');
 }

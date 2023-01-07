@@ -144,9 +144,13 @@ void Road::loadGame(std::ifstream& fin) {
 }
 
 void Lane::saveGame(std::ofstream& fout) {
+    //fout << static_cast<std::underlying_type_t< OBJECT_TYPE >>(m_type);
     object->saveGame(fout);
 }
 
 void Lane::loadGame(std::ifstream& fin) {
+    //std::underlying_type_t< OBJECT_TYPE > tmp;
+    //std::cin >> tmp;
+    //m_type = static_cast<OBJECT_TYPE>(tmp);
     object->loadGame(fin);
 }

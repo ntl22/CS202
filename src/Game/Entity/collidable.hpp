@@ -70,11 +70,10 @@ private:
     void spawnObstable() {}
 
     OBJECT_TYPE m_type;
-
-public:
     void saveGame(std::ofstream& fout);
     void loadGame(std::ifstream& fin);
 
+public:
     ListOfObstacle(float position, unsigned num, OBJECT_TYPE type, TextureMap &map)
         : m_type(type)
     {
@@ -148,6 +147,8 @@ public:
         for (auto &object : list)
             object->handleEvent(ev);
     }
+
+    friend class Lane;
 };
 
 #endif /* SRC_GAME_ENTITY_COLLIDABLE */

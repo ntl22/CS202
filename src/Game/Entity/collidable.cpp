@@ -123,16 +123,37 @@ void ListOfObstacle::update(sf::Time dt, unsigned velocity, People &people, sf::
 }
 
 void ListOfObstacle::saveGame(std::ofstream& fout) {
-    for (std::unique_ptr<Obstacle>& i : list)
-        fout << i->getPos().x << " " << i->getPos().y << "\n";
+    if (m_type == OBJECT_TYPE::CAT)
+        fout << "cat\n";
+    else if (m_type == OBJECT_TYPE::CHICKEN)
+        fout << "chicken\n";
+    else if (m_type == OBJECT_TYPE::TRUCK)
+        fout << "truck\n";
+    else if (m_type == OBJECT_TYPE::CAR)
+        fout << "car\n";
+    else if (m_type == OBJECT_TYPE::NONE)
+        fout << "none\n";
+    //for (auto& i : list)
+    //    fout << i->getPos().x << " " << i->getPos().y << "\n";
 }
 
 void ListOfObstacle::loadGame(std::ifstream& fin) {
-    int x;
-    int y;
-    for (std::unique_ptr<Obstacle>& i : list) {
-        fin >> x >> y;
-        i->setPos(x, y);
-    }
-    fin.ignore(1000, '\n');
+    //int x;
+    //int y;
+    //for (auto& i : list) {
+    //    fin >> x >> y;
+    //    i->setPos(x, y);
+    //}
+    std::string tmp;
+    fin >> tmp;
+    if (tmp == "cat")
+        m_type = OBJECT_TYPE::CAT;
+    else if (tmp == "chicken")
+        m_type = OBJECT_TYPE::CHICKEN;
+    else if (tmp == "truck")
+        m_type = OBJECT_TYPE::TRUCK;
+    else if (tmp == "car")
+        m_type = OBJECT_TYPE::CAR;
+    else if (tmp == "none")
+        m_type = OBJECT_TYPE::NONE;
 }

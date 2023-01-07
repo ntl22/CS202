@@ -35,4 +35,8 @@ void TrafficLight::loadGame(std::ifstream& fin) {
     fin >> bet >> last >> is_red;
     between = sf::milliseconds(bet);
     last_update = sf::microseconds(last);
+    if (is_red == true)
+        light_sprite.setTexture(m_context.textures->get(TEXTURES::lightRed));
+    else
+        light_sprite.setTexture(m_context.textures->get(TEXTURES::lightGreen));
 }
