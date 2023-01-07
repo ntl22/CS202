@@ -5,14 +5,14 @@
 class SaveState : public State
 {
 public:
-    SaveState(Context& context);
+    SaveState(Context& context, std::function<void(std::string)>& f_ref);
 
     void handleEvent(const sf::Event& ev);
     void update(sf::Time dt);
     void draw();
 
 private:
-    void saveGame();
+    std::function<void(std::string)>& save;
 
     sf::Text title;
     sf::Text input_here;

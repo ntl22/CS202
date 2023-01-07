@@ -20,6 +20,7 @@
 #include <fstream>
 #include <filesystem>
 #include <sstream>
+#include <array>
 
 /**
  * Framework library

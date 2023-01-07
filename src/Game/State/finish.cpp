@@ -108,11 +108,11 @@ void FinishState::handleEvent(const sf::Event &ev)
         {
         case sf::Keyboard::W:
         case sf::Keyboard::Up:
-            cur = (cur <= 0) ? 2 : (cur - 1);
+            cur = (cur <= 0) ? 1 : (cur - 1);
             break;
         case sf::Keyboard::S:
         case sf::Keyboard::Down:
-            cur = (cur + 1) % 3;
+            cur = (cur + 1) % 2;
             break;
         case sf::Keyboard::Enter:
             if (cur != -1)

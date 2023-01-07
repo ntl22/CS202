@@ -2,7 +2,7 @@
 #define SRC_FRAMEWORK_UTIL_CONTEXT
 #include "../Asset/manager.hpp"
 #include "../State/manager.hpp"
-#include "./Asset/music.hpp"
+#include "../Asset/music.hpp"
 
 #include <SFML/Audio/SoundBuffer.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>

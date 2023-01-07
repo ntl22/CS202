@@ -3,8 +3,6 @@
 #include "../../Framework/pch.hpp"
 #include "obstacle.hpp"
 
-// TODO: add animal child classes
-
 class Animal : public Obstacle
 {
 };
@@ -20,6 +18,5 @@ class Chicken : public Animal
 public:
 	Chicken(TextureMap& map);
 };
-
 
 #endif /* SRC_GAME_ENTITY_ANIMAL */

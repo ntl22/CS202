@@ -14,10 +14,15 @@ public:
     void draw() override;
 
 private:
+    std::function<void(std::string)> saveGame;
+    std::function<void(std::string)> loadGame;
+
     Context &m_context;
     unsigned cur_level;
 
+    std::array<unsigned, 5> speed;
+
     const unsigned MAX_LEVEL;
-    bool is_exit, is_pause;
 };
+
 #endif /* SRC_GAME_STATE_PLAYING */

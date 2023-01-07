@@ -1,8 +1,9 @@
 #ifndef SRC_GAME_ENTITY_VEHICLE
 #define SRC_GAME_ENTITY_VEHICLE
-#include "obstacle.hpp"
+#include "../../Framework/pch.hpp"
 
-// TODO: Implement Vehicle type
+#include "obstacle.hpp"
+#include "light.hpp"
 
 class Vehicle : public Obstacle
 {
