@@ -58,7 +58,7 @@ OBJECT_TYPE Lane::getType()
 }
 
 Road::Road(Context &context, unsigned speed)
-    : roads(7), collied(OBJECT_TYPE::NONE)
+    : collied(OBJECT_TYPE::NONE)
 {
   unsigned animals = rand() % 3 + 1;
 

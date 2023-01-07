@@ -37,14 +37,14 @@ void Timer::loadGame(std::ifstream &fin)
 
 void Timer::saveGame(std::ofstream &fout)
 {
-    fout << timer.asSeconds() + clock.getElapsedTime().asSeconds() << '\n';
+    fout << timer.asSeconds() << '\n';
 }
 
 void Timer::updateString()
 {
     std::stringstream ss;
 
-    size_t toSec = (size_t)timer.asSeconds();
+    unsigned toSec = (unsigned)timer.asSeconds();
     unsigned h = toSec / 3600;
     unsigned m = (toSec - (h * 3600)) / 60;
     unsigned s = toSec - (h * 3600 + m * 60);

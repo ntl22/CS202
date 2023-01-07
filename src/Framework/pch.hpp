@@ -22,6 +22,7 @@
 #include <sstream>
 #include <array>
 #include <tuple>
+#include <cassert>
 
 /**
  * Framework library

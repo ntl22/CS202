@@ -67,7 +67,7 @@ public:
 private:
     void saveGame(std::ofstream& fout);
     void loadGame(std::ifstream& fin);
-    std::vector<std::unique_ptr<Lane>> roads;
+    std::array<std::unique_ptr<Lane>, 7> roads;
 
     OBJECT_TYPE collied;
 

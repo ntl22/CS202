@@ -116,8 +116,8 @@ void LoadState::loadGame()
         std::ifstream fout(PATH + file_name + ".txt");
         auto playing = std::make_unique<PlayingState>(m_context);
 
-        playing->loadGame(PATH + file_name + ".txt");
-
+        playing->loadGame_func(PATH + file_name + ".txt");
+        
         m_context.states->push(std::move(playing), true);
     }
     else

@@ -2,8 +2,9 @@
 
 #include "playing.hpp"
 
-SaveState::SaveState(Context &context)
+SaveState::SaveState(Context &context, std::function<void(std::string)> &save_f)
     : m_context(context),
+      callback(save_f),
       title("Save Game", context.fonts->get(FONTS::visitor1), 60U),
       input_here("Input file name: ", context.fonts->get(FONTS::IBMPlexMono), 30U),
       file_to_gui("", context.fonts->get(FONTS::visitor1), 30U),
@@ -100,7 +101,7 @@ void SaveState::saveGame()
         std::filesystem::create_directories(PATH);
 
     std::ofstream fout(PATH + file_name + ".txt");
-    auto playing = std::make_unique<PlayingState>(m_context);
+    fout.close();
 
-    playing->saveGame(PATH + file_name + ".txt");
+    callback(PATH + file_name + ".txt");
 }

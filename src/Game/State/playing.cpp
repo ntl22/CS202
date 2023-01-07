@@ -2,45 +2,7 @@
 
 #include "pause.hpp"
 #include "finish.hpp"
-
-class LevelUpState : public State
-{
-public:
-    LevelUpState(Context &context, Timer &timer, const int &level)
-        : next_level("Level " + std::to_string(level) + " is next!",
-                     context.fonts->get(FONTS::visitor1), 70U),
-          m_timer(timer),
-          m_context(context)
-    {
-        next_level.setFillColor(sf::Color::Green);
-        setCenterOrigin(next_level, next_level.getLocalBounds());
-        next_level.setPosition(context.window->getView().getCenter());
-    }
-
-    void handleEvent(const sf::Event &ev)
-    {
-        if (ev.type == sf::Event::KeyPressed &&
-            ev.key.code == sf::Keyboard::Enter)
-        {
-            m_context.musics->pause(false);
-            m_context.states->pop();
-            m_timer.exitPauseState();
-        }
-    }
-
-    void update(sf::Time dt) {}
-
-    void draw()
-    {
-        m_context.window->draw(next_level);
-    }
-
-private:
-    sf::Text next_level;
-
-    Context &m_context;
-    Timer &m_timer;
-};
+#include "levelup.hpp"
 
 PlayingState::PlayingState(Context &context)
     : m_context(context),
@@ -53,6 +15,25 @@ PlayingState::PlayingState(Context &context)
     world = std::make_unique<World>(timer, context, speed[0]);
     m_context.musics->setLoop(true);
     m_context.musics->play(MUSICS::playing);
+
+    saveGame_func = ([this](std::string path) {
+        std::ofstream fout(path);
+        fout << cur_level << '\n';
+        timer.saveGame(fout);
+        world->saveGame(fout);
+    });
+
+    loadGame_func = ([this](std::string path) {
+        std::ifstream fin(path);
+
+        fin >> cur_level;
+        fin.ignore(1000, '\n');
+        timer.loadGame(fin);
+
+        world = std::make_unique<World>(timer, m_context);
+        world->loadGame(fin);
+        timer.exitPauseState();
+    });
 }
 
 void PlayingState::handleEvent(const sf::Event &ev)
@@ -62,7 +43,7 @@ void PlayingState::handleEvent(const sf::Event &ev)
         if (ev.key.code == sf::Keyboard::P)
         {
             m_context.musics->pause(true);
-            m_context.states->push(std::make_unique<PauseState>(m_context, timer, is_exit));
+            m_context.states->push(std::make_unique<PauseState>(m_context, timer, is_exit, saveGame_func));
             m_context.states->handleStack();
             return;
         }
@@ -113,24 +94,24 @@ void PlayingState::draw()
     world->draw();
 }
 
-void PlayingState::saveGame(std::string path)
-{
-    std::ofstream fout(path);
+// void PlayingState::saveGame(std::string path)
+// {
+//     std::ofstream fout(path);
 
-    fout << cur_level << '\n';
-    timer.saveGame(fout);
-    world->saveGame(fout);
-}
+//     fout << cur_level << '\n';
+//     timer.saveGame(fout);
+//     world->saveGame(fout);
+// }
 
-void PlayingState::loadGame(std::string path)
-{
-    std::ifstream fin(path);
+// void PlayingState::loadGame(std::string path)
+// {
+//     std::ifstream fin(path);
 
-    fin >> cur_level;
-    fin.ignore(1000, '\n');
-    timer.loadGame(fin);
+//     fin >> cur_level;
+//     fin.ignore(1000, '\n');
+//     timer.loadGame(fin);
 
-    world = std::make_unique<World>(timer, m_context);
-    world->loadGame(fin);
-    timer.exitPauseState();
-}
+//     world = std::make_unique<World>(timer, m_context);
+//     world->loadGame(fin);
+//     timer.exitPauseState();
+// }

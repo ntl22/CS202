@@ -5,7 +5,7 @@
 class SaveState : public State
 {
 public:
-    SaveState(Context& context);
+    SaveState(Context& context, std::function<void(std::string)>& save_f);
 
     void handleEvent(const sf::Event& ev);
     void update(sf::Time dt);
@@ -23,6 +23,8 @@ private:
     std::string file_name;
     sf::Text file_to_gui;
     const unsigned capacity;
+
+    std::function<void(std::string)>& callback;
 
     Context& m_context;
 };

@@ -46,7 +46,9 @@ enum class SOUNDBUFFERS
     cat,
     chicken,
     car,
-    light
+    light,
+    levelup,
+    finish
 };
 
 enum class MUSICS

@@ -15,8 +15,11 @@ public:
 
 
 private:
-    void saveGame(std::string path);
-    void loadGame(std::string path);
+    // void saveGame(std::string path);
+    // void loadGame(std::string path);
+
+    std::function<void(std::string path)> saveGame_func;
+    std::function<void(std::string path)> loadGame_func;
 
     Context &m_context;
     Timer timer;

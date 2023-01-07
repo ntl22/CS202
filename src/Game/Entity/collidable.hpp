@@ -62,27 +62,21 @@ private:
     sf::Texture vehicleTex;
 };
 
-class ListOfObstacle : public Obstacle
+class ListOfObstacle
 {
 private:
-    std::vector<std::unique_ptr<Obstacle>> list;
+    std::array<std::unique_ptr<Obstacle>, 5> list;
 
     void spawnObstable() {}
 
     OBJECT_TYPE m_type;
-
-    sf::Vector2f getPos() { return {0.f, 0.f}; }
-
-    void setPos(int x, int y) {}
-
-    sf::FloatRect getBound() { return {0.f, 0.f, 0.f, 0.f}; }
 
 public:
     void saveGame(std::ofstream& fout);
     void loadGame(std::ifstream& fin);
 
     ListOfObstacle(float position, unsigned num, OBJECT_TYPE type, TextureMap &map)
-        : list(type != OBJECT_TYPE::NONE ? num : 0), m_type(type)
+        : m_type(type)
     {
         spawnObstable(position, type, map);
     }
@@ -90,14 +84,14 @@ public:
     void spawnObstable(float position, OBJECT_TYPE type, TextureMap &map)
     {
         size_t i = 0;
-        int tmp = 0;
-        int dis = 0;
+        int tmp = 1800;
+        int dis;
         switch (type)
         {
         case OBJECT_TYPE::CAT:
             for (i = 0; i < list.size(); i++)
             {
-                dis = rand() % 200 + 150;
+                dis = rand() % 201 + 200;
 
                 list[i] = std::make_unique<Animal>(type, map);
                 list[i]->setPos(tmp, (int)position);
@@ -107,26 +101,26 @@ public:
         case OBJECT_TYPE::CHICKEN:
             for (i = 0; i < list.size(); i++)
             {
-                dis = rand() % 200 + 150;
+                dis = rand() % 201 + 200;
 
                 list[i] = std::make_unique<Animal>(type, map);
                 list[i]->setPos(tmp, (int)position);
                 tmp -= (int)(dis + 0.5 * list[i]->getBound().height + 50);
             }
             break;
-        case OBJECT_TYPE::CAR:
+        case OBJECT_TYPE::TRUCK:
             for (i = 0; i < list.size(); i++)
             {
-                int dis = rand() % 200 + 150;
+                dis = rand() % 201 + 200;
                 list[i] = std::make_unique<Vehicle>(type, map);
                 list[i]->setPos(tmp, (int)position);
                 tmp -= (int)(dis + 0.5 * list[i]->getBound().height);
             }
             break;
-        case OBJECT_TYPE::TRUCK:
+        case OBJECT_TYPE::CAR:
             for (i = 0; i < list.size(); i++)
             {
-                int dis = rand() % 200 + 150;
+                dis = rand() % 201 + 200;
                 list[i] = std::make_unique<Vehicle>(type, map);
                 list[i]->setPos(tmp, (int)position);
                 tmp -= (int)(dis + 0.5 * list[i]->getBound().height);
@@ -139,6 +133,8 @@ public:
 
     void draw(sf::RenderWindow &window)
     {
+        if (m_type == OBJECT_TYPE::NONE)
+            return;
         for (auto &object : list)
             object->draw(window);
     }
@@ -147,6 +143,8 @@ public:
 
     void handleEvent(const sf::Event &ev)
     {
+        if (m_type == OBJECT_TYPE::NONE)
+            return;
         for (auto &object : list)
             object->handleEvent(ev);
     }

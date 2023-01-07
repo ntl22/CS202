@@ -7,7 +7,10 @@
 class PauseState : public State
 {
 public:
-    PauseState(Context &context, Timer &timer, bool &exit_ref);
+    PauseState(Context &context,
+               Timer &timer,
+               bool &exit_ref,
+               std::function<void(std::string)>& save_f);
 
     void handleEvent(const sf::Event &ev) override;
     void update(sf::Time dt) override;
@@ -21,6 +24,8 @@ private:
 
     std::unique_ptr<Button> buttons[3];
     int cur;
+
+    std::function<void(std::string)>& callback;
 
     sf::Text text_pause;
     sf::Font font_pause;

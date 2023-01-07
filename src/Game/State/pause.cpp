@@ -2,12 +2,16 @@
 
 #include "save.hpp"
 
-PauseState::PauseState(Context &context, Timer &timer, bool &exit_ref)
+PauseState::PauseState(Context &context,
+                       Timer &timer,
+                       bool &exit_ref,
+                       std::function<void(std::string)>& save_f)
     : m_context(context),
       m_timer(timer),
       is_exit(exit_ref),
-      font_pause(context.fonts->get(FONTS::Sansation)),
-      cur(-1)
+      font_pause(context.fonts->get(FONTS::visitor1)),
+      cur(-1),
+      callback(save_f)
 {
     text_pause.setString("PAUSED");
     text_pause.setCharacterSize(100U);
@@ -38,7 +42,7 @@ PauseState::PauseState(Context &context, Timer &timer, bool &exit_ref)
     buttons[1]->setHoverColor(sf::Color(111, 225, 62));
     buttons[1]->setPosition(center);
     buttons[1]->setCallback([this]()
-                            { m_context.states->push(std::make_unique<SaveState>(m_context)); });
+                            { m_context.states->push(std::make_unique<SaveState>(m_context, callback)); });
 
     buttons[2]->setText("Back to menu");
     buttons[2]->setHoverColor(sf::Color(226, 16, 16));

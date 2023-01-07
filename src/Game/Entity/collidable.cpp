@@ -88,7 +88,13 @@ sf::Vector2f Vehicle::getPos()
 
 void ListOfObstacle::update(sf::Time dt, unsigned velocity, People &people, sf::RenderWindow &window)
 {
+    if (m_type == OBJECT_TYPE::NONE)
+        return;
+
     size_t i, size = list.size();
+    int o_width;
+
+    unsigned w_width = window.getSize().x;
 
     for (i = 0; i < size; i++)
     {
@@ -99,29 +105,19 @@ void ListOfObstacle::update(sf::Time dt, unsigned velocity, People &people, sf::
         if (people.getPlayingStatus() == STATUS::DEAD)
             break;
 
-        if (list[i]->getBound().left > window.getSize().x)
+        if (list[i]->getBound().left > w_width)
         {
-            int tmp;
+            size_t i_next = (i == 0 ? size - 1 : i - 1);
+            sf::Vector2i next_pos(list[i_next]->getPos());
+            sf::Vector2i cur_pos(list[i]->getPos());
+            o_width = (int)list[i]->getBound().width;
 
-            int dis = rand() % 201 + 150;
+            int dis = rand() % 201 + 200;
 
-            if (i == 0)
-            {
-                if (list.back()->getPos().x > 0)
-                {
-                    tmp = 0 - dis - (velocity * 12);
-                }
-                else
-                {
-                    tmp = list.back()->getPos().x - dis - (velocity * 12);
-                }
-            }
+            if (list[i_next]->getPos().x - dis < 0)
+                list[i]->setPos(next_pos.x - dis - o_width, cur_pos.y);
             else
-            {
-                tmp = list[i - 1]->getPos().x - dis - (velocity * 12);
-            }
-
-            list[i]->setPos(tmp, list[i]->getPos().y);
+                list[i]->setPos(-o_width, cur_pos.y);
         }
     }
 }
@@ -136,7 +132,7 @@ void ListOfObstacle::loadGame(std::ifstream& fin) {
     int y;
     for (std::unique_ptr<Obstacle>& i : list) {
         fin >> x >> y;
-        setPos(x, y);
+        i->setPos(x, y);
     }
     fin.ignore(1000, '\n');
 }
