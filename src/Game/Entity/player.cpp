@@ -93,10 +93,10 @@ void People::handleEvent(const sf::Event &ev)
         position.y = std::min(CELL_HEIGHT + position.y, MAP_HEIGHT - CELL_HEIGHT);
     }
 
-    control_keys[0] = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
-    control_keys[1] = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
-    control_keys[2] = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
-    control_keys[3] = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
+    control_keys[0] = isLeft();
+    control_keys[1] = isUp();
+    control_keys[2] = isRight();
+    control_keys[3] = isDown();
 
     if (1 == moved)
     {

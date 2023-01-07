@@ -4,6 +4,7 @@ int main()
 {
     try
     {
+        srand((unsigned)time(NULL));
         Application app;
         app.run();
     }

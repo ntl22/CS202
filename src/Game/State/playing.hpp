@@ -15,9 +15,6 @@ public:
 
 
 private:
-    // void saveGame(std::string path);
-    // void loadGame(std::string path);
-
     std::function<void(std::string path)> saveGame_func;
     std::function<void(std::string path)> loadGame_func;
 
@@ -28,7 +25,6 @@ private:
     unsigned cur_level;
 
     const unsigned MAX_LEVEL;
-    bool is_exit;
 
     const std::array<int, 5> speed;
 

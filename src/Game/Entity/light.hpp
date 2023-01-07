@@ -1,6 +1,6 @@
 #ifndef SRC_GAME_ENTITY_LIGHT
 #define SRC_GAME_ENTITY_LIGHT
-#include "collidable.hpp"
+#include "obstacle.hpp"
 
 class TrafficLight
 {

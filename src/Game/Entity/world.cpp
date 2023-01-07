@@ -2,8 +2,7 @@
 
 World::World(Timer &timer,
              Context &context,
-             unsigned speed,
-             unsigned num)
+             unsigned speed)
     : player(context),
       road(context, speed),
       light(context),
@@ -53,12 +52,12 @@ void World::saveGame(std::ofstream &fout)
 {
     player.saveGame(fout);
     light.saveGame(fout);
-    //road.saveGame(fout);
+    road.saveGame(fout);
 }
 
 void World::loadGame(std::ifstream &fin)
 {
     player.loadGame(fin);
     light.loadGame(fin);
-    //road.loadGame(fin);
+    road.loadGame(fin, *m_context.textures);
 }

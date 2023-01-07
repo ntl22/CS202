@@ -1,6 +1,6 @@
 #ifndef SRC_GAME_ENTITY_PLAYER
 #define SRC_GAME_ENTITY_PLAYER
-#include "collidable.hpp"
+#include "obstacle.hpp"
 
 enum class STATUS
 {
@@ -35,7 +35,6 @@ private:
     void saveGame(std::ofstream &fout);
     void loadGame(std::ifstream &fin);
 
-    void loadKeyBoardState();
     void createTexture();
 
     std::array<bool, 4> control_keys;

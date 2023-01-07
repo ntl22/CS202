@@ -1,14 +1,13 @@
 #include "pause.hpp"
 
 #include "save.hpp"
+#include "menu.hpp"
 
 PauseState::PauseState(Context &context,
                        Timer &timer,
-                       bool &exit_ref,
                        std::function<void(std::string)>& save_f)
     : m_context(context),
       m_timer(timer),
-      is_exit(exit_ref),
       font_pause(context.fonts->get(FONTS::visitor1)),
       cur(-1),
       callback(save_f)
@@ -48,7 +47,8 @@ PauseState::PauseState(Context &context,
     buttons[2]->setHoverColor(sf::Color(226, 16, 16));
     buttons[2]->setPosition(center + sf::Vector2f(0, 100));
     buttons[2]->setCallback([this]()
-                            { is_exit = true; m_context.states->pop(); });
+                            { m_context.states->clear(); 
+                              m_context.states->push(std::make_unique<MenuState>(m_context)); });
 }
 
 void PauseState::handleEvent(const sf::Event &ev)

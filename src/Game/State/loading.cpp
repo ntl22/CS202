@@ -9,7 +9,8 @@ LoadingState::LoadingState(Context &context)
     loading_text.setString("Loading...");
     loading_text.setCharacterSize(40U);
 
-    assert(font.loadFromFile("./assets/fonts/IBMPlexMono.ttf"));
+    if (!font.loadFromFile("./assets/fonts/IBMPlexMono.ttf"))
+        throw std::runtime_error("LoadingState::LoadingState(): font not found...");
 
     loading_text.setFont(font);
     setCenterOrigin(loading_text, loading_text.getLocalBounds());

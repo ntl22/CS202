@@ -9,7 +9,6 @@ class PauseState : public State
 public:
     PauseState(Context &context,
                Timer &timer,
-               bool &exit_ref,
                std::function<void(std::string)>& save_f);
 
     void handleEvent(const sf::Event &ev) override;
@@ -17,8 +16,6 @@ public:
     void draw() override;
 
 private:
-    bool &is_exit;
-
     Context &m_context;
     Timer &m_timer;
 

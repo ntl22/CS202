@@ -1,30 +1,23 @@
 #ifndef SRC_GAME_ENTITY_ROAD
 #define SRC_GAME_ENTITY_ROAD
-#include "collidable.hpp"
+#include "f_obstacle.hpp"
 
 #include "light.hpp"
 #include "player.hpp"
 
+enum class LANE_TYPE
+{
+    goal,
+    grass,
+    street
+};
+
 class Lane
 {
 public:
-    enum class DIRRECTION
-    {
-        LEFT,
-        RIGHT
-    };
-
-    Lane() = default;
-
     virtual ~Lane() = default;
 
-    Lane(float position,
-         LANE_TYPE type,
-         TextureMap &map,
-         OBJECT_TYPE animal = OBJECT_TYPE::NONE,
-         unsigned num = 5,
-         unsigned speed = 5,
-         Lane::DIRRECTION dirrection = DIRRECTION::LEFT);
+    Lane(float position, sf::Texture &roadBg);
 
     virtual void draw(sf::RenderWindow &window);
 
@@ -37,17 +30,60 @@ public:
 
     virtual OBJECT_TYPE getType();
 
-private:
-    void saveGame(std::ofstream& fout);
-    void loadGame(std::ifstream& fin);
+    virtual void saveGame(std::ofstream &fout) {}
+    virtual void loadGame(std::ifstream &fin, TextureMap &map) {}
+
+protected:
     sf::Sprite road;
-    sf::Texture roadBg;
-    std::unique_ptr<ListOfObstacle> object;
     OBJECT_TYPE m_type;
+};
 
-    const unsigned DEFAULT_NUM, DEFAULT_SPEED;
+class GoalLane : public Lane
+{
+public:
+    GoalLane(float position, TextureMap &map)
+        : Lane(position, map.get(TEXTURES::lane4)) {}
+};
 
-    friend class Road;
+class GrassLane : public Lane
+{
+public:
+    GrassLane(float position, TextureMap &map)
+        : Lane(position, map.get(TEXTURES::lane1)) {}
+};
+
+class ObstacleLane : public Lane
+{
+public:
+    ObstacleLane(float position,
+                 TextureMap &map,
+                 OBJECT_TYPE type,
+                 unsigned speed);
+
+    void draw(sf::RenderWindow &window) override;
+
+    void update(sf::Time dt,
+                People &people,
+                TrafficLight &light,
+                sf::RenderWindow &window) override;
+
+    void saveGame(std::ofstream &fout) override;
+
+    void loadGame(std::ifstream &fin, TextureMap &map) override;
+
+private:
+    std::unique_ptr<ListOfObstacle> object;
+    const unsigned m_speed;
+};
+
+class LaneFactory
+{
+public:
+    static std::unique_ptr<Lane> createLane(float position,
+                                            TextureMap &map,
+                                            LANE_TYPE lane,
+                                            OBJECT_TYPE object = OBJECT_TYPE::NONE,
+                                            unsigned speed = 0);
 };
 
 class Road
@@ -65,8 +101,8 @@ public:
     OBJECT_TYPE getType();
 
 private:
-    void saveGame(std::ofstream& fout);
-    void loadGame(std::ifstream& fin);
+    void saveGame(std::ofstream &fout);
+    void loadGame(std::ifstream &fin, TextureMap &map);
     std::array<std::unique_ptr<Lane>, 7> roads;
 
     OBJECT_TYPE collied;

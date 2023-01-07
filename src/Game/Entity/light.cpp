@@ -26,11 +26,15 @@ void TrafficLight::updateGreen()
 
 bool TrafficLight::isRed() const { return is_red; }
 
-void TrafficLight::saveGame(std::ofstream& fout) {
-    fout << between.asMilliseconds() << '\n' << last_update.asMilliseconds() << '\n' << is_red << '\n';
+void TrafficLight::saveGame(std::ofstream &fout)
+{
+    fout << between.asMilliseconds() << '\n'
+         << last_update.asMilliseconds() << '\n'
+         << is_red << '\n';
 }
 
-void TrafficLight::loadGame(std::ifstream& fin) {
+void TrafficLight::loadGame(std::ifstream &fin)
+{
     int bet, last;
     fin >> bet >> last >> is_red;
     between = sf::milliseconds(bet);

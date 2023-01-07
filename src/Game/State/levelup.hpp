@@ -14,6 +14,7 @@ public:
 
 private:
     sf::Text next_level;
+    sf::Text press_enter;
 
     Context &m_context;
     Timer &m_timer;

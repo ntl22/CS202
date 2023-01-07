@@ -1,5 +1,6 @@
 target_sources(${APP_NAME} PRIVATE
-    "${CMAKE_CURRENT_SOURCE_DIR}/collidable.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/obstacle.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/f_obstacle.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/light.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/player.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/road.cpp"

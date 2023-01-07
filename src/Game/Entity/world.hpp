@@ -5,7 +5,7 @@
 #include "road.hpp"
 #include "light.hpp"
 #include "player.hpp"
-#include "collidable.hpp"
+#include "obstacle.hpp"
 #include "timer.hpp"
 
 class World
@@ -13,8 +13,7 @@ class World
 public:
     World(Timer &timer,
           Context &context,
-          unsigned speed = 10,
-          unsigned num = 5);
+          unsigned speed);
 
     void handleEvent(const sf::Event &ev);
     std::pair<STATUS, OBJECT_TYPE> update(sf::Time dt);

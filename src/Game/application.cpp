@@ -10,7 +10,6 @@ void Application::run()
 Application::Application()
     : WIDTH(1280), HEIGHT(720), FPS(60)
 {
-    srand((unsigned)time(NULL));
     context.window->create(
         sf::VideoMode(WIDTH, HEIGHT), "Crossy Road", sf::Style::Close);
 
@@ -20,7 +19,6 @@ Application::Application()
     context.window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
     context.window->setFramerateLimit(FPS);
-    context.window->setKeyRepeatEnabled(false);
 
     context.states->push(std::make_unique<LoadingState>(context));
 }

@@ -1,60 +1,78 @@
 #include "road.hpp"
 
-Lane::Lane(float position,
-           LANE_TYPE type,
-           TextureMap &map,
-           OBJECT_TYPE animal,
-           unsigned num,
-           unsigned speed,
-           Lane::DIRRECTION dirrection)
-    : DEFAULT_NUM(num),
-      m_type(animal),
-      DEFAULT_SPEED(speed)
+Lane::Lane(float position, sf::Texture &roadBg)
+    : m_type(OBJECT_TYPE::NONE)
 {
-  switch (type)
-  {
-  case LANE_TYPE::goal:
-    roadBg = map.get(TEXTURES::lane4);
-    break;
-  case LANE_TYPE::street:
-    roadBg = map.get(TEXTURES::lane3);
-    break;
-  case LANE_TYPE::start:
-    roadBg = map.get(TEXTURES::lane1);
-    break;
-  }
-
   road.setTexture(roadBg);
   road.setPosition({0, position});
-
-  object = std::make_unique<ListOfObstacle>(road.getPosition().y - 5 + this->road.getGlobalBounds().height / 4,
-                                            num, animal, map);
 }
 
 void Lane::draw(sf::RenderWindow &window)
 {
   window.draw(road);
-  object->draw(window);
 }
 
 void Lane::update(sf::Time dt,
                   People &people,
                   TrafficLight &light,
-                  sf::RenderWindow &window)
-{
-  bool condition = light.isRed() && ((m_type == OBJECT_TYPE::CAR) || (m_type == OBJECT_TYPE::TRUCK));
+                  sf::RenderWindow &window) {}
 
-  object->update(dt, condition ? 0 : DEFAULT_SPEED, people, window);
+float Lane::getBound() { return road.getGlobalBounds().height; }
+
+OBJECT_TYPE Lane::getType() { return m_type; }
+
+ObstacleLane::ObstacleLane(float position,
+                           TextureMap &map,
+                           OBJECT_TYPE type,
+                           unsigned speed)
+    : Lane(position, map.get(TEXTURES::lane3)), m_speed(speed)
+{
+  float relative = road.getPosition().y - 5 + this->road.getGlobalBounds().height / 4;
+  object = std::make_unique<ListOfObstacle>(relative, type, map);
+  m_type = type;
 }
 
-float Lane::getBound()
+void ObstacleLane::draw(sf::RenderWindow &window)
 {
-  return road.getGlobalBounds().height;
+  Lane::draw(window);
+  object->draw(window);
 }
 
-OBJECT_TYPE Lane::getType()
+void ObstacleLane::update(sf::Time dt,
+                          People &people,
+                          TrafficLight &light,
+                          sf::RenderWindow &window)
 {
-  return m_type;
+  object->update(dt, m_speed, people, light, window);
+}
+
+void ObstacleLane::saveGame(std::ofstream &fout)
+{
+  object->saveGame(fout);
+}
+
+void ObstacleLane::loadGame(std::ifstream &fin, TextureMap &map)
+{
+  object->loadGame(fin, map);
+}
+
+std::unique_ptr<Lane> LaneFactory::createLane(float position,
+                                              TextureMap &map,
+                                              LANE_TYPE lane,
+                                              OBJECT_TYPE object,
+                                              unsigned speed)
+{
+  switch (lane)
+  {
+  case LANE_TYPE::goal:
+    return std::unique_ptr<Lane>(new GoalLane(position, map));
+  case LANE_TYPE::grass:
+    return std::unique_ptr<Lane>(new GrassLane(position, map));
+  case LANE_TYPE::street:
+    return std::unique_ptr<Lane>(new ObstacleLane(position, map, object, speed));
+  default:
+    throw std::runtime_error("Lane::createLane(): invalid type");
+  }
 }
 
 Road::Road(Context &context, unsigned speed)
@@ -82,25 +100,16 @@ Road::Road(Context &context, unsigned speed)
   while (i < 7)
   {
     if (i == 0)
-    {
-      roads[i] = std::make_unique<Lane>(tmp_tl, LANE_TYPE::goal, *context.textures);
-    }
+      roads[i] = LaneFactory::createLane(tmp_tl, *context.textures, LANE_TYPE::goal);
     else if (i == 3 || i == 6)
-    {
-      roads[i] = std::make_unique<Lane>(tmp_tl, LANE_TYPE::start, *context.textures);
-    }
+      roads[i] = LaneFactory::createLane(tmp_tl, *context.textures, LANE_TYPE::grass);
     else
     {
       if (arr[index++])
-      {
         type = rand() % 2 ? OBJECT_TYPE::TRUCK : OBJECT_TYPE::CAR;
-        roads[i] = std::make_unique<Lane>(tmp_tl, LANE_TYPE::street, *context.textures, type, 5, speed);
-      }
       else
-      {
         type = rand() % 2 ? OBJECT_TYPE::CAT : OBJECT_TYPE::CHICKEN;
-        roads[i] = std::make_unique<Lane>(tmp_tl, LANE_TYPE::street, *context.textures, type, 5, speed);
-      }
+      roads[i] = LaneFactory::createLane(tmp_tl, *context.textures, LANE_TYPE::street, type, speed);
     }
     tmp_tl += roads[i++]->getBound();
   }
@@ -133,24 +142,26 @@ OBJECT_TYPE Road::getType()
   return collied;
 }
 
-void Road::saveGame(std::ofstream& fout) {
-    for (auto& i : roads)
-        i->saveGame(fout);
+void Road::saveGame(std::ofstream &fout)
+{
+  for (auto &i : roads)
+    i->saveGame(fout);
 }
 
-void Road::loadGame(std::ifstream& fin) {
-    for (auto& i : roads)
-        i->loadGame(fin);
+void Road::loadGame(std::ifstream &fin, TextureMap &map)
+{
+  for (auto &i : roads)
+    i->loadGame(fin, map);
 }
 
-void Lane::saveGame(std::ofstream& fout) {
-    //fout << static_cast<std::underlying_type_t< OBJECT_TYPE >>(m_type);
-    object->saveGame(fout);
-}
+// void Lane::saveGame(std::ofstream& fout) {
+//     //fout << static_cast<std::underlying_type_t< OBJECT_TYPE >>(m_type);
+//     object->saveGame(fout);
+// }
 
-void Lane::loadGame(std::ifstream& fin) {
-    //std::underlying_type_t< OBJECT_TYPE > tmp;
-    //std::cin >> tmp;
-    //m_type = static_cast<OBJECT_TYPE>(tmp);
-    object->loadGame(fin);
-}
+// void Lane::loadGame(std::ifstream& fin) {
+//     //std::underlying_type_t< OBJECT_TYPE > tmp;
+//     //std::cin >> tmp;
+//     //m_type = static_cast<OBJECT_TYPE>(tmp);
+//     object->loadGame(fin);
+// }
