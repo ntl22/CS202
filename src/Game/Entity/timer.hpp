@@ -19,11 +19,13 @@ private:
     void loadGame(std::ifstream& fin);
     void saveGame(std::ofstream& fout);
 
+    void updateString();
 
     sf::Text to_text;
     sf::Time timer;
     sf::Clock clock;
 
+    friend class PlayingState;
 };
 
 #endif /* SRC_GAME_ENTITY_TIMER */
