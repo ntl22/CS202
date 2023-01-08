@@ -5,25 +5,28 @@
 class Timer
 {
 public:
-    Timer(Context &context);
+    Timer(Context& context);
 
-    sf::Time getPlayingTime();
-    std::string formatTime(const sf::Time&);
+    sf::Time getTime()
+    {
+        return timer;
+    }
 
-    void pause();
-    void resume();
+    sf::Time update();
     void exitPauseState();
-    void draw(sf::RenderWindow &window);
-
-    //void loadGame(std::ifstream &fin);
-    //void saveGame(std::ofstream &fout);
+    void draw(sf::RenderWindow& window);
 
 private:
+    void loadGame(std::ifstream& fin);
+    void saveGame(std::ofstream& fout);
+
     void updateString();
 
     sf::Text to_text;
     sf::Time timer;
     sf::Clock clock;
+
+    friend class PlayingState;
 };
 
 #endif /* SRC_GAME_ENTITY_TIMER */
