@@ -6,7 +6,7 @@
 #include "animal.hpp"
 #include "vehicle.hpp"
 #include "player.hpp"
-// TODO: include factory class for obstacle
+
 class ObstacleFactory
 {
 public:
@@ -54,7 +54,7 @@ public:
                 TrafficLight &light, sf::RenderWindow &window);
     void handleEvent(const sf::Event &ev);
     OBJECT_TYPE getType();
-    // TO DO::add save function
+
     void saveGame(std::ofstream &fout);
     void loadGame(std::ifstream &fin, TextureMap &map);
 };

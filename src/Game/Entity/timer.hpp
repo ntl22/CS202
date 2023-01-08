@@ -5,16 +5,16 @@
 class Timer
 {
 public:
-    Timer(Context& context);
+    Timer(Context &context);
 
     sf::Time getTime();
 
     sf::Time update();
     void exitPauseState();
-    void draw(sf::RenderWindow& window);
+    void draw(sf::RenderWindow &window);
 
-    void loadGame(std::ifstream& fin);
-    void saveGame(std::ofstream& fout);
+    void loadGame(std::ifstream &fin);
+    void saveGame(std::ofstream &fout);
 
 private:
     void updateString();

@@ -13,6 +13,8 @@ World::World(Context &context, Timer &timer, unsigned velocity)
     guide.setString("Arrow keys or W,A,S,D to move \nP to pause");
     guide.setCharacterSize(30U);
     guide.setPosition(5, context.window->getSize().y - guide.getGlobalBounds().height * 1.5f);
+    guide.setOutlineThickness(2);
+    guide.setOutlineColor(sf::Color(10, 150, 8));
 }
 
 void World::handleEvent(const sf::Event &ev)

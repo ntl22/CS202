@@ -3,8 +3,6 @@
 #include "../../Framework/pch.hpp"
 #include "road.hpp"
 
-// TODO: include all roads factory
-
 enum class LANE_TYPE
 {
     goal,
