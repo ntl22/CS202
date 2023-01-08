@@ -12,6 +12,7 @@ public:
     void draw();
 
 private:
+    void saveGame();
     std::function<void(std::string)>& save;
 
     sf::Text title;

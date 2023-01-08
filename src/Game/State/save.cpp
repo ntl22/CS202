@@ -1,13 +1,13 @@
 #include "save.hpp"
 
-SaveState::SaveState(Context &context, std::function<void(std::string)>& f_ref)
+SaveState::SaveState(Context &context, std::function<void(std::string)>& save_f)
     : m_context(context),
       title("Save Game", context.fonts->get(FONTS::visitor1), 60U),
       input_here("Input file name: ", context.fonts->get(FONTS::IBMPlexMono), 30U),
       file_to_gui("", context.fonts->get(FONTS::visitor1), 30U),
       invalid("Error: File name invalid", context.fonts->get(FONTS::visitor1), 30U),
       go_back("Press Esc to go back", context.fonts->get(FONTS::Sansation), 15U),
-      save(f_ref),
+      save(save_f),
       capacity(10U)
 {
     invalid.setFillColor(sf::Color::Transparent);
@@ -53,16 +53,7 @@ void SaveState::handleEvent(const sf::Event &ev)
         case sf::Keyboard::Enter:
             if (!file_name.empty())
             {
-                std::string PATH(FOLDER);
-                if (!std::filesystem::exists(PATH))
-                    std::filesystem::create_directories(PATH);
-
-                PATH.operator+=(SAVE_FOLDER);
-
-                if (!std::filesystem::exists(PATH))
-                    std::filesystem::create_directories(PATH);
-
-                save(PATH + file_name + ".txt");
+                saveGame();
                 m_context.states->pop();
             }
             else
@@ -94,4 +85,21 @@ void SaveState::draw()
     m_context.window->draw(file_to_gui);
     m_context.window->draw(invalid);
     m_context.window->draw(go_back);
+}
+
+void SaveState::saveGame()
+{
+    std::string PATH(FOLDER);
+    if (!std::filesystem::exists(PATH))
+        std::filesystem::create_directories(PATH);
+
+    PATH.operator+=(SAVE_FOLDER);
+
+    if (!std::filesystem::exists(PATH))
+        std::filesystem::create_directories(PATH);
+
+    std::ofstream fout(PATH + file_name + ".txt");
+    fout.close();
+
+    save(PATH + file_name + ".txt");
 }
