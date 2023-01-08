@@ -4,7 +4,9 @@ World::World(Context &context, Timer &timer)
     : m_context(context),
       light(context),
       player(context),
-      clock(timer) {}
+      clock(timer),
+{
+}
 
 void World::handleEvent(const sf::Event &ev)
 {
@@ -13,6 +15,7 @@ void World::handleEvent(const sf::Event &ev)
 
 void World::draw()
 {
+
     light.draw(*m_context.window);
     player.draw(*m_context.window);
     clock.draw(*m_context.window);

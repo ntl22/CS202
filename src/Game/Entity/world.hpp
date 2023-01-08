@@ -21,7 +21,6 @@ public:
 private:
     People player;
     TrafficLight light;
-
     sf::Time delta;
 
     Timer &clock;
