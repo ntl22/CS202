@@ -35,7 +35,7 @@ void World::saveGame(std::ofstream& fout)
 {
     player.saveGame(fout);
     light.saveGame(fout);
-    //road.saveGame(fout);
+    road.saveGame(fout);
 }
 
 void World::loadGame(std::ifstream& fin)

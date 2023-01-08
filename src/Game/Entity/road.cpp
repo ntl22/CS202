@@ -46,6 +46,11 @@ void ObstacleLane::update(sf::Time dt,
     object->update(dt, m_speed, people, light, window);
 }
 
+void ObstacleLane::saveGame(std::ofstream& fout)
+{
+    object->saveGame(fout);
+}
+
 Road::Road(Context &context, unsigned speed)
     : collied(OBJECT_TYPE::NONE)
 {
@@ -111,4 +116,10 @@ void Road::update(sf::Time dt,
 OBJECT_TYPE Road::getType()
 {
     return collied;
+}
+
+void Road::saveGame(std::ofstream& fout)
+{
+    for (auto& i : roads)
+        i->saveGame(fout);
 }

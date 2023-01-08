@@ -54,7 +54,7 @@ public:
                 TrafficLight &light, sf::RenderWindow &window);
     void handleEvent(const sf::Event &ev);
     // TO DO::add save function
-    //  void saveGame(std::ofstream &fout);
+    void saveGame(std::ofstream &fout);
     //  void loadGame(std::ifstream &fin, TextureMap &map);
 };
 

@@ -1,5 +1,12 @@
 #include "f_obstacle.hpp"
 
+void ListOfObstacle::saveGame(std::ofstream& fout)
+{
+
+    for (std::unique_ptr<Obstacle>& i : list)
+        fout << i->getPos().x << " " << i->getPos().y << "\n";
+}
+
 ListOfObstacle::ListOfObstacle(float position, OBJECT_TYPE type, TextureMap &map)
     : m_type(type)
 {
