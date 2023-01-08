@@ -5,8 +5,9 @@
 
 #include <iostream>
 
-FinishState::FinishState(Context &context, OBJECT_TYPE type)
+FinishState::FinishState(Context &context, sf::Time time, OBJECT_TYPE type)
     : m_context(context),
+      final_time(time),
       title_font(context.fonts->get(FONTS::visitor1))
 {
     m_context.musics->pause(true);
@@ -22,10 +23,8 @@ FinishState::FinishState(Context &context, OBJECT_TYPE type)
     case (OBJECT_TYPE::CAR):
         m_context.sounds->play(SOUNDBUFFERS::car);
         break;
-    case (OBJECT_TYPE::VEHICLE):
-    case (OBJECT_TYPE::ANIMAL):
     case (OBJECT_TYPE::NONE):
-    default:
+        m_context.sounds->play(SOUNDBUFFERS::finish);
         break;
     }
 
@@ -47,10 +46,10 @@ FinishState::FinishState(Context &context, OBJECT_TYPE type)
         title.setOutlineColor(sf::Color::Red);
     }
 
-    highscore = sf::Text("The current highscore is ", title_font, 40U);
+    highscore = sf::Text("The current highscore is " + formatTime(), title_font, 40U);
     setCenterOrigin(highscore, highscore.getLocalBounds());
 
-    title.setPosition(m_context.window->getView().getCenter() - sf::Vector2f(0.f, 150.f));
+    highscore.setPosition(m_context.window->getView().getCenter() - sf::Vector2f(0.f, 150.f));
 
     title.setOutlineThickness(5);
     title.setFont(title_font);
@@ -146,6 +145,7 @@ void FinishState::draw()
 {
     m_context.window->draw(background);
     m_context.window->draw(title);
+    m_context.window->draw(highscore);
 
     int i;
     for (i = 0; i < 2; i++)
@@ -165,9 +165,45 @@ bool FinishState::updateHighscore()
 
     if (!std::filesystem::exists(PATH))
     {
-        std::ofstream fout(PATH);
-        // Output time first;
+        std::ofstream fout(PATH);   
+        fout << final_time.asSeconds() << '\n';
+        return true;
     }
 
-    return false;
+    bool is_update = false;
+
+    std::ifstream fin(PATH);
+    float prev;
+    fin >> prev;
+    fin.close();
+
+    is_update = prev > final_time.asSeconds();
+
+    if (is_update)
+    {
+        std::ofstream fout(PATH);
+        fout << final_time.asSeconds() << '\n';
+    }
+    else
+    {
+        final_time = sf::seconds(prev);
+    }
+
+    return is_update;
+}
+
+std::string FinishState::formatTime()
+{
+    std::stringstream ss;
+
+    unsigned toSec = (unsigned)final_time.asSeconds();
+    unsigned h = toSec / 3600;
+    unsigned m = (toSec - (h * 3600)) / 60;
+    unsigned s = toSec - (h * 3600 + m * 60);
+
+    ss << (h < 10 ? "0" : "") + std::to_string(h) << ":";
+    ss << (m < 10 ? "0" : "") + std::to_string(m) << ":";
+    ss << (s < 10 ? "0" : "") + std::to_string(s);
+
+    return ss.str();
 }

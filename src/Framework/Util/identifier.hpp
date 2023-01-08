@@ -37,8 +37,6 @@ enum class OBJECT_TYPE
     CHICKEN,
     TRUCK,
     CAR,
-    VEHICLE,
-    ANIMAL,
     NONE
 };
 
@@ -47,7 +45,10 @@ enum class SOUNDBUFFERS
     jump,
     cat,
     chicken,
-    car
+    car,
+    light,
+    levelup,
+    finish
 };
 
 enum class MUSICS
@@ -55,11 +56,5 @@ enum class MUSICS
     intro,
     playing
 };
-enum class LANE_TYPE
-{
-    goal,
-    start,
-    dirt,
-    street
-};
+
 #endif /* SRC_FRAMEWORK_UTIL_IDENTIFIER */

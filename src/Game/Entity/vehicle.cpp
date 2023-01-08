@@ -6,8 +6,7 @@ void Vehicle::update(sf::Time dt,
                      TrafficLight &light,
                      sf::RenderWindow &window)
 {
-    // TODO: update velocity by traffic light
-    sprite.move(velocity * 1.f, 0.f);
+    sprite.move(velocity * 1.f * !light.isRed(), 0.f);
 }
 
 Truck::Truck(TextureMap &map)

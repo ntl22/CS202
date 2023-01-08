@@ -3,11 +3,17 @@
 #include "menu.hpp"
 #include "save.hpp"
 
-PauseState::PauseState(Context &context, std::function<void(std::string)>& f_ref)
+#include "../Entity/timer.hpp"
+
+PauseState::PauseState(Context &context,
+                       Timer &timer,
+                       std::function<void(std::string)> &f_ref)
     : m_context(context),
+      clock(timer),
       font_pause(context.fonts->get(FONTS::Sansation)),
       cur(-1)
 {
+    m_context.musics->pause(true);
     text_pause.setString("PAUSED");
     text_pause.setCharacterSize(100U);
     text_pause.setFont(font_pause);
@@ -29,7 +35,7 @@ PauseState::PauseState(Context &context, std::function<void(std::string)>& f_ref
     buttons[0]->setHoverColor(sf::Color(255, 219, 62));
     buttons[0]->setPosition(center - sf::Vector2f(0, 100));
     buttons[0]->setCallback([this]()
-                            { m_context.states->pop(); m_context.musics->pause(false); });
+                            { m_context.states->pop(); });
 
     buttons[1]->setText("Save game");
     buttons[1]->setHoverColor(sf::Color(111, 225, 62));
@@ -43,6 +49,12 @@ PauseState::PauseState(Context &context, std::function<void(std::string)>& f_ref
     buttons[2]->setCallback([this]()
                             { m_context.states->clear(); 
                             m_context.states->push(std::make_unique<MenuState>(m_context)); });
+}
+
+PauseState::~PauseState()
+{
+    clock.exitPauseState();
+    m_context.musics->pause(false);
 }
 
 void PauseState::handleEvent(const sf::Event &ev)

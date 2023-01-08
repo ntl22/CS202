@@ -21,6 +21,7 @@ public:
 private:
     Context &m_context;
     unsigned cur_level;
+    Timer timer;
 
     std::unique_ptr<World> world;
 

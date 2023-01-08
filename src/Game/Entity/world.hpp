@@ -5,17 +5,28 @@
 #include "player.hpp"
 #include "light.hpp"
 #include "road.hpp"
+#include "timer.hpp"
 
 // TODO: Merge all entities
 
 class World
 {
 public:
-    void handleEvent(const sf::Event& ev);
-    void draw(sf::RenderWindow& window);
+    World(Context &context, Timer &timer);
+
+    void handleEvent(const sf::Event &ev);
+    void draw();
     std::pair<STATUS, OBJECT_TYPE> update(sf::Time dt);
 
 private:
+    People player;
+    TrafficLight light;
+
+    sf::Time delta;
+
+    Timer &clock;
+
+    Context &m_context;
 };
 
 #endif /* SRC_GAME_ENTITY_WORLD */

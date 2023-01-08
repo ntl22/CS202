@@ -2,10 +2,12 @@
 #define SRC_GAME_STATE_FINISH
 #include "../../Framework/pch.hpp"
 
+#include "../Entity/timer.hpp"
+
 class FinishState : public State
 {
 public:
-    FinishState(Context &context, OBJECT_TYPE type = OBJECT_TYPE::NONE);
+    FinishState(Context &context, sf::Time time, OBJECT_TYPE type = OBJECT_TYPE::NONE);
 
     ~FinishState();
     void handleEvent(const sf::Event &ev) override;
@@ -15,12 +17,16 @@ public:
 private:
     bool updateHighscore();
 
+    std::string formatTime();
+
     sf::Font title_font;
     sf::Text title, highscore;
     sf::Sprite background;
 
     std::unique_ptr<Button> button[2];
     int cur = -1;
+
+    sf::Time final_time;
 
     Context &m_context;
 };

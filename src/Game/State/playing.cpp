@@ -11,9 +11,11 @@ PlayingState::PlayingState(Context &context)
       cur_level(1),
       MAX_LEVEL(5),
       speed({2, 4, 6, 8, 10}),
-      world(std::make_unique<World>())
+      timer(context)
 {
   m_context.musics->play(MUSICS::playing);
+
+  world = std::make_unique<World>(context, timer);
 
   saveGame = ([this](std::string path)
               { std::ofstream fout(path); });
@@ -24,6 +26,7 @@ PlayingState::PlayingState(Context &context)
 
 PlayingState::~PlayingState()
 {
+  m_context.musics->stop();
   m_context.sounds->removeStoppedSounds();
 }
 
@@ -31,8 +34,7 @@ void PlayingState::handleEvent(const sf::Event &ev)
 {
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
   {
-    m_context.musics->pause(true);
-    m_context.states->push(std::make_unique<PauseState>(m_context, saveGame));
+    m_context.states->push(std::make_unique<PauseState>(m_context, timer, saveGame));
     m_context.states->handleStack();
   }
   else
@@ -47,20 +49,20 @@ void PlayingState::update(sf::Time dt)
 
   if (status.first == STATUS::DEAD)
   {
-    m_context.states->push(std::make_unique<FinishState>(m_context, status.second), true);
+    m_context.states->push(std::make_unique<FinishState>(m_context, timer.getTime(), status.second), true);
     m_context.states->handleStack();
   }
   else if (status.first == STATUS::WIN)
   {
     if (cur_level < MAX_LEVEL)
     {
-      world.swap(std::make_unique<World>());
-      m_context.states->push(std::make_unique<LevelUpState>(m_context, ++cur_level));
+      world.swap(std::make_unique<World>(m_context, timer));
+      m_context.states->push(std::make_unique<LevelUpState>(m_context, timer, ++cur_level));
       m_context.states->handleStack();
     }
     else
     {
-      m_context.states->push(std::make_unique<FinishState>(m_context, OBJECT_TYPE::NONE), true);
+      m_context.states->push(std::make_unique<FinishState>(m_context, timer.getTime()), true);
       m_context.states->handleStack();
     }
   }
@@ -68,5 +70,5 @@ void PlayingState::update(sf::Time dt)
 
 void PlayingState::draw()
 {
-  world->draw(*m_context.window);
+  world->draw();
 }

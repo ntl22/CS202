@@ -20,6 +20,8 @@ People::People(Context &context)
     control_keys[1] = isUp();
     control_keys[2] = isLeft();
     control_keys[3] = isDown();
+
+    createTexture();
 }
 
 void People::createTexture()
