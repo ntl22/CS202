@@ -2,8 +2,6 @@
 #define SRC_GAME_ENTITY_TIMER
 #include "../../Framework/pch.hpp"
 
-// TODO: Reimplement Timer (Phung)
-
 class Timer
 {
 public:
