@@ -55,7 +55,7 @@ public:
     void handleEvent(const sf::Event &ev);
     // TO DO::add save function
     void saveGame(std::ofstream &fout);
-    //  void loadGame(std::ifstream &fin, TextureMap &map);
+    void loadGame(std::ifstream &fin, TextureMap &map);
 };
 
 #endif /* SRC_GAME_ENTITY_F_OBSTACLE */

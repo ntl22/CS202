@@ -51,6 +51,11 @@ void ObstacleLane::saveGame(std::ofstream& fout)
     object->saveGame(fout);
 }
 
+void ObstacleLane::loadGame(std::ifstream& fin, TextureMap& map)
+{
+    object->loadGame(fin, map);
+}
+
 Road::Road(Context &context, unsigned speed)
     : collied(OBJECT_TYPE::NONE)
 {
@@ -122,4 +127,10 @@ void Road::saveGame(std::ofstream& fout)
 {
     for (auto& i : roads)
         i->saveGame(fout);
+}
+
+void Road::loadGame(std::ifstream& fin, TextureMap& map)
+{
+    for (auto& i : roads)
+        i->loadGame(fin, map);
 }

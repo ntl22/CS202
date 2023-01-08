@@ -7,6 +7,19 @@ void ListOfObstacle::saveGame(std::ofstream& fout)
         fout << i->getPos().x << " " << i->getPos().y << "\n";
 }
 
+void ListOfObstacle::loadGame(std::ifstream& fin, TextureMap& map)
+{
+    int x;
+    int y;
+    for (std::unique_ptr<Obstacle>& i : list)
+    {
+        fin >> x >> y;
+        i.swap(ObstacleFactory::create(m_type, map));
+        i->setPos(x, y);
+    }
+    fin.ignore(1000, '\n');
+}
+
 ListOfObstacle::ListOfObstacle(float position, OBJECT_TYPE type, TextureMap &map)
     : m_type(type)
 {

@@ -24,7 +24,7 @@ public:
     virtual OBJECT_TYPE getType();
 
      virtual void saveGame(std::ofstream &fout) {}
-    // virtual void loadGame(std::ifstream &fin, TextureMap &map) {}
+     virtual void loadGame(std::ifstream &fin, TextureMap &map) {}
 
 protected:
     sf::Sprite road;
@@ -62,7 +62,7 @@ public:
 
      void saveGame(std::ofstream &fout) override;
 
-    // void loadGame(std::ifstream &fin, TextureMap &map) override;
+     void loadGame(std::ifstream &fin, TextureMap &map) override;
 
 private:
     std::unique_ptr<ListOfObstacle> object;
@@ -84,8 +84,8 @@ public:
     OBJECT_TYPE getType();
 
 private:
-     void saveGame(std::ofstream &fout);
-    // void loadGame(std::ifstream &fin, TextureMap &map);
+    void saveGame(std::ofstream &fout);
+    void loadGame(std::ifstream &fin, TextureMap &map);
     std::array<std::unique_ptr<Lane>, 7> roads;
 
     OBJECT_TYPE collied;

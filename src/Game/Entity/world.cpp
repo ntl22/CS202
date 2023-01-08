@@ -42,5 +42,5 @@ void World::loadGame(std::ifstream& fin)
 {
     player.loadGame(fin);
     light.loadGame(fin);
-    //road.loadGame(fin);
+    road.loadGame(fin, *m_context.textures);
 }
