@@ -7,6 +7,12 @@ void SoundManager::load(SOUNDBUFFERS id, const std::string &path)
 
 void SoundManager::play(SOUNDBUFFERS id)
 {
-    current.setBuffer(soundbuffers.get(id));
-    current.play();
+    current.push_back(sf::Sound(soundbuffers.get(id)));
+    current.back().play();
+}
+
+void SoundManager::removeStoppedSounds()
+{
+    current.remove_if([](sf::Sound &sound)
+                      { return sound.getStatus() == sf::SoundSource::Stopped; });
 }

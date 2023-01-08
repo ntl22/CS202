@@ -9,18 +9,22 @@ class PlayingState : public State
 public:
     PlayingState(Context &context);
 
+    ~PlayingState();
+
     void handleEvent(const sf::Event &ev) override;
     void update(sf::Time dt) override;
     void draw() override;
 
-private:
     std::function<void(std::string)> saveGame;
     std::function<void(std::string)> loadGame;
 
+private:
     Context &m_context;
     unsigned cur_level;
 
-    std::array<unsigned, 5> speed;
+    std::unique_ptr<World> world;
+
+    std::vector<unsigned> speed;
 
     const unsigned MAX_LEVEL;
 };
