@@ -5,8 +5,6 @@
 
 class Animal : public Obstacle
 {
-	virtual void innit(){};
-	virtual void spawn(){};
 };
 
 class Cat : public Animal
