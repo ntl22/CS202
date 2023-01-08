@@ -28,7 +28,6 @@ public:
 
 protected:
     sf::Sprite road;
-    OBJECT_TYPE m_type;
 };
 
 class GoalLane : public Lane
@@ -53,6 +52,8 @@ public:
                  OBJECT_TYPE type,
                  unsigned speed);
 
+    OBJECT_TYPE getType();
+
     void draw(sf::RenderWindow &window) override;
 
     void update(sf::Time dt,
@@ -66,6 +67,7 @@ public:
 
 private:
     std::unique_ptr<ListOfObstacle> object;
+    OBJECT_TYPE m_type;
     const unsigned m_speed;
 };
 

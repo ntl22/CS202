@@ -53,6 +53,7 @@ public:
     void update(sf::Time dt, unsigned velocity, People &people,
                 TrafficLight &light, sf::RenderWindow &window);
     void handleEvent(const sf::Event &ev);
+    OBJECT_TYPE getType();
     // TO DO::add save function
     void saveGame(std::ofstream &fout);
     void loadGame(std::ifstream &fin, TextureMap &map);

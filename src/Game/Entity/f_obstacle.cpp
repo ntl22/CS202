@@ -99,3 +99,7 @@ void ListOfObstacle::handleEvent(const sf::Event &ev)
     if (m_type == OBJECT_TYPE::NONE)
         return;
 }
+
+OBJECT_TYPE ListOfObstacle::getType() {
+    return m_type;
+}

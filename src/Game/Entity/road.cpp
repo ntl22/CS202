@@ -1,7 +1,6 @@
 #include "road.hpp"
 
 Lane::Lane(float position, sf::Texture &roadBg)
-    : m_type(OBJECT_TYPE::NONE)
 {
     road.setTexture(roadBg);
     road.setPosition({0, position});
@@ -19,7 +18,7 @@ void Lane::update(sf::Time dt,
 
 float Lane::getBound() { return road.getGlobalBounds().height; }
 
-OBJECT_TYPE Lane::getType() { return m_type; }
+OBJECT_TYPE Lane::getType() { return OBJECT_TYPE::NONE; }
 
 ObstacleLane::ObstacleLane(float position,
                            TextureMap &map,
@@ -30,6 +29,10 @@ ObstacleLane::ObstacleLane(float position,
     float relative = road.getPosition().y - 5 + this->road.getGlobalBounds().height / 4;
     object = std::make_unique<ListOfObstacle>(relative, type, map);
     m_type = type;
+}
+
+OBJECT_TYPE ObstacleLane::getType() {
+    return object->getType();
 }
 
 void ObstacleLane::draw(sf::RenderWindow &window)
