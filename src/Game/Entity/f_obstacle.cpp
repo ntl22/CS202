@@ -2,7 +2,7 @@
 
 void ListOfObstacle::saveGame(std::ofstream& fout)
 {
-
+    fout << static_cast<int>(m_type) << "\n";
     for (std::unique_ptr<Obstacle>& i : list)
         fout << i->getPos().x << " " << i->getPos().y << "\n";
 }
