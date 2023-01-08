@@ -116,28 +116,32 @@ sf::FloatRect People::getReact() const
     return {position.x, position.y, CELL_WIDTH, CELL_HEIGHT};
 }
 
-bool People::isLeft() const {
+bool People::isLeft() const
+{
     return sf::Keyboard::isKeyPressed(sf::Keyboard::A) ||
-        sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
+           sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
 }
-bool People::isRight() const {
+bool People::isRight() const
+{
     return sf::Keyboard::isKeyPressed(sf::Keyboard::D) ||
-        sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
+           sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
 }
-bool People::isUp() const {
+bool People::isUp() const
+{
     return sf::Keyboard::isKeyPressed(sf::Keyboard::W) ||
-        sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
+           sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
 }
-bool People::isDown() const {
+bool People::isDown() const
+{
     return sf::Keyboard::isKeyPressed(sf::Keyboard::S) ||
-        sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
+           sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
 }
 
 void People::saveGame(std::ofstream &fout)
 {
     fout << position.x << '\n'
-        << position.y << '\n'
-        << direction << '\n';
+         << position.y << '\n'
+         << direction << '\n';
 }
 
 void People::loadGame(std::ifstream &fin)
