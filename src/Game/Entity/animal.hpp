@@ -5,18 +5,20 @@
 
 class Animal : public Obstacle
 {
+	virtual void innit(){};
+	virtual void spawn(){};
 };
 
 class Cat : public Animal
 {
 public:
-	Cat(TextureMap& map);
+	Cat(TextureMap &map);
 };
 
 class Chicken : public Animal
 {
 public:
-	Chicken(TextureMap& map);
+	Chicken(TextureMap &map);
 };
 
 #endif /* SRC_GAME_ENTITY_ANIMAL */
