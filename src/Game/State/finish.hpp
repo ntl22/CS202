@@ -15,7 +15,7 @@ public:
     void draw() override;
 
 private:
-    bool updateHighscore();
+    void updateHighscore(OBJECT_TYPE type);
 
     std::string formatTime();
 

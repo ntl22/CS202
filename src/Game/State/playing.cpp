@@ -15,7 +15,7 @@ PlayingState::PlayingState(Context &context)
 {
   m_context.musics->play(MUSICS::playing);
 
-  world = std::make_unique<World>(context, timer);
+  world = std::make_unique<World>(context, timer, speed[0]);
 
   saveGame = ([this](std::string path)
               { std::ofstream fout(path); });
@@ -56,7 +56,7 @@ void PlayingState::update(sf::Time dt)
   {
     if (cur_level < MAX_LEVEL)
     {
-      world.swap(std::make_unique<World>(m_context, timer));
+      world.swap(std::make_unique<World>(m_context, timer, speed[cur_level]));
       m_context.states->push(std::make_unique<LevelUpState>(m_context, timer, ++cur_level));
       m_context.states->handleStack();
     }

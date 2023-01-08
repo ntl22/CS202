@@ -30,23 +30,16 @@ FinishState::FinishState(Context &context, sf::Time time, OBJECT_TYPE type)
 
     sf::Vector2f size(m_context.window->getSize());
 
-    if (type == OBJECT_TYPE::NONE && updateHighscore())
+    updateHighscore(type);
+
+    if (final_time.asSeconds() == 0)
     {
-        title.setString("New HighScore");
-        title.setOutlineColor(sf::Color::Yellow);
-    }
-    else if (type == OBJECT_TYPE::NONE)
-    {
-        title.setString("You win");
-        title.setOutlineColor(sf::Color::Green);
+        highscore = sf::Text("No highscore yet!", title_font, 40U);
     }
     else
     {
-        title.setString("Game over");
-        title.setOutlineColor(sf::Color::Red);
+        highscore = sf::Text("The current highscore is " + formatTime(), title_font, 40U);
     }
-
-    highscore = sf::Text("The current highscore is " + formatTime(), title_font, 40U);
     setCenterOrigin(highscore, highscore.getLocalBounds());
 
     highscore.setPosition(m_context.window->getView().getCenter() - sf::Vector2f(0.f, 150.f));
@@ -152,7 +145,7 @@ void FinishState::draw()
         m_context.window->draw(*button[i]);
 }
 
-bool FinishState::updateHighscore()
+void FinishState::updateHighscore(OBJECT_TYPE type)
 {
     std::string PATH(FOLDER);
 
@@ -161,35 +154,53 @@ bool FinishState::updateHighscore()
         std::filesystem::create_directory(PATH);
     }
 
+    bool highscore = false;
+
     PATH += std::string("highscore.txt");
 
     if (!std::filesystem::exists(PATH))
     {
-        std::ofstream fout(PATH);   
-        fout << final_time.asSeconds() << '\n';
-        return true;
+        if (type != OBJECT_TYPE::NONE)
+        {
+            title.setString("Game over");
+            title.setOutlineColor(sf::Color::Red);
+            final_time = sf::seconds(0);
+            return;
+        }
+        else
+        {
+            std::ofstream fout(PATH);
+            fout << final_time.asSeconds() << '\n';
+            highscore = true;
+        }
     }
-
-    bool is_update = false;
 
     std::ifstream fin(PATH);
     float prev;
     fin >> prev;
     fin.close();
 
-    is_update = prev > final_time.asSeconds();
+    highscore = prev > final_time.asSeconds();
 
-    if (is_update)
+    if (type != OBJECT_TYPE::NONE)
+    {
+        title.setString("Game over");
+        title.setOutlineColor(sf::Color::Red);
+        final_time = sf::seconds(prev);
+    }
+    else if (highscore)
     {
         std::ofstream fout(PATH);
         fout << final_time.asSeconds() << '\n';
+        title.setString("New HighScore");
+        title.setOutlineColor(sf::Color::Yellow);
     }
     else
     {
         final_time = sf::seconds(prev);
+        title.setString("You win");
+        title.setOutlineColor(sf::Color::Green);
     }
-
-    return is_update;
 }
 
 std::string FinishState::formatTime()

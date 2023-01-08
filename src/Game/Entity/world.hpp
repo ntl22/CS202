@@ -12,13 +12,14 @@
 class World
 {
 public:
-    World(Context &context, Timer &timer);
+    World(Context &context, Timer &timer, unsigned velocity);
 
     void handleEvent(const sf::Event &ev);
     void draw();
     std::pair<STATUS, OBJECT_TYPE> update(sf::Time dt);
 
 private:
+    Road road;
     People player;
     TrafficLight light;
     sf::Time delta;

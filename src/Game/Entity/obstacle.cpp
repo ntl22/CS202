@@ -9,7 +9,8 @@ void Obstacle::draw(sf::RenderWindow &window)
 
 void Obstacle::collisionProcedure(People &people)
 {
-    // TODO: implement collision detection
+    if (getBound().intersects(people.getReact()))
+        people.status = STATUS::DEAD;
 }
 
 void Obstacle::update(sf::Time dt,

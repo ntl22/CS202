@@ -1,12 +1,11 @@
 #include "world.hpp"
 
-World::World(Context &context, Timer &timer)
+World::World(Context &context, Timer &timer, unsigned velocity)
     : m_context(context),
       light(context),
       player(context),
-      clock(timer)
-{
-}
+      clock(timer),
+      road(context, velocity) {}
 
 void World::handleEvent(const sf::Event &ev)
 {
@@ -15,7 +14,7 @@ void World::handleEvent(const sf::Event &ev)
 
 void World::draw()
 {
-
+    road.draw(*m_context.window);
     light.draw(*m_context.window);
     player.draw(*m_context.window);
     clock.draw(*m_context.window);
@@ -27,7 +26,7 @@ std::pair<STATUS, OBJECT_TYPE> World::update(sf::Time dt)
     {
         light.isRed() ? light.updateGreen() : light.updateRed();
     }
-
     player.update(dt);
-    return {player.getPlayingStatus(), OBJECT_TYPE::NONE};
+    road.update(dt, player, light, *m_context.window);
+    return {player.getPlayingStatus(), road.getType()};
 }
