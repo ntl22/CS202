@@ -30,3 +30,17 @@ std::pair<STATUS, OBJECT_TYPE> World::update(sf::Time dt)
     road.update(dt, player, light, *m_context.window);
     return {player.getPlayingStatus(), road.getType()};
 }
+
+void World::saveGame(std::ofstream& fout)
+{
+    player.saveGame(fout);
+    //light.saveGame(fout);
+    //road.saveGame(fout);
+}
+
+void World::loadGame(std::ifstream& fin)
+{
+    player.loadGame(fin);
+    //light.loadGame(fin);
+    //road.loadGame(fin);
+}

@@ -19,6 +19,9 @@ public:
     std::pair<STATUS, OBJECT_TYPE> update(sf::Time dt);
 
 private:
+    void saveGame(std::ofstream& fout);
+    void loadGame(std::ifstream& fin);
+
     Road road;
     People player;
     TrafficLight light;
