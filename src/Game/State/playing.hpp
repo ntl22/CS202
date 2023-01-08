@@ -15,10 +15,10 @@ public:
     void update(sf::Time dt) override;
     void draw() override;
 
-    std::function<void(std::string)> saveGame;
-    std::function<void(std::string)> loadGame;
-
 private:
+    std::function<void(std::string path)> saveGame;
+    std::function<void(std::string path)> loadGame;
+
     Context &m_context;
     unsigned cur_level;
     Timer timer;
@@ -28,6 +28,9 @@ private:
     std::vector<unsigned> speed;
 
     const unsigned MAX_LEVEL;
+
+    friend class LoadState;
+    friend class SaveState;
 };
 
 #endif /* SRC_GAME_STATE_PLAYING */

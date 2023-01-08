@@ -17,11 +17,21 @@ PlayingState::PlayingState(Context &context)
 
   world = std::make_unique<World>(context, timer, speed[0]);
 
-  saveGame = ([this](std::string path)
-              { std::ofstream fout(path); });
+  saveGame = ([this](std::string path) {
+    std::ofstream fout(path);
+    fout << cur_level << '\n';
+    timer.saveGame(fout);
+    world->saveGame(fout); });
 
-  loadGame = ([this](std::string path)
-              { std::ifstream fin(path); });
+  loadGame = ([this](std::string path) {         
+    std::ifstream fin(path);
+    fin >> cur_level;
+    fin.ignore(1000, '\n');
+    timer.loadGame(fin);
+
+    world = std::make_unique<World>(m_context, timer, speed[cur_level - 1]);
+    world->loadGame(fin);
+    timer.exitPauseState(); });
 }
 
 PlayingState::~PlayingState()

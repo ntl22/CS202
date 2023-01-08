@@ -30,6 +30,9 @@ private:
     Timer &clock;
 
     Context &m_context;
+
+    friend class SaveState;
+    friend class PlayingState;
 };
 
 #endif /* SRC_GAME_ENTITY_WORLD */
