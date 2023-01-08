@@ -5,10 +5,9 @@
 
 #include <iostream>
 
-FinishState::FinishState(Context &context,
-                         bool is_win,
-                         OBJECT_TYPE type)
-    : m_context(context), title_font(context.fonts->get(FONTS::visitor1))
+FinishState::FinishState(Context &context, OBJECT_TYPE type)
+    : m_context(context),
+      title_font(context.fonts->get(FONTS::visitor1))
 {
     m_context.musics->pause(true);
     switch (type)
@@ -32,20 +31,27 @@ FinishState::FinishState(Context &context,
 
     sf::Vector2f size(m_context.window->getSize());
 
-    if (is_win && updateHighscore())
+    if (type == OBJECT_TYPE::NONE && updateHighscore())
     {
+        title.setString("New HighScore");
         title.setOutlineColor(sf::Color::Yellow);
     }
-    else if (is_win)
+    else if (type == OBJECT_TYPE::NONE)
     {
+        title.setString("You win");
         title.setOutlineColor(sf::Color::Green);
     }
     else
     {
+        title.setString("Game over");
         title.setOutlineColor(sf::Color::Red);
     }
 
-    title.setString("Game Over");
+    highscore = sf::Text("The current highscore is ", title_font, 40U);
+    setCenterOrigin(highscore, highscore.getLocalBounds());
+
+    title.setPosition(m_context.window->getView().getCenter() - sf::Vector2f(0.f, 150.f));
+
     title.setOutlineThickness(5);
     title.setFont(title_font);
     title.setCharacterSize(90U);

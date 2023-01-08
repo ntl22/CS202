@@ -22,7 +22,9 @@ private:
     Context &m_context;
     unsigned cur_level;
 
-    std::array<unsigned, 5> speed;
+    std::unique_ptr<World> world;
+
+    std::vector<unsigned> speed;
 
     const unsigned MAX_LEVEL;
 };

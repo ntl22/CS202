@@ -1,13 +1,17 @@
 #include "playing.hpp"
 
+#include "../Entity/world.hpp"
+
 #include "pause.hpp"
+#include "levelup.hpp"
 #include "finish.hpp"
 
 PlayingState::PlayingState(Context &context)
     : m_context(context),
       cur_level(1),
       MAX_LEVEL(5),
-      speed({2, 4, 6, 8, 10})
+      speed({2, 4, 6, 8, 10}),
+      world(std::make_unique<World>())
 {
   m_context.musics->play(MUSICS::playing);
 
@@ -25,20 +29,44 @@ PlayingState::~PlayingState()
 
 void PlayingState::handleEvent(const sf::Event &ev)
 {
-  if (ev.type == sf::Event::KeyPressed)
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
   {
-    if (ev.key.code == sf::Keyboard::P)
-    {
-      m_context.musics->pause(true);
-      m_context.states->push(std::make_unique<PauseState>(m_context, saveGame));
-    }
+    m_context.musics->pause(true);
+    m_context.states->push(std::make_unique<PauseState>(m_context, saveGame));
+    m_context.states->handleStack();
+  }
+  else
+  {
+    world->handleEvent(ev);
   }
 }
 
 void PlayingState::update(sf::Time dt)
 {
+  auto status = world->update(dt);
+
+  if (status.first == STATUS::DEAD)
+  {
+    m_context.states->push(std::make_unique<FinishState>(m_context, status.second), true);
+    m_context.states->handleStack();
+  }
+  else if (status.first == STATUS::WIN)
+  {
+    if (cur_level < MAX_LEVEL)
+    {
+      world.swap(std::make_unique<World>());
+      m_context.states->push(std::make_unique<LevelUpState>(m_context, ++cur_level));
+      m_context.states->handleStack();
+    }
+    else
+    {
+      m_context.states->push(std::make_unique<FinishState>(m_context, OBJECT_TYPE::NONE), true);
+      m_context.states->handleStack();
+    }
+  }
 }
 
 void PlayingState::draw()
 {
+  world->draw(*m_context.window);
 }
