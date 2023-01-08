@@ -9,6 +9,10 @@ void ListOfObstacle::saveGame(std::ofstream& fout)
 
 void ListOfObstacle::loadGame(std::ifstream& fin, TextureMap& map)
 {
+    int type;
+    fin >> type;
+    m_type = static_cast<OBJECT_TYPE>(type);
+
     int x;
     int y;
     for (std::unique_ptr<Obstacle>& i : list)
