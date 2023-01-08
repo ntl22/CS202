@@ -9,21 +9,59 @@ Timer::Timer(Context& context)
     to_text.setString("00:00:00");
 }
 
-sf::Time Timer::getTime()
-{
-    return timer;
+sf::Time Timer::getPlayingTime() {
+    return clock.getElapsedTime();
+}
+std::string Timer::formatTime(const sf::Time& time) {
+    std::stringstream str;
+    int s = 0;
+    int m = 0;
+    int h = 0;
+
+    s = time.asSeconds() + sec;
+    h = s / 3600;
+    m = (s - (h * 3600)) / 60;
+    s = s - (h * 3600 + m * 60);
+
+    if (h < 10)
+    {
+        str << "0" << h;
+    }
+    else
+    {
+        str << h;
+    }
+    if (m < 10)
+    {
+        str << ":" << "0" << m;
+    }
+    else
+    {
+        str << ":" << m;
+    }
+    if (s < 10)
+    {
+        str << ":" << "0" << s;
+    }
+    else
+    {
+        str << ":" << s;
+    }
+
+    return str.str();
 }
 
-void Timer::exitPauseState()
-{
-    (void)clock.restart();
+bool Timer::isPause() {
+    return is_pause;
 }
 
-sf::Time Timer::update()
-{
-    sf::Time dt = clock.restart();
-    timer += dt;
-    return dt;
+void Timer::pause() {
+    is_pause = true;
+    sec += clock.restart().asSeconds();
+}
+void Timer::resume() {
+    is_pause = false;
+    clock.restart();
 }
 
 void Timer::draw(sf::RenderWindow& window)
