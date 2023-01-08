@@ -30,6 +30,8 @@ private:
     bool is_red;
 
     Context &m_context;
+
+    friend class World;
 };
 
 #endif /* SRC_GAME_ENTITY_LIGHT */
