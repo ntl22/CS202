@@ -5,7 +5,15 @@ World::World(Context &context, Timer &timer, unsigned velocity)
       light(context),
       player(context),
       clock(timer),
-      road(context, velocity) {}
+      road(context, velocity),
+      guideFont(context.fonts->get(FONTS::visitor1))
+{
+
+    guide.setFont(guideFont);
+    guide.setString("Arrow keys or W,A,S,D to move \nP to pause");
+    guide.setCharacterSize(30U);
+    guide.setPosition(5, context.window->getSize().y - guide.getGlobalBounds().height * 1.5f);
+}
 
 void World::handleEvent(const sf::Event &ev)
 {
@@ -15,6 +23,7 @@ void World::handleEvent(const sf::Event &ev)
 void World::draw()
 {
     road.draw(*m_context.window);
+    m_context.window->draw(guide);
     light.draw(*m_context.window);
     player.draw(*m_context.window);
     clock.draw(*m_context.window);
@@ -31,14 +40,14 @@ std::pair<STATUS, OBJECT_TYPE> World::update(sf::Time dt)
     return {player.getPlayingStatus(), road.getType()};
 }
 
-void World::saveGame(std::ofstream& fout)
+void World::saveGame(std::ofstream &fout)
 {
     player.saveGame(fout);
     light.saveGame(fout);
     road.saveGame(fout);
 }
 
-void World::loadGame(std::ifstream& fin)
+void World::loadGame(std::ifstream &fin)
 {
     player.loadGame(fin);
     light.loadGame(fin);

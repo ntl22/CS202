@@ -19,8 +19,8 @@ public:
     std::pair<STATUS, OBJECT_TYPE> update(sf::Time dt);
 
 private:
-    void saveGame(std::ofstream& fout);
-    void loadGame(std::ifstream& fin);
+    void saveGame(std::ofstream &fout);
+    void loadGame(std::ifstream &fin);
 
     Road road;
     People player;
@@ -30,6 +30,9 @@ private:
     Timer &clock;
 
     Context &m_context;
+
+    sf::Text guide;
+    sf::Font guideFont;
 
     friend class SaveState;
     friend class PlayingState;
