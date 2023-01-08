@@ -32,18 +32,18 @@ void Timer::draw(sf::RenderWindow& window)
     window.draw(to_text);
 }
 
-void Timer::loadGame(std::ifstream& fin)
-{
-    float seconds;
-    fin >> seconds;
-    timer = sf::seconds(seconds);
-    fin.ignore(1000, '\n');
-}
-
-void Timer::saveGame(std::ofstream& fout)
-{
-    fout << timer.asSeconds() << '\n';
-}
+//void Timer::loadGame(std::ifstream& fin)
+//{
+//    float seconds;
+//    fin >> seconds;
+//    timer = sf::seconds(seconds);
+//    fin.ignore(1000, '\n');
+//}
+//
+//void Timer::saveGame(std::ofstream& fout)
+//{
+//    fout << timer.asSeconds() << '\n';
+//}
 
 void Timer::updateString()
 {
