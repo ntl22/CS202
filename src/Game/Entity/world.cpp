@@ -4,7 +4,7 @@ World::World(Context &context, Timer &timer)
     : m_context(context),
       light(context),
       player(context),
-      clock(timer),
+      clock(timer)
 {
 }
 
