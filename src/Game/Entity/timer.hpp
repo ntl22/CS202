@@ -7,9 +7,11 @@ class Timer
 public:
     Timer(Context &context);
 
-    sf::Time getTime();
+    sf::Time getPlayingTime();
+    std::string formatTime(const sf::Time&);
 
-    sf::Time update();
+    void pause();
+    void resume();
     void exitPauseState();
     void draw(sf::RenderWindow &window);
 
