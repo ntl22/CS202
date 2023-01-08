@@ -7,8 +7,6 @@
 #include "road.hpp"
 #include "timer.hpp"
 
-// TODO: Merge all entities
-
 class World
 {
 public:
