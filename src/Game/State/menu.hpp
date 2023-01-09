@@ -17,10 +17,10 @@ private:
     sf::Font title_font;
     sf::Text title;
     sf::Sprite background;
-
-    std::unique_ptr<Button> button[3];
+    std::string music;
+    std::unique_ptr<Button> button[4];
     int cur = -1;
-
+    bool update_str;
     Context &m_context;
 };
 

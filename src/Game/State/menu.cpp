@@ -4,7 +4,9 @@
 #include "load.hpp"
 
 MenuState::MenuState(Context &context)
-    : m_context(context), title_font(context.fonts->get(FONTS::visitor1))
+    : m_context(context),
+      title_font(context.fonts->get(FONTS::visitor1)),
+      update_str(false)
 {
     sf::Vector2f size(m_context.window->getSize());
 
@@ -19,7 +21,7 @@ MenuState::MenuState(Context &context)
 
     int i;
 
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < 4; i++)
         button[i] = std::make_unique<Button>(*m_context.window, m_context.fonts->get(FONTS::visitor1));
 
     button[0]->setText("PLAY");
@@ -34,10 +36,24 @@ MenuState::MenuState(Context &context)
     button[1]->setCallback([this]()
                            { m_context.states->push(std::make_unique<LoadState>(m_context)); });
 
-    button[2]->setText("EXIT");
-    button[2]->setHoverColor(sf::Color(226, 16, 16));
+    music = m_context.musics->getVolume() ? "MUSIC: ON" : "MUSIC: OFF";
+
+    button[2]->setText(music);
+    button[2]->setHoverColor(sf::Color(162, 205, 90));
     button[2]->setPosition(m_context.window->getView().getCenter() + sf::Vector2f(0, 100.f));
     button[2]->setCallback([this]()
+                           { 
+                            float cur_volume = m_context.musics->getVolume();
+                            m_context.musics->stop();
+                            m_context.musics->setVolume(cur_volume ? 0.f : 100.f);
+                            music = !cur_volume ? "MUSIC: ON" : "MUSIC: OFF";
+                            m_context.musics->play(MUSICS::intro);
+                            update_str = true; });
+
+    button[3]->setText("EXIT");
+    button[3]->setHoverColor(sf::Color(226, 16, 16));
+    button[3]->setPosition(m_context.window->getView().getCenter() + sf::Vector2f(0, 200.f));
+    button[3]->setCallback([this]()
                            { m_context.states->pop(); });
 
     m_context.musics->setLoop(true);
@@ -59,7 +75,7 @@ void MenuState::handleEvent(const sf::Event &ev)
 
     if (ev.type == sf::Event::MouseMoved)
     {
-        for (i = 0; i < 3; i++)
+        for (i = 0; i < 4; i++)
         {
             if (button[i]->isInWidget(pos))
             {
@@ -81,11 +97,11 @@ void MenuState::handleEvent(const sf::Event &ev)
         {
         case sf::Keyboard::W:
         case sf::Keyboard::Up:
-            cur = (cur == -1) ? 0 : ((cur <= 0) ? 2 : (cur - 1));
+            cur = (cur == -1) ? 0 : ((cur <= 0) ? 3 : (cur - 1));
             break;
         case sf::Keyboard::S:
         case sf::Keyboard::Down:
-            cur = (cur + 1) % 3;
+            cur = (cur + 1) % 4;
             break;
         case sf::Keyboard::Enter:
             if (cur != -1)
@@ -99,9 +115,16 @@ void MenuState::handleEvent(const sf::Event &ev)
 
 void MenuState::update(sf::Time dt)
 {
+    if (update_str)
+    {
+        button[2]->setText(music);
+        button[2]->setPosition(m_context.window->getView().getCenter() + sf::Vector2f(0, 100.f));
+        update_str = false;
+    }
+
     int i;
 
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < 4; i++)
     {
         if (i == cur)
             button[i]->focus();
@@ -116,6 +139,6 @@ void MenuState::draw()
     m_context.window->draw(title);
 
     int i;
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < 4; i++)
         m_context.window->draw(*button[i]);
 }

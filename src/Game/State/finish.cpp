@@ -180,7 +180,7 @@ void FinishState::updateHighscore(OBJECT_TYPE type)
     fin >> prev;
     fin.close();
 
-    highscore = prev > final_time.asSeconds();
+    highscore = prev >= final_time.asSeconds();
 
     if (type != OBJECT_TYPE::NONE)
     {
@@ -193,7 +193,7 @@ void FinishState::updateHighscore(OBJECT_TYPE type)
         std::ofstream fout(PATH);
         fout << final_time.asSeconds() << '\n';
         title.setString("New HighScore");
-        title.setOutlineColor(sf::Color::Yellow);
+        title.setOutlineColor(sf::Color(255, 181, 8));
     }
     else
     {

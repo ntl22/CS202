@@ -8,7 +8,7 @@ void MusicPlayer::load(MUSICS id, const std::string &path) { map[id] = path; }
 void MusicPlayer::setVolume(float volume) { this->volume = volume; }
 
 void MusicPlayer::setLoop(bool loop) { this->loop = loop; }
-
+float MusicPlayer::getVolume() const { return volume; }
 void MusicPlayer::play(MUSICS id)
 {
     auto find = map.find(id);

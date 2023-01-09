@@ -18,7 +18,7 @@ public:
 
     void setVolume(float volume);
     void setLoop(bool loop);
-
+    float getVolume() const;
     void play(MUSICS id);
     void stop();
     void pause(bool pause);
